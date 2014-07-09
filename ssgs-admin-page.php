@@ -199,29 +199,6 @@ class SSGS_Admin_Page {
 
 			</div><!--emd float:left; width: 70% / 100% -->
 
-			<div class="wri_admin_left_sidebar" style="float:right; ">
-
-				<style>
-					a.wli_pro:link {color: black; text-decoration:none;}
-					a.wli_pro:visited {color: black; text-decoration:none;}
-					a.wli_pro:hover {color: black; text-decoration:underline;}
-					a.wli_pro:active {color: black; text-decoration:none;}
-				</style>
-
-
-				<a href="http://webshoplogic.com/products/" class="wli_pro" target="_blank">
-					<h2><?php _e('Try out WP Related Items plugin', 'ssgs'); ?></h2>
-				</a>
-
-				<a href="http://webshoplogic.com/products/" class="wli_pro" target="_blank">
-					<img src="http://emberpalanta.hu/wp-content/plugins/wp-related-items/images/WLI_product_box_PRO_upgrade_right_v1_2e_235x235.png" alt="Upgrade to PRO">
-				</a>
-
-				<?php echo __('WP Related Items plugin makes visible every kind of hidden connections of your WordPress site for your business.','ssgs') . '<br><br>' ; ?>
-				<?php echo __('Would you like to offer some related products to your blog posts? Do you have an event calendar plugin, and want to suggest some programs connected to an article? Do you have a custom movie catalog plugin and want to associate some articles to your movies?','ssgs') ; ?>
-
-			</div>
-
 		</div>
 		<?php
 
