@@ -10,7 +10,7 @@ class SSGS_Admin_Page {
 	function ssgs_admin_menu () {
 
 		//add_options_page( $page_title, $menu_title, $capability, $menu_slug, $function);
-		add_options_page( __('WP Google Search','ssgs'),__('WP Google Search','ssgs')
+		add_options_page( __('Server-Side Google Search','ssgs'),__('Server-Side Google Search','ssgs')
 			,'manage_options','wp-google-search', array($this, 'add_options_page_callback' ));
 	}
 
@@ -100,7 +100,7 @@ class SSGS_Admin_Page {
 		?>
 		<div class="wrap">
 			<?php screen_icon(); ?>
-			<h2><?php _e('WP Google Search by WebshopLogic','ssgs') ?></h2>
+			<h2><?php _e('Server-Side Google Search by Aptivate, WebshopLogic','ssgs') ?></h2>
 
 			<div style="float:left; width: 70%">
 
