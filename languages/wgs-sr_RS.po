@@ -1,0 +1,138 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wgs\n"
+"POT-Creation-Date: 2014-04-23 22:41+0100\n"
+"PO-Revision-Date: 2014-05-09 11:16+0100\n"
+"Last-Translator: Borisa Djuraskovic <borisad@webhostinghub.com>\n"
+"Language-Team: WebShopLogic\n"
+"Language: EN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: D:\\wamp\\www\\wp-content\\plugins\\wp_google_search\n"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:13
+msgid "WP Google Search"
+msgstr "WP Google Search                                        "
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:32
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:115
+msgid "General Settings"
+msgstr "Opšte postavke"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:41
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:123
+msgid "Google Search Engine ID"
+msgstr "ID Google pretraživača"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:49
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:139
+msgid "Display search box before search results"
+msgstr "Prikazati kutiju sa pretragama pre pretrage rezultata"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:57
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:154
+msgid "Use default corrections CSS"
+msgstr "Koristite CSS ispravke"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:103
+msgid "WP Google Search by WebshopLogic"
+msgstr "WP Google pretaga WebshopLogic"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:130
+msgid ""
+"Register to Google Custom Search Engine and get your Google Search Engine ID "
+"here: "
+msgstr ""
+"Registerujte se na Google Custom pretraživač i uzmite vaš ID Google "
+"pretraživača ovde:"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:131
+msgid ""
+"You will get a Google Search Engine ID like this: "
+"012345678901234567890:0ijk_a1bcde"
+msgstr ""
+"Dobićete ID Google pretraživača ovako: 012345678901234567890:0ijk_a1bcde"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:132
+msgid "Enter this Google Search Engine ID here."
+msgstr "Unesitr ID Google pretraživača ovde."
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:147
+msgid ""
+"If this option is turned on, the search field will appear above the search "
+"results."
+msgstr ""
+"Ako je ova opcija uključena, polje pretrage će se pojaviti iznad u "
+"rezultatima pretrage."
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:162
+msgid ""
+"If this option is turned on, some css will be applied to improve the "
+"appearance of search elements in case of most WordPress themes."
+msgstr ""
+"Ako je ova opcija uključena,  neki css će biti primenjen da bi se poboljšao "
+"izgled pretrage elemenata u slučaju većine WordPress tema."
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:170
+msgid "Search Page Target URL"
+msgstr "Pretraga targeta stranice URLa"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:185
+msgid ""
+"The plugin automatically generated a page for displaying search results. You "
+"can see here the URL of this page. Please do not delete this page and do not "
+"change the permalink of it!"
+msgstr ""
+"Plugin automatski generiše stranicu za prikaz rezultata pretrage . Ovde "
+"možete videti URL ove stranice . Molimo vas da ne brišete ovu stranicu i ne "
+"menjate njen permalink toga !"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:213
+msgid "Try out WP Related Items plugin"
+msgstr "Isprobajte WP Related Items plugin"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:220
+msgid ""
+"WP Related Items plugin makes visible every kind of hidden connections of "
+"your WordPress site for your business."
+msgstr ""
+"WP Related Items plugin čini vidljivim sve vrste skrivenih veza vašeg "
+"WordPress sajta za vaše poslovanje ."
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:221
+msgid ""
+"Would you like to offer some related products to your blog posts? Do you "
+"have an event calendar plugin, and want to suggest some programs connected "
+"to an article? Do you have a custom movie catalog plugin and want to "
+"associate some articles to your movies?"
+msgstr ""
+"Želite li da ponudite neke srodne proizvode vašem blogu ? Da li imate Event "
+"Calendar plugin , a želite da predložite neke programe vezane za članak ? Da "
+"li imate custom katalog filmova plugin i želite da povežete neke članke sa "
+"vašim filmovima ?"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-widget.php:7
+msgid "WP Goosgle Search (WGS)"
+msgstr "WP Goosgle Search (WGS)"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-widget.php:68
+msgid "Search"
+msgstr "Pretraga"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-widget.php:76
+msgid "Hide title"
+msgstr "Sakriti naslov"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-widget.php:78
+msgid "Title"
+msgstr "Naslov"
+
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wp-google-search.php:95
+#: D:\wamp\www\wp-content\plugins\wp_google_search/wp-google-search.php:99
+msgid "Search Results"
+msgstr "Pretraga rezultata "
