@@ -112,13 +112,13 @@ class SSGS_Widget extends WP_Widget {
 			// Make sure some results were returned, show results as html with result numbering and pagination
 
 			$search_url = 'index.php?s=';
+			$all_url = $search_url . urlencode($q);
 
 			$content = '<h2 class="result">Search for <strong>' .
 				urldecode($q) . "</strong> (Returning 100 items from around $totalItems matches)</h2>" .
 				'<div class="result-facet">' .
 				'<p class="facet-filter facet"><span class="facet-heading">Filter</span>' .
-				"<a class='facet-link facet' href='$search_url" .
-				urlencode($q) . '">All</a>';
+				"<a class='facet-link facet' href='$all_url'>All</a>";
 
 			if (!is_null($facet)) {
 				foreach ($result['context']['facets'] as $key) {
@@ -127,14 +127,14 @@ class SSGS_Widget extends WP_Widget {
 				}
 			}
 
+			$content .= '</p>';
+
 			$relevance_url = $search_url . urlencode($q);
 			$date_url = $search_url . urlencode($q) . '&amp;sort=date';
-			$content .= '</p>' .
-				'<p class="facet-filter facet">' .
+			$content .= '<p class="facet-filter facet">' .
 				"<span class='facet-heading'>Sort</span><a class='facet-link facet' href='$relevance_url'>Relevance</a>
                 <a class='facet-link facet' href='$date_url'>Date</a>
-                </p>
-                <p class='facet-filter facet popular'><span class='facet-heading'>Popular Searches</span>";
+                </p>";
 
 			$content .= '<ul class="result">';
 
