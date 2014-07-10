@@ -1,89 +1,227 @@
 <?php
-
 class SSGS_Widget extends WP_Widget {
+    function __construct() {
+        parent::WP_Widget(false, $name = __('Server-Side Google Search (SSGS)','ssgs'));
+
+    }
 
 
-	function __construct() {
-		parent::WP_Widget(false, $name = __('Server-Side Google Search (SSGS)','ssgs'));
+    function widget($args, $instance) {
+        global $ssgs;
 
-	}
+        echo $args['before_widget'];
 
+        $content  = '<div class="ssgs_wrapper">';
+        $content .= $this->get_search_results();
+        $content .= '</div>';
 
-	function widget($args, $instance) {
+        echo apply_filters('ssgs_widget_content', $content);
 
-		global $ssgs;
+        echo $args['after_widget'];
+    }
 
-		echo $args['before_widget'];
+    /**
+     * Originally taken from:
+     * https://github.com/jasonclark/digital-collections-custom-search-api
+     *
+     * LICENSE:
+     *
+     * The MIT License (MIT)
+     *
+     * Copyright (c) 2013, Montana State University (MSU) Library
+     *
+     * Permission is hereby granted, free of charge, to any person obtaining a
+     * copy of this software and associated documentation files (the
+     * "Software"), to deal in the Software without restriction, including
+     * without limitation the rights to use, copy, modify, merge, publish,
+     * distribute, sublicense, and/or sell copies of the Software, and to
+     * permit persons to whom the Software is furnished to do so, subject to
+     * the following conditions:
+     *
+     * The above copyright notice and this permission notice shall be included
+     * in all copies or substantial portions of the Software.
+     *
+     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+     * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+     * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+     * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+     * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+     * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+     * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+     *
+     */
 
-		$options = get_option( 'ssgs_general_settings' );
+    private function get_search_results() {
+        $options = get_option( 'ssgs_general_settings' );
 
-		//if ($options['use_default_correction_css'] == 1)
-		//	wp_enqueue_style( 'ssgs', plugins_url('ssgs.css', __FILE__) );
+	// Number of records to display per page (1 - 10)
+	$recordsPerPage = 10;
 
+	// Set default value for query
+	$q = isset($_GET['s']) ? urlencode(strip_tags(trim($_GET['s']))) : null;
 
-		$search_gcse_page_url = get_page_link( $options['search_gcse_page_id'] );
+	// Set default value for API format
+	$form = isset($_GET['form']) ? htmlentities(strip_tags($_GET['form'])) : 'json';
 
-		if ($instance['hide_title'] != 1) {
+	// Set default value for page length (number of entries to display)
+	$limit = isset($_GET['limit']) ? strip_tags((int)$_GET['limit']) : "$recordsPerPage";
 
-			$title = apply_filters( 'widget_title', $instance['title'] );
-			echo $args['before_title'] . $title . $args['after_title'];
+	// Set default value for page start index
+	$start = isset($_GET['start']) ? strip_tags((int)$_GET['start']) : '1';
 
+	// Set default value for facet browse
+	$facet = isset($_GET['facet']) ? htmlentities(strip_tags($_GET['facet'])) : null;
+
+	// Set default value for results sorting
+	$sort = isset($_GET['sort']) ? htmlentities(strip_tags($_GET['sort'])) : null;
+
+	// Set API version for Google Custom Search API
+	$v = isset($_GET['v']) ? strip_tags((int)$_GET['v']) : 'v1';
+
+	// Set user API key for Google Custom Search API
+	$api_key = $options['google_search_api_key'];
+
+	// Set user ID for Google custom search engine
+	$id = $options['google_search_engine_id'];
+
+	if (!is_null($q)) {
+		// Process query
+
+		// Set URL for the Google Custom Search API call
+		$url = "https://www.googleapis.com/customsearch/$v?key=$api_key&cx=$id&alt=$form".(is_null($sort) ? "" : "&sort=$sort")."&num=$limit&start=$start&prettyprint=true&q=$q".(is_null($facet) ? "" : "&hq=$facet");
+
+		// Build request and send to Google Ajax Search API
+		$request = file_get_contents($url);
+
+		if ($request === FALSE) {
+			// API call failed, display message to user
+			return '<p><strong>It looks like we can\'t communicate with the API at the moment.</strong></p>'."\n";
 		}
 
-		$content  = '<div class="ssgs_wrapper">';
+		// Decode json object(s) out of response from Google Ajax Search API
+		$result = json_decode($request, true);
 
-		//You can use HTML5-valid div tags as long as you observe these guidelines: //20140423
-		//The class attribute must be set to gcse-XXX
-		//Any attributes must be prefixed with data-.
-		//$content .= '<gcse:searchbox-only resultsUrl="' . $search_gcse_page_url . '"></gcse:searchbox-only>';
-		//<div class="gcse-search">
-		$content .= '<div class="gcse-searchbox-only" data-resultsUrl="' . $search_gcse_page_url . '"></div>';
+		// Get values in json data for number of search results returned
+		$totalItems = isset($_GET['totalItems']) ?  strip_tags((int)$_GET['totalItems']) : $result['queries']['request'][0]['totalResults'];
 
-		$content .= '</div>';
+		if ($totalItems <= 0) {
+			// Empty results, display message to user
+			$content = '<p><strong>Sorry, there were no results</strong></p>'."\n";
+	    }
+		else {
+			// Make sure some results were returned, show results as html with result numbering and pagination
 
-		echo apply_filters('ssgs_widget_content', $content);
+			$search_url = 'index.php?s=';
 
-		echo $args['after_widget'];
+			$content = '<h2 class="result">Search for <strong>' .
+				urldecode($q) . "</strong> (Returning 100 items from around $totalItems matches)</h2>" .
+				'<div class="result-facet">' .
+				'<p class="facet-filter facet"><span class="facet-heading">Filter</span>' .
+				"<a class='facet-link facet' href='$search_url" .
+				urlencode($q) . '">All</a>';
 
-	}
+			if (!is_null($facet)) {
+				foreach ($result['context']['facets'] as $key) {
+					$content .= "<a class='facet-link facet' href='$search_url" .
+						urlencode($q) . "&amp;facet={$key[0]['label']}'>" . ucfirst($key[0]['anchor']) . '</a>';
+				}
+			}
+
+			$relevance_url = $search_url . urlencode($q);
+			$date_url = $search_url . urlencode($q) . '&amp;sort=date';
+			$content .= '</p>' .
+				'<p class="facet-filter facet">' .
+				"<span class='facet-heading'>Sort</span><a class='facet-link facet' href='$relevance_url'>Relevance</a>
+                <a class='facet-link facet' href='$date_url'>Date</a>
+                </p>
+                <p class='facet-filter facet popular'><span class='facet-heading'>Popular Searches</span>";
+
+			$content .= '<ul class="result">';
+
+			foreach ($result['items'] as $item) {
+				$link = rawurldecode($item['link']);
+
+				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
+					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : './meta/img/thumbnail-default.png'));
+
+				$content .= '<li>
+          <p class="result-object">
+          <a href="' . $link . '"><img alt="' . htmlentities($item['title']) .
+          '" src="' . rawurldecode($thumbnail) . '" /></a>' .
+              '</p>
+          <p class="result-description">
+          <a href="' . $link . '">' . $item['htmlTitle'] . '</a>' .
+          '<br />' .
+              $item['htmlFormattedUrl'] .
+              '<br />' .
+              $item['htmlSnippet'] .
+              '<br />' .
+              '<a class="expand" href="' . $link . '">more</a>
+          <br />
+          <br />
+          </p>
+          </li>';
+			}
+			$content .= '</ul>';
+
+			// Calculate new start value for "previous" link
+			$previous = ($start > 1) ? ($start - $recordsPerPage) : null;
+			$previous = (!is_null($previous) && ($previous < 1)) ? 1 : $previous;
+
+			// Calculate new start value for "next" link
+			$next = (($start + $recordsPerPage) <= $totalItems) ? ($start + $recordsPerPage) : null;
+			if ($next >= 100) {
+				$next = null;
+			}
+
+			// Display previous and next links if applicable
+			if (!is_null($previous) || !is_null($next)) {
+				$content .= '<ul class="pages">';
+				if (!is_null($previous)) {
+					$previous_link = $search_url . urlencode($q) . "&amp;totalItems=$totalItems&amp;start=$previous";
+					if (!is_null($facet)) {
+						$previous_link .= "&amp;facet=$facet";
+					}
+					$content .= "<li><a href='$previous_link'>Previous</a></li>";
+				}
+
+				if (!is_null($next)) {
+					$next_link = $search_url . urlencode($q) . "&amp;totalItems={$totalItems}&amp;start={$next}";
+					if (!is_null($facet)) {
+						$next_link .= "&amp;facet=$facet";
+					}
+					$content .= "<li><a href='$next_link'>Next</a></li>";
+				}
+
+				$content .= "</ul>";
+			}
+
+        } // End else -- $totalItems <= 0
+	} // End (!is_null($q))
+
+	return $content;
+    }
 
 
-	function update($new_instance, $old_instance) {
+    function update($new_instance, $old_instance) {
+        $instance = array();
 
-		$instance = array();
+        $instance['promote'] = ( ! empty( $new_instance['promote'] ) ) ? strip_tags( $new_instance['promote'] ) : 0;
 
-		$instance['hide_title'] = ( ! empty( $new_instance['hide_title'] ) ) ? strip_tags( $new_instance['hide_title'] ) : 0;
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-		$instance['promote'] = ( ! empty( $new_instance['promote'] ) ) ? strip_tags( $new_instance['promote'] ) : 0;
+        return $instance;
 
-		return $instance;
-
-	}
+    }
 
 
-	function form($instance) {
-
-		$instance = wp_parse_args( $instance, array(
-			'hide_title' => 0,
-			'title' => __('Search', 'ssgs'),
-			'promote' => 0
-		) );
-
-		global $ssgs;
-
-		?>
-
-		<p><input class="checkbox" id="<?php echo $this->get_field_id('hide_title'); ?>" name="<?php echo $this->get_field_name('hide_title'); ?>" type="checkbox" value="1" <?php echo checked( 1, esc_attr( $instance['hide_title']), false ); ?>" /><label for="<?php echo $this->get_field_id('hide_title') . '">' . ' ' . __('Hide title','ssgs') ?></label></p>
-
-		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php echo __('Title','ssgs').':'; ?><input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($instance['title']); ?>" /></label></p>
-
-
-		<?php
-
-	}
+    function form($instance) {
+        $instance = wp_parse_args( $instance, array(
+            'promote' => 0
+	));
+    }
 }
 
 function ssgs_widget_init() {
 	register_widget( 'SSGS_Widget' );
 }
+
 add_action( 'widgets_init', 'ssgs_widget_init' );

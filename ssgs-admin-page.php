@@ -20,7 +20,6 @@ class SSGS_Admin_Page {
 
 		$this->ssgs_set_defaults();
 
-		//register_setting( $option_group, $option_name, $sanitize_callback );
 		register_setting(
 			'ssgs_general_settings', // Option group / tab page
 			'ssgs_general_settings', // Option name
@@ -34,7 +33,14 @@ class SSGS_Admin_Page {
 			'ssgs_general_settings' // Page / tab page
 		);
 
-		//add_settings_field( $id, $title, $callback, $page, $section, $args );
+
+		add_settings_field(
+			'google_search_api_key', // ID
+			__('Google Search API Key','ssgs'), // Title
+			array($this, 'posttype_callback'), // Callback
+			'ssgs_general_settings', // Page / tab page
+			'ssgs_general_section' // Section
+		);
 
 		add_settings_field(
 			'google_search_engine_id', // ID
@@ -83,6 +89,7 @@ class SSGS_Admin_Page {
 		$options = get_option( 'ssgs_general_settings' );
 
 		$options = wp_parse_args( $options, array(
+                        'google_search_api_key' => '',
 			'google_search_engine_id' => '',
 			'searchbox_before_results' => '0',
 			'use_default_correction_css' => '1',
@@ -135,6 +142,17 @@ class SSGS_Admin_Page {
 							</td>
 						</tr>
 
+						<tr valign="top">
+							<th scope="row"><?php echo __('Google Search API Key','ssgs') . ':' ?></th>
+							<td>
+								<?php
+						        printf(
+						            '<input type="text" id="google_search_api_key" name="ssgs_general_settings[google_search_api_key]" value="%s" size="50" />',
+						            esc_attr( $options['google_search_api_key'])
+						        );
+							    ?>
+							</td>
+						</tr>
 						<tr valign="top">
 							<th scope="row"><?php echo __('Display search box before search results','ssgs') . ':' ?></th>
 							<td>
