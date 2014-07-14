@@ -130,11 +130,11 @@ class SSGS_Widget extends WP_Widget {
 				$link = rawurldecode($item['link']);
 
 				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
-					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : 'http://cdkn.org/wp-content/themes/cdkn-xili-2012/images/logo.png'));
+					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : './wp-content/themes/cdkn-xili-2012/images/search-default-image.png'));
 
 				$content .= '<li class="ssgs_search_result_item">
 		          <div class="ssgs_result_header">
-			          <img class="ssgs_result_thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img>
+			          <a href="' . $link . '"><img class="ssgs_result_thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img></a>
 			          <h3 class="ssgs_result_title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
 		          </div>
 		          <div class="ssgs_result_content">
@@ -142,8 +142,7 @@ class SSGS_Widget extends WP_Widget {
 			              $item['htmlFormattedUrl'] .
 			              '<br />' .
 			              $item['htmlSnippet'] .
-			              '<br />' .
-			              '<a class="expand" href="' . $link . '">more</a>
+			              '<a class="expand" href="' . $link . '">[more]...</a>
 		          </div>
 	          </li>';
 				}

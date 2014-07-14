@@ -1,5 +1,27 @@
 /* Results page styles */
 
+.facet {
+    background: none repeat scroll 0 0 #eee;
+    list-style-type: none;
+    margin: 0 0 2em;
+    padding: 1em;
+}
+
+.facet-heading {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+.facet-link.facet {
+    background-color: #f2f2f2;
+    border: medium none;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 0 0.5em;
+    padding: 0.25em 1em;
+}
+
 .ssgs_search_result_item {
     display: block;
     float: left;
@@ -24,4 +46,21 @@
 .ssgs_result_title > a {
 	color:#333;
 	font-weight:bold;
+}
+
+.ssgs_result_description > b {
+	color:#c7391a;
+}
+
+.ssgs_result_title > a:hover {
+	color:#eb661a;
+}
+
+.pages {
+    background-color: #eee;
+    clear: both;
+    display: block;
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 1em;
 }
