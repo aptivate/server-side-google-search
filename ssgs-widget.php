@@ -142,7 +142,7 @@ class SSGS_Widget extends WP_Widget {
 			              $item['htmlFormattedUrl'] .
 			              '<br />' .
 			              $item['htmlSnippet'] .
-			              '<a class="expand" href="' . $link . '">[more]...</a>
+			              '<a class="expand" href="' . $link . '">[more]</a>
 		          </div>
 	          </li>';
 				}
