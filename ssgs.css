@@ -1,42 +1,27 @@
-/*turn off table borders and other table settings*/
-#content .ssgs_wrapper table, #widget .ssgs_wrapper table, .ssgs_wrapper table {
-	border: none;
-	margin: auto;
-	width: 100%;
-	border-collapse: initial;
+/* Results page styles */
+
+.ssgs_search_result_item {
+    display: block;
+    float: left;
+    margin-bottom: 1em;
+    padding-left: 80px;
+    position: relative;
+    width: 100%;
 }
 
-#content .ssgs_wrapper tr td, #widget .ssgs_wrapper tr td, .ssgs_wrapper tr td {
-	border: none;
-	padding: 0;
+.ssgs_result_thumbnail {
+    float: left;
+    left: 0;
+    position: absolute;
+    width: 70px;
+    z-index: 1;
 }
 
-.ssgs_wrapper body, .ssgs_wrapper input, .ssgs_wrapper textarea {
-	line-height: initial;
+.ssgs_result_title {
+	margin-bottom:0.5em;
 }
 
-/*switch off word wrap (because some elements are wrong without it)*/
-.ssgs_wrapper html, .ssgs_wrapper body, .ssgs_wrapper div, .ssgs_wrapper span, .ssgs_wrapper applet, .ssgs_wrapper object, .ssgs_wrapper iframe, .ssgs_wrapper h1, .ssgs_wrapper h2, .ssgs_wrapper h3, .ssgs_wrapper h4, .ssgs_wrapper h5, .ssgs_wrapper h6, .ssgs_wrapper p, .ssgs_wrapper blockquote, .ssgs_wrapper pre, .ssgs_wrapper a, .ssgs_wrapper abbr, .ssgs_wrapper acronym, .ssgs_wrapper address, .ssgs_wrapper big, .ssgs_wrapper cite, .ssgs_wrapper code, .ssgs_wrapper del, .ssgs_wrapper dfn, .ssgs_wrapper em, .ssgs_wrapper font, .ssgs_wrapper ins, .ssgs_wrapper kbd, .ssgs_wrapper q, .ssgs_wrapper s, .ssgs_wrapper samp, .ssgs_wrapper small, .ssgs_wrapper strike, .ssgs_wrapper strong, .ssgs_wrapper sub, .ssgs_wrapper sup, .ssgs_wrapper tt, .ssgs_wrapper var, .ssgs_wrapper dl, .ssgs_wrapper dt, .ssgs_wrapper dd, .ssgs_wrapper ol, .ssgs_wrapper ul, .ssgs_wrapper li, .ssgs_wrapper fieldset, .ssgs_wrapper form, .ssgs_wrapper label, .ssgs_wrapper legend, .ssgs_wrapper table, .ssgs_wrapper caption, .ssgs_wrapper tbody, .ssgs_wrapper tfoot, .ssgs_wrapper thead, .ssgs_wrapper tr, .ssgs_wrapper th, .ssgs_wrapper td {
-	word-wrap: normal;
-}
-
-/*space below the searh frame*/
-#ssgs_wrapper_id {
-	margin-bottom: 10px;
-}
-
-/*turn off shadow of search field*/
-.gsc-input {
-	margin-left: 3px !important;
-    box-shadow: inherit !important;
-}
-
-/*minimize space between search filed and search button*/
-.gsc-search-box-tools .gsc-search-box .gsc-input {
-padding-right: 0;
-}
-
-/*reduce search button width (from 27px to 10px)*/
-.gsc-search-button input.gsc-search-button-v2, input.gsc-search-button-v2 {
-padding: 6px 10px;
+.ssgs_result_title > a {
+	color:#333;
+	font-weight:bold;
 }

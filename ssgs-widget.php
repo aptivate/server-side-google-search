@@ -11,7 +11,7 @@ class SSGS_Widget extends WP_Widget {
 
         echo $args['before_widget'];
 
-        $content  = '<div class="ssgs_wrapper">';
+        $content  = '<div class="ssgs_result_wrapper">';
         $content .= $this->get_search_results();
         $content .= '</div>';
 
@@ -114,15 +114,15 @@ class SSGS_Widget extends WP_Widget {
 			$search_url = 'index.php?s=';
 			$all_url = $search_url . urlencode($q);
 
-			$content = '<h2 class="result">Search for <strong>' .
+			$content = '<h2 class="ssgs_result_page_title">Search for <strong>' .
 				urldecode($q) . "</strong> (Returning 100 items from around $totalItems matches)</h2>" .
-				'<div class="result-facet">' .
-				'<p class="facet-filter facet"><span class="facet-heading">Filter</span>' .
-				"<a class='facet-link facet' href='$all_url'>All</a>";
+				'<div class="result_facet">' .
+				'<p class="facet_filter facet"><span class="facet_heading">Filter</span>' .
+				"<a class='facet_link facet' href='$all_url'>All</a>";
 
 			if (!is_null($facet)) {
 				foreach ($result['context']['facets'] as $key) {
-					$content .= "<a class='facet-link facet' href='$search_url" .
+					$content .= "<a class='facet_link facet' href='$search_url" .
 						urlencode($q) . "&amp;facet={$key[0]['label']}'>" . ucfirst($key[0]['anchor']) . '</a>';
 				}
 			}
@@ -131,12 +131,12 @@ class SSGS_Widget extends WP_Widget {
 
 			$relevance_url = $search_url . urlencode($q);
 			$date_url = $search_url . urlencode($q) . '&amp;sort=date';
-			$content .= '<p class="facet-filter facet">' .
-				"<span class='facet-heading'>Sort</span><a class='facet-link facet' href='$relevance_url'>Relevance</a>
-                <a class='facet-link facet' href='$date_url'>Date</a>
+			$content .= '<p class="facet_filter facet">' .
+				"<span class='facet_heading'>Sort</span><a class='facet_link facet' href='$relevance_url'>Relevance</a>
+                <a class='facet_link facet' href='$date_url'>Date</a>
                 </p>";
 
-			$content .= '<ul class="result">';
+			$content .= '<ul class="ssgs_result_list">';
 
 			foreach ($result['items'] as $item) {
 				$link = rawurldecode($item['link']);
@@ -144,24 +144,21 @@ class SSGS_Widget extends WP_Widget {
 				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
 					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : './meta/img/thumbnail-default.png'));
 
-				$content .= '<li>
-          <p class="result-object">
-          <a href="' . $link . '"><img alt="' . htmlentities($item['title']) .
-          '" src="' . rawurldecode($thumbnail) . '" /></a>' .
-              '</p>
-          <p class="result-description">
-          <a href="' . $link . '">' . $item['htmlTitle'] . '</a>' .
-          '<br />' .
-              $item['htmlFormattedUrl'] .
-              '<br />' .
-              $item['htmlSnippet'] .
-              '<br />' .
-              '<a class="expand" href="' . $link . '">more</a>
-          <br />
-          <br />
-          </p>
-          </li>';
-			}
+				$content .= '<li class="ssgs_search_result_item">
+		          <div class="ssgs_result_header">
+			          <img class="ssgs_result_thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img>
+			          <h3 class="ssgs_result_title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
+		          </div>
+		          <div class="ssgs_result_content">
+			          <p class="ssgs_result_description">' .
+			              $item['htmlFormattedUrl'] .
+			              '<br />' .
+			              $item['htmlSnippet'] .
+			              '<br />' .
+			              '<a class="expand" href="' . $link . '">more</a>
+		          </div>
+	          </li>';
+				}
 			$content .= '</ul>';
 
 			// Calculate new start value for "previous" link
