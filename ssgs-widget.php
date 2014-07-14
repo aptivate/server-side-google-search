@@ -112,7 +112,7 @@ class SSGS_Widget extends WP_Widget {
 			// Make sure some results were returned, show results as html with result numbering and pagination
 
 			$search_url = 'index.php?s=';
-			$all_url = $search_url . urlencode($q);
+			$all_url = $search_url . $q;
 
 			$content = '<h2 class="ssgs_result_page_title">Search for <strong>' .
 				urldecode($q) . "</strong> (Returning 100 items from around $totalItems matches)</h2>" .
@@ -122,18 +122,17 @@ class SSGS_Widget extends WP_Widget {
 
 			if (!is_null($facet)) {
 				foreach ($result['context']['facets'] as $key) {
-					$content .= "<a class='facet_link facet' href='$search_url" .
-						urlencode($q) . "&amp;facet={$key[0]['label']}'>" . ucfirst($key[0]['anchor']) . '</a>';
+					$content .= "<a class='facet-link facet' href='$search_url" .
+						$q . "&amp;facet={$key[0]['label']}'>" . ucfirst($key[0]['anchor']) . '</a>';
 				}
 			}
 
 			$content .= '</p>';
-
-			$relevance_url = $search_url . urlencode($q);
-			$date_url = $search_url . urlencode($q) . '&amp;sort=date';
-			$content .= '<p class="facet_filter facet">' .
-				"<span class='facet_heading'>Sort</span><a class='facet_link facet' href='$relevance_url'>Relevance</a>
-                <a class='facet_link facet' href='$date_url'>Date</a>
+			$relevance_url = $search_url . $q;
+			$date_url = $search_url . $q . '&amp;sort=date';
+			$content .= '<p class="facet-filter facet">' .
+				"<span class='facet-heading'>Sort</span><a class='facet-link facet' href='$relevance_url'>Relevance</a>
+                <a class='facet-link facet' href='$date_url'>Date</a>
                 </p>";
 
 			$content .= '<ul class="ssgs_result_list">';
@@ -142,7 +141,7 @@ class SSGS_Widget extends WP_Widget {
 				$link = rawurldecode($item['link']);
 
 				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
-					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : './meta/img/thumbnail-default.png'));
+					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : 'http://cdkn.org/wp-content/themes/cdkn-xili-2012/images/logo.png'));
 
 				$content .= '<li class="ssgs_search_result_item">
 		          <div class="ssgs_result_header">
@@ -175,7 +174,7 @@ class SSGS_Widget extends WP_Widget {
 			if (!is_null($previous) || !is_null($next)) {
 				$content .= '<ul class="pages">';
 				if (!is_null($previous)) {
-					$previous_link = $search_url . urlencode($q) . "&amp;totalItems=$totalItems&amp;start=$previous";
+					$previous_link = $search_url . $q . "&amp;totalItems=$totalItems&amp;start=$previous";
 					if (!is_null($facet)) {
 						$previous_link .= "&amp;facet=$facet";
 					}
@@ -183,7 +182,7 @@ class SSGS_Widget extends WP_Widget {
 				}
 
 				if (!is_null($next)) {
-					$next_link = $search_url . urlencode($q) . "&amp;totalItems={$totalItems}&amp;start={$next}";
+					$next_link = $search_url . $q . "&amp;totalItems={$totalItems}&amp;start={$next}";
 					if (!is_null($facet)) {
 						$next_link .= "&amp;facet=$facet";
 					}
