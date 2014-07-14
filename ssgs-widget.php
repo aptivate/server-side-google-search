@@ -112,7 +112,7 @@ class SSGS_Widget extends WP_Widget {
 			// Make sure some results were returned, show results as html with result numbering and pagination
 
 			$search_url = 'index.php?s=';
-			$all_url = $search_url . urlencode($q);
+			$all_url = $search_url . $q;
 
 			$content = '<h2 class="result">Search for <strong>' .
 				urldecode($q) . "</strong> (Returning 100 items from around $totalItems matches)</h2>" .
@@ -123,14 +123,14 @@ class SSGS_Widget extends WP_Widget {
 			if (!is_null($facet)) {
 				foreach ($result['context']['facets'] as $key) {
 					$content .= "<a class='facet-link facet' href='$search_url" .
-						urlencode($q) . "&amp;facet={$key[0]['label']}'>" . ucfirst($key[0]['anchor']) . '</a>';
+						$q . "&amp;facet={$key[0]['label']}'>" . ucfirst($key[0]['anchor']) . '</a>';
 				}
 			}
 
 			$content .= '</p>';
 
-			$relevance_url = $search_url . urlencode($q);
-			$date_url = $search_url . urlencode($q) . '&amp;sort=date';
+			$relevance_url = $search_url . $q;
+			$date_url = $search_url . $q . '&amp;sort=date';
 			$content .= '<p class="facet-filter facet">' .
 				"<span class='facet-heading'>Sort</span><a class='facet-link facet' href='$relevance_url'>Relevance</a>
                 <a class='facet-link facet' href='$date_url'>Date</a>
@@ -178,7 +178,7 @@ class SSGS_Widget extends WP_Widget {
 			if (!is_null($previous) || !is_null($next)) {
 				$content .= '<ul class="pages">';
 				if (!is_null($previous)) {
-					$previous_link = $search_url . urlencode($q) . "&amp;totalItems=$totalItems&amp;start=$previous";
+					$previous_link = $search_url . $q . "&amp;totalItems=$totalItems&amp;start=$previous";
 					if (!is_null($facet)) {
 						$previous_link .= "&amp;facet=$facet";
 					}
@@ -186,7 +186,7 @@ class SSGS_Widget extends WP_Widget {
 				}
 
 				if (!is_null($next)) {
-					$next_link = $search_url . urlencode($q) . "&amp;totalItems={$totalItems}&amp;start={$next}";
+					$next_link = $search_url . $q . "&amp;totalItems={$totalItems}&amp;start={$next}";
 					if (!is_null($facet)) {
 						$next_link .= "&amp;facet=$facet";
 					}
