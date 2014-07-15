@@ -9,7 +9,7 @@ class SSGS_Admin_Page {
 
 	function ssgs_admin_menu () {
 		add_options_page( __('Server-Side Google Search','ssgs'),__('Server-Side Google Search','ssgs')
-			,'manage_options','wp-google-search', array($this, 'add_options_page_callback' ));
+			,'manage_options','ss-google-search', array($this, 'add_options_page_callback' ));
 	}
 
 
@@ -47,7 +47,7 @@ class SSGS_Admin_Page {
 			'ssgs_general_settings', // Page / tab page
 			'ssgs_general_section' // Section
 		);
-		
+
 		add_settings_field(
 			'default_search_image_url', // ID
 			__('Default Search Image URL','ssgs'), // Title
@@ -131,7 +131,7 @@ class SSGS_Admin_Page {
 						        );
 							    ?>
 							</td>
-						</tr>						
+						</tr>
 
 
 					</table>
