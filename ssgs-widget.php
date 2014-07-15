@@ -103,7 +103,6 @@ class SSGS_Widget extends WP_Widget {
 
 		// Get values in json data for number of search results returned
 		$totalItems = isset($_GET['totalItems']) ?  strip_tags((int)$_GET['totalItems']) : $result['queries']['request'][0]['totalResults'];
-
 		if ($totalItems <= 0) {
 			// Empty results, display message to user
 			$content = '<p><strong>' . __('Sorry, there were no results', 'ssgs') ."</strong></p>\n";
@@ -133,7 +132,7 @@ class SSGS_Widget extends WP_Widget {
 				$link = rawurldecode($item['link']);
 
 				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
-					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : './wp-content/themes/cdkn-xili-2012/images/search-default-image.png'));
+					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : get_stylesheet_directory_uri() . '/images/search-default-image.png'));
 
 				$content .= '<li class="ssgs_search_result_item">
 		          <div class="ssgs_result_header">
