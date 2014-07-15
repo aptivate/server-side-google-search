@@ -47,6 +47,14 @@ class SSGS_Admin_Page {
 			'ssgs_general_settings', // Page / tab page
 			'ssgs_general_section' // Section
 		);
+		
+		add_settings_field(
+			'default_search_image_url', // ID
+			__('Default Search Image URL','ssgs'), // Title
+			array($this, 'posttype_callback'), // Callback
+			'ssgs_general_settings', // Page / tab page
+			'ssgs_general_section' // Section
+		);
 
 	}
 
@@ -112,7 +120,18 @@ class SSGS_Admin_Page {
 						        );
 							    ?>
 							</td>
-						</tr>					
+						</tr>
+						<tr valign="top">
+							<th scope="row"><?php echo __('Default Search Image URL','ssgs') . ':' ?></th>
+							<td>
+								<?php
+						        printf(
+						            '<input type="text" id="default_search_image_url" name="ssgs_general_settings[default_search_image_url]" value="%s" size="50" />',
+						            esc_attr( $options['default_search_image_url'])
+						        );
+							    ?>
+							</td>
+						</tr>						
 
 
 					</table>

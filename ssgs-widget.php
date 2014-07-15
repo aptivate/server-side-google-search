@@ -132,7 +132,7 @@ class SSGS_Widget extends WP_Widget {
 				$link = rawurldecode($item['link']);
 
 				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
-					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : get_stylesheet_directory_uri() . '/images/search-default-image.png'));
+					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : get_option('ssgs_general_settings')['default_search_image_url']));
 
 				$content .= '<li class="ssgs_search_result_item">
 		          <div class="ssgs_result_header">
