@@ -41,34 +41,16 @@ class SS_Google_Search {
 
 		$options = get_option('ssgs_general_settings');
 
-		//if ( !empty($options['google_search_engine_id']) ) { //$options['enable_plugin']
+		wp_enqueue_style( 'ssgs', plugins_url('ssgs.css', __FILE__) );
 
-			wp_register_script(
-				'google_cse_v2',
-				$this->plugin_url() . '/assets/js/google_cse_v2.js',
-				array( // dependencies
-  						),
- 					1.0,
-					true
-			);
+		$script_params = array(
+			'google_search_engine_id' => $options['google_search_engine_id']
+		);
 
-			wp_enqueue_script( 'google_cse_v2' );
+		add_shortcode( 'ss_google_search', array( $this, 'ss_google_search_shortcode' ));
+		add_shortcode( 'ss_google_searchbox', array( $this, 'ss_google_searchbox_shortcode' ));
 
-			wp_enqueue_style( 'ssgs', plugins_url('ssgs.css', __FILE__) );
-
-			$script_params = array(
-				'google_search_engine_id' => $options['google_search_engine_id']
-				);
-
-			wp_localize_script( 'google_cse_v2', 'scriptParams', $script_params );
-
-			add_shortcode( 'ss_google_search', array( $this, 'ss_google_search_shortcode' ));
-			add_shortcode( 'ss_google_searchbox', array( $this, 'ss_google_searchbox_shortcode' ));
-
-			do_action( 'ssgs_init', $this );
-
-		//}
-
+		do_action( 'ssgs_init', $this );
 	}
 
 	public function ssgs_activation() {
