@@ -11,7 +11,7 @@ class SSGS_Widget extends WP_Widget {
 
         echo $args['before_widget'];
 
-        $content  = '<div class="ssgs_wrapper">';
+        $content  = '<div class="ssgs_result_wrapper">';
         $content .= $this->get_search_results();
         $content .= '</div>';
 
@@ -67,7 +67,7 @@ class SSGS_Widget extends WP_Widget {
 	$limit = isset($_GET['limit']) ? strip_tags((int)$_GET['limit']) : "$recordsPerPage";
 
 	// Set default value for page start index
-	$start = isset($_GET['start']) ? (int)$_GET['start'] : 1;
+	$start = isset($_GET['start']) ? strip_tags((int)$_GET['start']) : '1';
 
 	// Set default value for facet browse
 	$facet = isset($_GET['facet']) ? htmlentities(strip_tags($_GET['facet'])) : null;
@@ -106,7 +106,7 @@ class SSGS_Widget extends WP_Widget {
 
 		if ($totalItems <= 0) {
 			// Empty results, display message to user
-			$content = '<p><strong>' . __('Sorry, there were no results</strong></p>') ."\n";
+			$content = '<p><strong>' . __('Sorry, there were no results') ."</strong></p>\n";
 	    }
 		else {
 			// Make sure some results were returned, show results as html with result numbering and pagination
@@ -115,46 +115,41 @@ class SSGS_Widget extends WP_Widget {
 			$all_url = $search_url . $q;
 			$results_displayed = count($result['items']);
 
-			$content = '<h2 class="result">' . __('Search for'). ' <strong>' .
-				urldecode($q) . "</strong> " . 				
-				sprintf(__('(Displaying %d items from around %d matches)'), $results_displayed, $totalItems) . 
-				'</h2><div class="result-facet">';
+			$content = '<h2 class="ssgs_result_page_title">' . __('Search for'). ' <strong>' .
+				urldecode($q) . "</strong> " .
+                sprintf(__('(Displaying %d items from around %d matches)'), $results_displayed, $totalItems) . " </h2>" .
+				'<div class="result-facet">';
 
 			$relevance_url = $search_url . $q;
 			$date_url = $search_url . $q . '&amp;sort=date';
 			$content .= '<p class="facet-filter facet">' .
-				"<span class='facet-heading'>" . __("Sort") . 
-				"</span><a class='facet-link facet' href='$relevance_url'>" . 
-				__("Relevance") . "</a>" . 
-                "<a class='facet-link facet' href='$date_url'>" . __(Date) . "</a>" .
-                "</p>";
+				"<span class='facet-heading'>Sort</span><a class='facet-link facet' href='$relevance_url'>Relevance</a>
+                <a class='facet-link facet' href='$date_url'>Date</a>
+                </p>";
 
-			$content .= '<ul class="result">';
+			$content .= '<ul class="ssgs_result_list">';
 
 			foreach ($result['items'] as $item) {
 				$link = rawurldecode($item['link']);
 
 				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
-					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : './meta/img/thumbnail-default.png'));
+					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : './wp-content/themes/cdkn-xili-2012/images/search-default-image.png'));
 
-				$content .= '<li>' .
-          '<p class="result-object">' .
-          '<a href="' . $link . '"><img alt="' . htmlentities($item['title']) .
-          '" src="' . rawurldecode($thumbnail) . '" /></a>' .
-              '</p>
-          <p class="result-description">
-          <a href="' . $link . '">' . $item['htmlTitle'] . '</a>' .
-          '<br />' .
-              $item['htmlFormattedUrl'] .
-              '<br />' .
-              $item['htmlSnippet'] .
-              '<br />' .
-              '<a class="expand" href="' . $link . '">more</a>
-          <br />
-          <br />
-          </p>
-          </li>';
-			}
+				$content .= '<li class="ssgs_search_result_item">
+		          <div class="ssgs_result_header">
+			          <a href="' . $link . '"><img class="ssgs_result_thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img></a>
+			          <h3 class="ssgs_result_title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
+		          </div>
+		          <div class="ssgs_result_content">
+			          <p class="ssgs_result_description">' .
+			              $item['htmlFormattedUrl'] .
+			              '<br />' .
+			              $item['htmlSnippet'] .
+			              '<a class="expand" href="' . $link . '">[' . __('more') . ']</a>
+					  </p>
+		          </div>
+	          </li>';
+				}
 			$content .= '</ul>';
 
 			// Calculate new start value for "previous" link
