@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wgs\n"
-"POT-Creation-Date: 2014-07-15 15:16+0100\n"
-"PO-Revision-Date: 2014-07-15 15:16+0100\n"
+"POT-Creation-Date: 2014-07-15 15:40+0100\n"
+"PO-Revision-Date: 2014-07-15 15:40+0100\n"
 "Last-Translator: Daniel <daniell@aptivate.org>\n"
 "Language-Team: WebShopLogic\n"
 "Language: EN\n"
@@ -16,76 +16,43 @@ msgstr ""
 "X-Poedit-SearchPath-0: /home/daniell/git/cdknwebsite/wp-content/plugins/"
 "serverside-google-search\n"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:13
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:11
 msgid "Server-Side Google Search"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:31
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:122
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:29
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:85
 msgid "General Settings"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:39
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:146
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:37
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:106
 msgid "Google Search API Key"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:47
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:130
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:45
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:90
 msgid "Google Search Engine ID"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:55
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:157
-msgid "Display search box before search results"
-msgstr ""
-
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:63
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:172
-msgid "Use default corrections CSS"
-msgstr ""
-
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:110
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:73
 msgid "Server-Side Google Search by Aptivate, WebshopLogic"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:137
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:97
 msgid ""
 "Register to Google Custom Search Engine and get your Google Search Engine ID "
 "here: "
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:138
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:98
 msgid ""
 "You will get a Google Search Engine ID like this: "
 "012345678901234567890:0ijk_a1bcde"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:139
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:99
 msgid "Enter this Google Search Engine ID here."
-msgstr ""
-
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:165
-msgid ""
-"If this option is turned on, the search field will appear above the search "
-"results."
-msgstr ""
-
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:180
-msgid ""
-"If this option is turned on, some css will be applied to improve the "
-"appearance of search elements in case of most WordPress themes."
-msgstr ""
-
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:188
-msgid "Search Page Target URL"
-msgstr ""
-
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:203
-msgid ""
-"The plugin automatically generated a page for displaying search results. You "
-"can see here the URL of this page. Please do not delete this page and do not "
-"change the permalink of it!"
 msgstr ""
 
 #: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:4
