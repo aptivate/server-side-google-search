@@ -67,7 +67,7 @@ class SSGS_Widget extends WP_Widget {
 	$limit = isset($_GET['limit']) ? strip_tags((int)$_GET['limit']) : "$recordsPerPage";
 
 	// Set default value for page start index
-	$start = isset($_GET['start']) ? strip_tags((int)$_GET['start']) : '1';
+	$start = isset($_GET['start']) ? (int)$_GET['start'] : 1;
 
 	// Set default value for facet browse
 	$facet = isset($_GET['facet']) ? htmlentities(strip_tags($_GET['facet'])) : null;
@@ -95,7 +95,7 @@ class SSGS_Widget extends WP_Widget {
 
 		if ($request === FALSE) {
 			// API call failed, display message to user
-			return '<p><strong>It looks like we can\'t communicate with the API at the moment.</strong></p>'."\n";
+			return '<p><strong>' . __('An error was encountered while performing the requested search') . '</strong></p>'."\n";
 		}
 
 		// Decode json object(s) out of response from Google Ajax Search API
@@ -106,24 +106,28 @@ class SSGS_Widget extends WP_Widget {
 
 		if ($totalItems <= 0) {
 			// Empty results, display message to user
-			$content = '<p><strong>Sorry, there were no results</strong></p>'."\n";
+			$content = '<p><strong>' . __('Sorry, there were no results</strong></p>') ."\n";
 	    }
 		else {
 			// Make sure some results were returned, show results as html with result numbering and pagination
 
 			$search_url = 'index.php?s=';
 			$all_url = $search_url . $q;
+			$results_displayed = count($result['items']);
 
-			$content = '<h2 class="result">Search for <strong>' .
-				urldecode($q) . "</strong> (Returning 100 items from around $totalItems matches)</h2>" .
-				'<div class="result-facet">';
+			$content = '<h2 class="result">' . __('Search for'). ' <strong>' .
+				urldecode($q) . "</strong> " . 				
+				sprintf(__('(Displaying %d items from around %d matches)'), $results_displayed, $totalItems) . 
+				'</h2><div class="result-facet">';
 
 			$relevance_url = $search_url . $q;
 			$date_url = $search_url . $q . '&amp;sort=date';
 			$content .= '<p class="facet-filter facet">' .
-				"<span class='facet-heading'>Sort</span><a class='facet-link facet' href='$relevance_url'>Relevance</a>
-                <a class='facet-link facet' href='$date_url'>Date</a>
-                </p>";
+				"<span class='facet-heading'>" . __("Sort") . 
+				"</span><a class='facet-link facet' href='$relevance_url'>" . 
+				__("Relevance") . "</a>" . 
+                "<a class='facet-link facet' href='$date_url'>" . __(Date) . "</a>" .
+                "</p>";
 
 			$content .= '<ul class="result">';
 
@@ -133,9 +137,9 @@ class SSGS_Widget extends WP_Widget {
 				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
 					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : './meta/img/thumbnail-default.png'));
 
-				$content .= '<li>
-          <p class="result-object">
-          <a href="' . $link . '"><img alt="' . htmlentities($item['title']) .
+				$content .= '<li>' .
+          '<p class="result-object">' .
+          '<a href="' . $link . '"><img alt="' . htmlentities($item['title']) .
           '" src="' . rawurldecode($thumbnail) . '" /></a>' .
               '</p>
           <p class="result-description">
@@ -159,9 +163,7 @@ class SSGS_Widget extends WP_Widget {
 
 			// Calculate new start value for "next" link
 			$next = (($start + $recordsPerPage) <= $totalItems) ? ($start + $recordsPerPage) : null;
-			if ($next >= 100) {
-				$next = null;
-			}
+			
 
 			// Display previous and next links if applicable
 			if (!is_null($previous) || !is_null($next)) {
@@ -171,7 +173,7 @@ class SSGS_Widget extends WP_Widget {
 					if (!is_null($facet)) {
 						$previous_link .= "&amp;facet=$facet";
 					}
-					$content .= "<li><a href='$previous_link'>Previous</a></li>";
+					$content .= "<li><a href='$previous_link'>" . __("Previous") . "</a></li>";
 				}
 
 				if (!is_null($next)) {
@@ -179,7 +181,7 @@ class SSGS_Widget extends WP_Widget {
 					if (!is_null($facet)) {
 						$next_link .= "&amp;facet=$facet";
 					}
-					$content .= "<li><a href='$next_link'>Next</a></li>";
+					$content .= "<li><a href='$next_link'>" . __("Next") . "</a></li>";
 				}
 
 				$content .= "</ul>";
