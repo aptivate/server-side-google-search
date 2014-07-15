@@ -50,38 +50,6 @@ class SSGS_Admin_Page {
 			'ssgs_general_section' // Section
 		);
 
-		add_settings_field(
-			'searchbox_before_results', // ID
-			__('Display search box before search results','ssgs'), // Title
-			array($this, 'posttype_callback'), // Callback
-			'ssgs_general_settings', // Page / tab page
-			'ssgs_general_section' // Section
-		);
-
-		add_settings_field(
-			'use_default_correction_css', // ID
-			__('Use default corrections CSS','ssgs'), // Title
-			array($this, 'posttype_callback'), // Callback
-			'ssgs_general_settings', // Page / tab page
-			'ssgs_general_section' // Section
-		);
-
-        add_settings_field( //HIDDEN
-            'search_gcse_page_id', // ID
-            'search_gcse_page_id', // Title
-			array($this, 'posttype_callback'), // Callback
-			'ssgs_general_settings', // Page / tab page
-			'ssgs_general_section' // Section
-        );
-
-        add_settings_field( //HIDDEN
-            'search_gcse_page_url', // ID
-            'search_gcse_page_url', // Title
-			array($this, 'posttype_callback'), // Callback
-			'ssgs_general_settings', // Page / tab page
-			'ssgs_general_section' // Section
-        );
-
 	}
 
 	function ssgs_set_defaults() {
@@ -91,8 +59,6 @@ class SSGS_Admin_Page {
 		$options = wp_parse_args( $options, array(
                         'google_search_api_key' => '',
 			'google_search_engine_id' => '',
-			'searchbox_before_results' => '0',
-			'use_default_correction_css' => '1',
 		) );
 
 		update_option( 'ssgs_general_settings', $options );
@@ -152,58 +118,7 @@ class SSGS_Admin_Page {
 						        );
 							    ?>
 							</td>
-						</tr>
-						<tr valign="top">
-							<th scope="row"><?php echo __('Display search box before search results','ssgs') . ':' ?></th>
-							<td>
-								<?php
-								printf(
-									'<input type="hidden" name="ssgs_general_settings[searchbox_before_results]" value="0"/>
-									<input type="checkbox" id="searchbox_before_results" name="ssgs_general_settings[searchbox_before_results]"
-									value="1"' . checked( 1, esc_attr( $options['searchbox_before_results']), false ) . ' />'
-								);
-								echo '<br /><span class="description">' . __('If this option is turned on, the search field will appear above the search results.','ssgs') . '</span>';
-
-								?>
-							</td>
-						</tr>
-
-						<tr valign="top">
-							<th scope="row"><?php echo __('Use default corrections CSS','ssgs') . ':' ?></th>
-							<td>
-								<?php
-								printf(
-									'<input type="hidden" name="ssgs_general_settings[use_default_correction_css]" value="0"/>
-									<input type="checkbox" id="use_default_correction_css" name="ssgs_general_settings[use_default_correction_css]"
-									value="1"' . checked( 1, esc_attr( $options['use_default_correction_css']), false ) . ' />'
-								);
-								echo '<br /><span class="description">' . __('If this option is turned on, some css will be applied to improve the appearance of search elements in case of most WordPress themes.','ssgs') . '</span>';
-
-								?>
-							</td>
-						</tr>
-
-
-						<tr valign="top">
-							<th scope="row"><?php echo __('Search Page Target URL','ssgs') . ':' ?></th>
-
-							<td>
-
-								<?php
-						        printf(
-						            '<input type="hidden" id="search_gcse_page_id" name="ssgs_general_settings[search_gcse_page_id]" value="%s" />',
-						            esc_attr( $options['search_gcse_page_id'])
-								);
-
-						        printf(
-						            '<input type="text" id="search_gcse_page_url" name="ssgs_general_settings[search_gcse_page_url]" value="%s" size="50" disabled />',
-						            esc_attr( get_page_link( $options['search_gcse_page_id'] ))
-								);
-
-								echo '<br /><span class="description">' . __('The plugin automatically generated a page for displaying search results. You can see here the URL of this page. Please do not delete this page and do not change the permalink of it!','ssgs') . '</span>';
-								?>
-							</td>
-						</tr>
+						</tr>					
 
 
 					</table>
