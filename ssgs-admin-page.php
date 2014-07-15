@@ -72,7 +72,6 @@ class SSGS_Admin_Page {
 
 		?>
 		<div class="wrap">
-			<?php screen_icon(); ?>
 			<h2><?php _e('Server-Side Google Search by Aptivate, WebshopLogic','ssgs') ?></h2>
 
 			<div style="float:left; width: 70%">
