@@ -27,8 +27,6 @@ class SS_Google_Search {
 
 		register_activation_hook( __FILE__, array( $this, 'ssgs_activation' ) );
 
-		$options = get_option( 'ssgs_general_settings' );
-
 		include_once( 'ssgs-widget.php' );
 		do_action( 'ssgs_init' );
 	}
