@@ -1,49 +1,58 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wgs\n"
-"POT-Creation-Date: 2014-04-23 22:41+0100\n"
-"PO-Revision-Date: 2014-05-13 18:55+0100\n"
-"Last-Translator: jelena kovacevic <jecajeca260@gmail.com>\n"
+"POT-Creation-Date: 2014-07-15 14:13+0100\n"
+"PO-Revision-Date: 2014-07-15 14:18+0100\n"
+"Last-Translator: Daniel <daniell@aptivate.org>\n"
 "Language-Team: WebShopLogic\n"
 "Language: EN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-KeywordsList: __;_e;_x\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: D:\\wamp\\www\\wp-content\\plugins\\wp_google_search\n"
+"X-Poedit-SearchPath-0: /home/daniell/git/cdknwebsite/wp-content/plugins/"
+"serverside-google-search\n"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:13
-msgid "WP Google Search"
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:13
+#, fuzzy
+msgid "Server-Side Google Search"
 msgstr "WP Google Search"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:32
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:115
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:31
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:122
 msgid "General Settings"
 msgstr "Ajustes Generales"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:41
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:123
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:39
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:146
+#, fuzzy
+msgid "Google Search API Key"
+msgstr "WP Google Search"
+
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:47
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:130
 msgid "Google Search Engine ID"
 msgstr "ID de Google Search Engine "
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:49
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:139
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:55
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:157
 msgid "Display search box before search results"
 msgstr "Mostrar el cuadro de búsqueda antes de los resultados de la búsqueda"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:57
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:154
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:63
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:172
 msgid "Use default corrections CSS"
 msgstr "Utilizar las correcciones por defecto de CSS"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:103
-msgid "WP Google Search by WebshopLogic"
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:110
+#, fuzzy
+msgid "Server-Side Google Search by Aptivate, WebshopLogic"
 msgstr "WP Google Search por WebshopLogic"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:130
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:137
 msgid ""
 "Register to Google Custom Search Engine and get your Google Search Engine ID "
 "here: "
@@ -51,7 +60,7 @@ msgstr ""
 "Registrarse para Google Custom Search Engine y obtener su ID de Google "
 "Search Engine aquí:"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:131
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:138
 msgid ""
 "You will get a Google Search Engine ID like this: "
 "012345678901234567890:0ijk_a1bcde"
@@ -59,11 +68,11 @@ msgstr ""
 "Usted recibirá un ID de Google Search Engine así: "
 "012345678901234567890:0ijk_a1bcde"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:132
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:139
 msgid "Enter this Google Search Engine ID here."
 msgstr "Introduzca este ID de Google Search Engine aquí."
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:147
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:165
 msgid ""
 "If this option is turned on, the search field will appear above the search "
 "results."
@@ -71,7 +80,7 @@ msgstr ""
 "Si esta opción está activada, el campo de búsqueda aparecerá por encima de "
 "los resultados de búsqueda."
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:162
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:180
 msgid ""
 "If this option is turned on, some css will be applied to improve the "
 "appearance of search elements in case of most WordPress themes."
@@ -80,11 +89,11 @@ msgstr ""
 "apariencia de los elementos de búsqueda en la mayoría de los temas de "
 "WordPress."
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:170
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:188
 msgid "Search Page Target URL"
 msgstr "Buscar URL de la página de destino"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:185
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:203
 msgid ""
 "The plugin automatically generated a page for displaying search results. You "
 "can see here the URL of this page. Please do not delete this page and do not "
@@ -94,47 +103,69 @@ msgstr ""
 "resultados de la búsqueda. Se puede ver aquí la URL de esta página. ¡Por "
 "favor, no elimine esta página y no cambie el enlace permanente a la misma!"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:213
-msgid "Try out WP Related Items plugin"
-msgstr "Pruebe el plugin WP Related Items"
-
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:220
-msgid ""
-"WP Related Items plugin makes visible every kind of hidden connections of "
-"your WordPress site for your business."
-msgstr ""
-"El plugin WP Related Items hace visible cualquier tipo de conexiones ocultas "
-"de su sitio de WordPress para sus negocios."
-
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-admin-page.php:221
-msgid ""
-"Would you like to offer some related products to your blog posts? Do you "
-"have an event calendar plugin, and want to suggest some programs connected "
-"to an article? Do you have a custom movie catalog plugin and want to "
-"associate some articles to your movies?"
-msgstr ""
-"¿Le gustaría ofrecer algunos productos relacionados a sus posts del blog? "
-"¿Tiene algún plugin de calendario de eventos y desea sugerir algunos "
-"programas conectados a un artículo? ¿Tiene algún plugin personalizado de "
-"catálogo de películas y desea asociar algunos artículos a sus películas?"
-
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-widget.php:7
-msgid "WP Goosgle Search (WGS)"
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:4
+#, fuzzy
+msgid "Server-Side Google Search (SSGS)"
 msgstr "WP Google Search (WGS)"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-widget.php:68
-msgid "Search"
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:98
+msgid "An error was encountered while performing the requested search"
+msgstr ""
+
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:109
+msgid "Sorry, there were no results"
+msgstr ""
+
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:118
+#, fuzzy
+msgid "Search for"
 msgstr "Buscar"
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-widget.php:76
-msgid "Hide title"
-msgstr "Ocultar título"
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:120
+#, php-format
+msgid "(Displaying %d items from around %d matches)"
+msgstr ""
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wgs-widget.php:78
-msgid "Title"
-msgstr "Título"
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:148
+msgid "more"
+msgstr ""
 
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wp-google-search.php:95
-#: D:\wamp\www\wp-content\plugins\wp_google_search/wp-google-search.php:99
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:171
+msgid "Previous"
+msgstr ""
+
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:179
+msgid "Next"
+msgstr ""
+
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-google-search.php:96
+#: /home/daniell//git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-google-search.php:100
 msgid "Search Results"
 msgstr "Resultados de la búsqueda"
+
+#~ msgid "Try out WP Related Items plugin"
+#~ msgstr "Pruebe el plugin WP Related Items"
+
+#~ msgid ""
+#~ "WP Related Items plugin makes visible every kind of hidden connections of "
+#~ "your WordPress site for your business."
+#~ msgstr ""
+#~ "El plugin WP Related Items hace visible cualquier tipo de conexiones "
+#~ "ocultas de su sitio de WordPress para sus negocios."
+
+#~ msgid ""
+#~ "Would you like to offer some related products to your blog posts? Do you "
+#~ "have an event calendar plugin, and want to suggest some programs "
+#~ "connected to an article? Do you have a custom movie catalog plugin and "
+#~ "want to associate some articles to your movies?"
+#~ msgstr ""
+#~ "¿Le gustaría ofrecer algunos productos relacionados a sus posts del blog? "
+#~ "¿Tiene algún plugin de calendario de eventos y desea sugerir algunos "
+#~ "programas conectados a un artículo? ¿Tiene algún plugin personalizado de "
+#~ "catálogo de películas y desea asociar algunos artículos a sus películas?"
+
+#~ msgid "Hide title"
+#~ msgstr "Ocultar título"
+
+#~ msgid "Title"
+#~ msgstr "Título"
