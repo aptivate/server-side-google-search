@@ -61,8 +61,7 @@ class SS_Google_Search {
 
 			wp_enqueue_script( 'google_cse_v2' );
 
-			if ($options['use_default_correction_css'] == 1)
-				wp_enqueue_style( 'ssgs', plugins_url('ssgs.css', __FILE__) );
+			wp_enqueue_style( 'ssgs', plugins_url('ssgs.css', __FILE__) );
 
 			$script_params = array(
 				'google_search_engine_id' => $options['google_search_engine_id']
