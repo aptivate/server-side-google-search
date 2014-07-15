@@ -29,13 +29,8 @@ class SS_Google_Search {
 
 		$options = get_option( 'ssgs_general_settings' );
 
-		//if (!empty($options['google_search_engine_id'])) { //$options['enable_plugin']
-
-			include_once( 'ssgs-widget.php' );
-			do_action( 'ssgs_init' );
-
-		//}
-
+		include_once( 'ssgs-widget.php' );
+		do_action( 'ssgs_init' );
 	}
 
 	public function init() {
