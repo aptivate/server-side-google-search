@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wgs\n"
-"POT-Creation-Date: 2014-07-15 15:39+0100\n"
-"PO-Revision-Date: 2014-07-15 15:39+0100\n"
+"POT-Creation-Date: 2014-07-15 16:43+0100\n"
+"PO-Revision-Date: 2014-07-15 16:48+0100\n"
 "Last-Translator: Daniel <daniell@aptivate.org>\n"
 "Language-Team: WebShopLogic\n"
 "Language: EN\n"
@@ -22,27 +22,32 @@ msgid "Server-Side Google Search"
 msgstr "WP Google Search"
 
 #: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:29
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:85
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:93
 msgid "General Settings"
 msgstr "Ajustes Generales"
 
 #: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:37
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:106
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:114
 #, fuzzy
 msgid "Google Search API Key"
 msgstr "WP Google Search"
 
 #: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:45
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:90
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:98
 msgid "Google Search Engine ID"
 msgstr "ID de Google Search Engine "
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:73
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:53
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:125
+msgid "Default Search Image URL"
+msgstr "Búsqueda predeterminada URL de la imagen"
+
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:81
 #, fuzzy
 msgid "Server-Side Google Search by Aptivate, WebshopLogic"
 msgstr "WP Google Search por WebshopLogic"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:97
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:105
 msgid ""
 "Register to Google Custom Search Engine and get your Google Search Engine ID "
 "here: "
@@ -50,7 +55,7 @@ msgstr ""
 "Registrarse para Google Custom Search Engine y obtener su ID de Google "
 "Search Engine aquí:"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:98
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:106
 msgid ""
 "You will get a Google Search Engine ID like this: "
 "012345678901234567890:0ijk_a1bcde"
@@ -58,7 +63,7 @@ msgstr ""
 "Usted recibirá un ID de Google Search Engine así: "
 "012345678901234567890:0ijk_a1bcde"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:99
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:107
 msgid "Enter this Google Search Engine ID here."
 msgstr "Introduzca este ID de Google Search Engine aquí."
 
@@ -71,40 +76,40 @@ msgstr "WP Google Search (WGS)"
 msgid "An error was encountered while performing the requested search"
 msgstr "Se ha detectado un error al realizar la búsqueda solicitada"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:109
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:108
 msgid "Sorry, there were no results"
 msgstr "Lo sentimos, no hubo resultados"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:118
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:117
 msgid "Search for"
 msgstr "Buscar"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:120
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:119
 #, php-format
 msgid "Displaying %d items from around %d matches"
 msgstr "Viendo %d artículos de alrededor de %d partidos"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:126
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:125
 msgid "Sort"
 msgstr "Ordenar"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:126
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:125
 msgid "Relevance"
 msgstr "Relevancia"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:127
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:126
 msgid "Date"
 msgstr "Fecha"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:148
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:147
 msgid "more"
 msgstr "más"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:171
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:170
 msgid "Previous"
 msgstr "Anterior"
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:179
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:178
 msgid "Next"
 msgstr "Siguiente"
 
@@ -134,9 +139,6 @@ msgstr "Resultados de la búsqueda"
 #~ "Si esta opción está activada, se puede aplicar algún CSS para mejorar la "
 #~ "apariencia de los elementos de búsqueda en la mayoría de los temas de "
 #~ "WordPress."
-
-#~ msgid "Search Page Target URL"
-#~ msgstr "Buscar URL de la página de destino"
 
 #~ msgid ""
 #~ "The plugin automatically generated a page for displaying search results. "

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wgs\n"
-"POT-Creation-Date: 2014-07-15 15:40+0100\n"
-"PO-Revision-Date: 2014-07-15 15:40+0100\n"
+"POT-Creation-Date: 2014-07-15 16:43+0100\n"
+"PO-Revision-Date: 2014-07-15 16:43+0100\n"
 "Last-Translator: Daniel <daniell@aptivate.org>\n"
 "Language-Team: WebShopLogic\n"
 "Language: EN\n"
@@ -21,37 +21,42 @@ msgid "Server-Side Google Search"
 msgstr ""
 
 #: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:29
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:85
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:93
 msgid "General Settings"
 msgstr ""
 
 #: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:37
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:106
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:114
 msgid "Google Search API Key"
 msgstr ""
 
 #: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:45
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:90
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:98
 msgid "Google Search Engine ID"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:73
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:53
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:125
+msgid "Default Search Image URL"
+msgstr ""
+
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:81
 msgid "Server-Side Google Search by Aptivate, WebshopLogic"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:97
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:105
 msgid ""
 "Register to Google Custom Search Engine and get your Google Search Engine ID "
 "here: "
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:98
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:106
 msgid ""
 "You will get a Google Search Engine ID like this: "
 "012345678901234567890:0ijk_a1bcde"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:99
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-admin-page.php:107
 msgid "Enter this Google Search Engine ID here."
 msgstr ""
 
@@ -63,40 +68,40 @@ msgstr ""
 msgid "An error was encountered while performing the requested search"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:109
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:108
 msgid "Sorry, there were no results"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:118
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:117
 msgid "Search for"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:120
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:119
 #, php-format
 msgid "Displaying %d items from around %d matches"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:126
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:125
 msgid "Sort"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:126
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:125
 msgid "Relevance"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:127
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:126
 msgid "Date"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:148
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:147
 msgid "more"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:171
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:170
 msgid "Previous"
 msgstr ""
 
-#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:179
+#: /home/daniell/git/cdknwebsite/wp-content/plugins/serverside-google-search/ssgs-widget.php:178
 msgid "Next"
 msgstr ""
 
