@@ -8,8 +8,6 @@ class SSGS_Admin_Page {
 	}
 
 	function ssgs_admin_menu () {
-
-		//add_options_page( $page_title, $menu_title, $capability, $menu_slug, $function);
 		add_options_page( __('Server-Side Google Search','ssgs'),__('Server-Side Google Search','ssgs')
 			,'manage_options','wp-google-search', array($this, 'add_options_page_callback' ));
 	}
@@ -85,9 +83,6 @@ class SSGS_Admin_Page {
 
 					?>
 					<h3><?php _e('General Settings','ssgs') ?></h3>
-					<?php
-					//echo __('Enter your settings below','ssgs') . ':'
-					?>
 
 					<table class="form-table">
 
@@ -146,9 +141,4 @@ class SSGS_Admin_Page {
 
 		return $input;
 	}
-
-	//delete ssgs options
-	//delete from em_options where option_name like 'ssgs_gen%'
-
-
 }
