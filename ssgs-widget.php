@@ -95,7 +95,7 @@ class SSGS_Widget extends WP_Widget {
 
 		if ($request === FALSE) {
 			// API call failed, display message to user
-			return '<p><strong>' . __('An error was encountered while performing the requested search') . '</strong></p>'."\n";
+			return '<p><strong>' . __('An error was encountered while performing the requested search', 'ssgs') . '</strong></p>'."\n";
 		}
 
 		// Decode json object(s) out of response from Google Ajax Search API
@@ -106,7 +106,7 @@ class SSGS_Widget extends WP_Widget {
 
 		if ($totalItems <= 0) {
 			// Empty results, display message to user
-			$content = '<p><strong>' . __('Sorry, there were no results') ."</strong></p>\n";
+			$content = '<p><strong>' . __('Sorry, there were no results', 'ssgs') ."</strong></p>\n";
 	    }
 		else {
 			// Make sure some results were returned, show results as html with result numbering and pagination
@@ -115,16 +115,16 @@ class SSGS_Widget extends WP_Widget {
 			$all_url = $search_url . $q;
 			$results_displayed = count($result['items']);
 
-			$content = '<h2 class="ssgs_result_page_title">' . __('Search for'). ' <strong>' .
-				urldecode($q) . "</strong> " .
-                sprintf(__('(Displaying %d items from around %d matches)'), $results_displayed, $totalItems) . " </h2>" .
+			$content = '<h2 class="ssgs_result_page_title">' . __('Search for', 'ssgs'). ' <strong>'.
+				urldecode($q) . "</strong> (" .
+                sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
 
 			$relevance_url = $search_url . $q;
 			$date_url = $search_url . $q . '&amp;sort=date';
 			$content .= '<p class="facet-filter facet">' .
-				"<span class='facet-heading'>Sort</span><a class='facet-link facet' href='$relevance_url'>Relevance</a>
-                <a class='facet-link facet' href='$date_url'>Date</a>
+				"<span class='facet-heading'>" . __('Sort', 'ssgs') . "</span><a class='facet-link facet' href='$relevance_url'>" . __('Relevance', 'ssgs'). "</a>
+                <a class='facet-link facet' href='$date_url'>" . __('Date', 'ssgs') . "</a>
                 </p>";
 
 			$content .= '<ul class="ssgs_result_list">';
@@ -145,7 +145,7 @@ class SSGS_Widget extends WP_Widget {
 			              $item['htmlFormattedUrl'] .
 			              '<br />' .
 			              $item['htmlSnippet'] .
-			              '<a class="expand" href="' . $link . '">[' . __('more') . ']</a>
+			              '<a class="expand" href="' . $link . '">[' . __('more', 'ssgs') . ']</a>
 					  </p>
 		          </div>
 	          </li>';
@@ -168,7 +168,7 @@ class SSGS_Widget extends WP_Widget {
 					if (!is_null($facet)) {
 						$previous_link .= "&amp;facet=$facet";
 					}
-					$content .= "<li><a href='$previous_link'>" . __("Previous") . "</a></li>";
+					$content .= "<li><a href='$previous_link'>" . __("Previous", 'ssgs') . "</a></li>";
 				}
 
 				if (!is_null($next)) {
@@ -176,7 +176,7 @@ class SSGS_Widget extends WP_Widget {
 					if (!is_null($facet)) {
 						$next_link .= "&amp;facet=$facet";
 					}
-					$content .= "<li><a href='$next_link'>" . __("Next") . "</a></li>";
+					$content .= "<li><a href='$next_link'>" . __("Next", 'ssgs') . "</a></li>";
 				}
 
 				$content .= "</ul>";
