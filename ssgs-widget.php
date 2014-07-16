@@ -128,14 +128,24 @@ class SSGS_Widget extends WP_Widget {
 
 			$content .= '<ul class="ssgs_result_list">';
 
-                        $options = get_option('ssgs_general_settings');
+            $options = get_option('ssgs_general_settings');
 
 			foreach ($result['items'] as $item) {
 				$link = rawurldecode($item['link']);
 
-				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
-					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : $options['default_search_image_url']));
-
+				if (isset($item['pagemap']['metatags'][0]['thumbnailurl'])) {
+					$thumbnail = $item['pagemap']['metatags'][0]['thumbnailurl'];
+				}
+				elseif(isset($item['pagemap']['cse_thumbnail'][0]['src'])) {
+					$thumbnail = $item['pagemap']['cse_thumbnail'][0]['src'];
+				}
+				elseif(isset($item['pagemap']['cse_image'][0]['src'])) {
+					$thumbnail = $item['pagemap']['cse_image'][0]['src']; 				
+				}
+				else {
+					$thumbnail = $options['default_search_image_url'];
+				}
+				
 				$content .= '<li class="ssgs_search_result_item">
 		          <div class="ssgs_result_header">
 			          <a href="' . $link . '"><img class="ssgs_result_thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img></a>
