@@ -128,11 +128,13 @@ class SSGS_Widget extends WP_Widget {
 
 			$content .= '<ul class="ssgs_result_list">';
 
+                        $options = get_option('ssgs_general_settings');
+
 			foreach ($result['items'] as $item) {
 				$link = rawurldecode($item['link']);
 
 				$thumbnail = isset($item['pagemap']['metatags'][0]['thumbnailurl']) ?               $item['pagemap']['metatags'][0]['thumbnailurl'] :
-					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : get_option('ssgs_general_settings')['default_search_image_url']));
+					(isset($item['pagemap']['cse_thumbnail'][0]['src']) ? $item['pagemap']['cse_thumbnail'][0]['src'] : (isset($item['pagemap']['cse_image'][0]['src']) ? $item['pagemap']['cse_image'][0]['src'] : $options['default_search_image_url']));
 
 				$content .= '<li class="ssgs_search_result_item">
 		          <div class="ssgs_result_header">
@@ -157,7 +159,7 @@ class SSGS_Widget extends WP_Widget {
 
 			// Calculate new start value for "next" link
 			$next = (($start + $recordsPerPage) <= $totalItems) ? ($start + $recordsPerPage) : null;
-			
+
 
 			// Display previous and next links if applicable
 			if (!is_null($previous) || !is_null($next)) {
