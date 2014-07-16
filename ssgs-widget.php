@@ -115,7 +115,7 @@ class SSGS_Widget extends WP_Widget {
 			$results_displayed = count($result['items']);
 
 			$content = '<h2 class="ssgs_result_page_title">' . __('Search for', 'ssgs'). ' <strong>'.
-				urldecode($q) . "</strong> (" .
+				stripslashes(urldecode($q)) . "</strong> (" .
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
 
