@@ -118,7 +118,7 @@ class SSGS_Widget extends WP_Widget {
 				stripslashes(urldecode($q)) . "</strong> (" .
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
-			if(in_array('loclang', array_keys($_GET))) {
+			if(in_array('loclang', array_keys($_GET)) && strpos($search_url, 'loclang') === false) {
 				$loclang = "&amp;loclang={$_GET['loclang']}";
 			} else {
 				$loclang = "";
