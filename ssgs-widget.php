@@ -118,9 +118,13 @@ class SSGS_Widget extends WP_Widget {
 				stripslashes(urldecode($q)) . "</strong> (" .
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
-
-			$relevance_url = $search_url . $q . "&amp;type=google";
-			$date_url = $search_url . $q . '&amp;sort=date&amp;type=google';
+			if(in_array('loclang', array_keys($_GET))) {
+				$loclang = "&amp;loclang={$_GET['loclang']}";
+			} else {
+				$loclang = "";
+			}
+			$relevance_url = $search_url . $q . "&amp;type=google$loclang";
+			$date_url = $search_url . $q . "&amp;sort=date&amp;type=google$loclang";
 			$content .= '<p class="facet-filter facet">' .
 				"<span class='facet-heading'>" . __('Sort', 'ssgs') . "</span><a class='facet-link facet' href='$relevance_url'>" . __('Relevance', 'ssgs'). "</a>
                 <a class='facet-link facet' href='$date_url'>" . __('Date', 'ssgs') . "</a>
