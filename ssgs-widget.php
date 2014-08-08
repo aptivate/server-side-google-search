@@ -119,8 +119,8 @@ class SSGS_Widget extends WP_Widget {
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
 
-			$relevance_url = $search_url . $q;
-			$date_url = $search_url . $q . '&amp;sort=date';
+			$relevance_url = $search_url . $q . "&amp;type=google";
+			$date_url = $search_url . $q . '&amp;sort=date&amp;type=google';
 			$content .= '<p class="facet-filter facet">' .
 				"<span class='facet-heading'>" . __('Sort', 'ssgs') . "</span><a class='facet-link facet' href='$relevance_url'>" . __('Relevance', 'ssgs'). "</a>
                 <a class='facet-link facet' href='$date_url'>" . __('Date', 'ssgs') . "</a>
