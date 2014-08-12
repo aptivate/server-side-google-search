@@ -125,10 +125,23 @@ class SSGS_Widget extends WP_Widget {
 			}
 			$relevance_url = $search_url . $q . "&amp;type=google$loclang";
 			$date_url = $search_url . $q . "&amp;sort=date&amp;type=google$loclang";
-			$content .= '<p class="facet-filter facet">' .
-				"<span class='facet-heading'>" . __('Sort', 'ssgs') . "</span><a class='facet-link facet' href='$relevance_url'>" . __('Relevance', 'ssgs'). "</a>
-                <a class='facet-link facet' href='$date_url'>" . __('Date', 'ssgs') . "</a>
-                </p>";
+
+			$date_classes = array('ssgs_results_sort_date');
+			$relevance_classes = array('ssgs_results_sort_relevance');
+
+			if ($sort == 'date') {
+				$date_classes[] = 'selected';
+			} else {
+				$relevance_classes[] = 'selected';
+			}
+
+			$date_classes = implode(' ', $date_classes);
+			$relevance_classes = implode(' ', $relevance_classes);
+
+			$content .= '<ul class="facet-filter facet">' .
+				"<li class='$relevance_classes'><span class='facet-heading'>" . __('Sort', 'ssgs') . "</span><a class='facet-link facet' href='$relevance_url'>" . __('Relevance', 'ssgs'). "</a></li>
+                <li class='$date_classes'><a class='facet-link facet' href='$date_url'>" . __('Date', 'ssgs') . "</a></li>
+                </ul>";
 
 			$content .= '<ul class="ssgs_result_list">';
 
@@ -144,12 +157,12 @@ class SSGS_Widget extends WP_Widget {
 					$thumbnail = $item['pagemap']['cse_thumbnail'][0]['src'];
 				}
 				elseif(isset($item['pagemap']['cse_image'][0]['src'])) {
-					$thumbnail = $item['pagemap']['cse_image'][0]['src']; 				
+					$thumbnail = $item['pagemap']['cse_image'][0]['src'];
 				}
 				else {
 					$thumbnail = $options['default_search_image_url'];
 				}
-				
+
 				$content .= '<li class="ssgs_search_result_item">
 		          <div class="ssgs_result_header">
 			          <a href="' . $link . '"><img class="ssgs_result_thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img></a>

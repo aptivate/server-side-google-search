@@ -64,3 +64,17 @@
     font-weight: bold;
     padding: 1em;
 }
+
+.facet-filter > li {
+    display:inline;
+}
+
+.facet-filter > li > a {
+    background-color: #eee;
+    font-weight: bold;
+    padding: 0.6em 1em;
+}
+.facet-filter > li.selected > a {
+    background-color: #555;
+    color: #fff;
+}
