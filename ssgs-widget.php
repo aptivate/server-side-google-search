@@ -108,9 +108,12 @@ class SSGS_Widget extends WP_Widget {
 			$content = '<p><strong>' . __('Sorry, there were no results', 'ssgs') ."</strong></p>\n";
 	    }
 		else {
-			// Make sure some results were returned, show results as html with result numbering and pagination
+			// The free version of Google Custom Search only allows 100 results to be returned
+			if ($totalItems > 100) {
+				$totalItems = 100;
+			}
 
-			$parsed_url = parse_url(home_url(add_query_arg(array(),$wp->request)));
+			// Make sure some results were returned, show results as html with result numbering and pagination
 
 			$results_displayed = count($result['items']);
 
@@ -119,10 +122,8 @@ class SSGS_Widget extends WP_Widget {
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
 
-			$relevance_url = $this->build_href($parsed_url, array(
-				'sort' => ''));
-			$date_url = $this->build_href($parsed_url, array(
-				'sort' => 'date'));
+			$relevance_url = $this->build_href(array('sort' => ''));
+			$date_url = $this->build_href(array('sort' => 'date'));
 
 			$date_classes = array('ssgs_results_sort_date');
 			$relevance_classes = array('ssgs_results_sort_relevance');
@@ -187,21 +188,23 @@ class SSGS_Widget extends WP_Widget {
 
 			// Display previous and next links if applicable
 			if (!is_null($previous) || !is_null($next)) {
-				$content .= '<ul class="pages">';
+				$content .= '<ul class="ssgs-pages">';
 				if (!is_null($previous)) {
-					$previous_link = $this->build_href($parsed_url, array(
+					$previous_link = $this->build_href(array(
 						'totalItems' => $totalItems,
 					    'start' => $previous));
 
-					$content .= "<li><a href='$previous_link'>" . __("Previous", 'ssgs') . "</a></li>";
+					$content .= "<li><a class='ssgs-page' href='$previous_link'>" . __("Previous", 'ssgs') . "</a></li>";
 				}
 
+				$content .= $this->get_pages($start, $totalItems, $recordsPerPage);
+
 				if (!is_null($next)) {
-					$next_link = $this->build_href($parsed_url, array(
+					$next_link = $this->build_href(array(
 						'totalItems' => $totalItems,
 						'start' => $next));
 
-					$content .= "<li><a href='$next_link'>" . __("Next", 'ssgs') . "</a></li>";
+					$content .= "<li><a class='ssgs-page' href='$next_link'>" . __("Next", 'ssgs') . "</a></li>";
 				}
 
 				$content .= "</ul>";
@@ -212,6 +215,36 @@ class SSGS_Widget extends WP_Widget {
 
 	return $content;
     }
+
+	function get_pages($current_start, $total_items, $records_per_page) {
+		$pages = '';
+
+		$start = 1;
+
+		$page_index = 1;
+		while ($start < $total_items) {
+			if ($start == $current_start) {
+				$page_link = "<span class='ssgs-page'>$page_index</span>";
+			} else {
+				$page_link = $this->get_page_link($page_index, $start, $total_items);
+			}
+
+			$pages .= "<li>$page_link</li>";
+
+			$start += $records_per_page;
+			$page_index ++;
+		}
+
+		return $pages;
+	}
+
+	function get_page_link($page_index, $start, $total_items) {
+		$href = $this->build_href(array(
+			'totalItems' => $total_items,
+			'start' => $start));
+
+		return "<a class='ssgs-page' href='$href'>$page_index</a>";
+	}
 
     function update($new_instance, $old_instance) {
         $instance = array();
@@ -229,7 +262,11 @@ class SSGS_Widget extends WP_Widget {
 	));
     }
 
-	function build_href($parsed_url, $query_args=array()) {
+	function build_href($query_args=array()) {
+		global $wp;
+
+		$parsed_url = parse_url(home_url(add_query_arg(array(),$wp->request)));
+
 		return htmlentities($this->build_url($parsed_url, $query_args));
 	}
 

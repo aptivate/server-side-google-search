@@ -56,7 +56,7 @@
 	color:#eb661a;
 }
 
-.pages {
+.ssgs-pages {
     background-color: #eee;
     clear: both;
     display: block;
@@ -65,8 +65,15 @@
     padding: 1em;
 }
 
-.facet-filter > li {
+.facet-filter > li,
+
+.ssgs-pages > li {
     display:inline;
+}
+
+.ssgs-page {
+    padding: 0.3em 0.75em;
+    margin-right: 0.5em;
 }
 
 .facet-filter > li > a {
@@ -74,6 +81,7 @@
     font-weight: bold;
     padding: 0.6em 1em;
 }
+
 .facet-filter > li.selected > a {
     background-color: #555;
     color: #fff;
