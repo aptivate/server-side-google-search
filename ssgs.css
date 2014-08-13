@@ -22,7 +22,7 @@
     padding: 0.25em 1em;
 }
 
-.ssgs_search_result_item {
+.ssgs-search-result-item {
     display: block;
     float: left;
     margin-bottom: 1em;
@@ -31,7 +31,7 @@
     width: 100%;
 }
 
-.ssgs_result_thumbnail {
+.ssgs-result-thumbnail {
     float: left;
     left: 0;
     position: absolute;
@@ -39,20 +39,20 @@
     z-index: 1;
 }
 
-.ssgs_result_title {
+.ssgs-result-title {
 	margin-bottom:0.5em;
 }
 
-.ssgs_result_title > a {
+.ssgs-result-title > a {
 	color:#333;
 	font-weight:bold;
 }
 
-.ssgs_result_description > b {
+.ssgs-result-description > b {
 	color:#c7391a;
 }
 
-.ssgs_result_title > a:hover {
+.ssgs-result-title > a:hover {
 	color:#eb661a;
 }
 

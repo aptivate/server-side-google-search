@@ -11,7 +11,7 @@ class SSGS_Widget extends WP_Widget {
 
         echo $args['before_widget'];
 
-        $content  = '<div class="ssgs_result_wrapper">';
+        $content  = '<div class="ssgs-result-wrapper">';
         $content .= $this->get_search_results();
         $content .= '</div>';
 
@@ -117,7 +117,7 @@ class SSGS_Widget extends WP_Widget {
 
 			$results_displayed = count($result['items']);
 
-			$content = '<h2 class="ssgs_result_page_title">' . __('Search for', 'ssgs'). ' <strong>'.
+			$content = '<h2 class="ssgs-result-page-title">' . __('Search for', 'ssgs'). ' <strong>'.
 				stripslashes(urldecode($q)) . "</strong> (" .
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
@@ -142,7 +142,7 @@ class SSGS_Widget extends WP_Widget {
                 <li class='$date_classes'><a class='facet-link facet' href='$date_url'>" . __('Date', 'ssgs') . "</a></li>
                 </ul>";
 
-			$content .= '<ul class="ssgs_result_list">';
+			$content .= '<ul class="ssgs-result-list">';
 
             $options = get_option('ssgs_general_settings');
 
@@ -162,13 +162,13 @@ class SSGS_Widget extends WP_Widget {
 					$thumbnail = $options['default_search_image_url'];
 				}
 
-				$content .= '<li class="ssgs_search_result_item">
-		          <div class="ssgs_result_header">
-			          <a href="' . $link . '"><img class="ssgs_result_thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img></a>
-			          <h3 class="ssgs_result_title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
+				$content .= '<li class="ssgs-search-result-item">
+		          <div class="ssgs-result-header">
+			          <a href="' . $link . '"><img class="ssgs-result-thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img></a>
+			          <h3 class="ssgs-result-title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
 		          </div>
-		          <div class="ssgs_result_content">
-			          <p class="ssgs_result_description">' .
+		          <div class="ssgs-result-content">
+			          <p class="ssgs-result-description">' .
 			              $item['htmlFormattedUrl'] .
 			              '<br />' .
 			              $item['htmlSnippet'] .
