@@ -110,21 +110,24 @@ class SSGS_Widget extends WP_Widget {
 		else {
 			// Make sure some results were returned, show results as html with result numbering and pagination
 
-			$search_url = 'index.php?s=';
-			$all_url = $search_url . $q;
+			$parsed_url = parse_url($_SERVER['REQUEST_URI']);
+
 			$results_displayed = count($result['items']);
 
 			$content = '<h2 class="ssgs_result_page_title">' . __('Search for', 'ssgs'). ' <strong>'.
 				stripslashes(urldecode($q)) . "</strong> (" .
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
-			if(in_array('loclang', array_keys($_GET)) && strpos($search_url, 'loclang') === false) {
-				$loclang = "&amp;loclang={$_GET['loclang']}";
-			} else {
-				$loclang = "";
-			}
-			$relevance_url = $search_url . $q . "&amp;type=google$loclang";
-			$date_url = $search_url . $q . "&amp;sort=date&amp;type=google$loclang";
+
+			$query_args = $_GET;
+			$query_args['sort'] = '';
+			$parsed_url['query'] = http_build_query($query_args);
+			$relevance_url = $this->build_url($parsed_url);
+
+			$query_args = $_GET;
+			$query_args['sort'] = 'date';
+			$parsed_url['query'] = http_build_query($query_args);
+			$date_url = $this->build_url($parsed_url);
 
 			$date_classes = array('ssgs_results_sort_date');
 			$relevance_classes = array('ssgs_results_sort_relevance');
@@ -187,23 +190,26 @@ class SSGS_Widget extends WP_Widget {
 			// Calculate new start value for "next" link
 			$next = (($start + $recordsPerPage) <= $totalItems) ? ($start + $recordsPerPage) : null;
 
-
 			// Display previous and next links if applicable
 			if (!is_null($previous) || !is_null($next)) {
 				$content .= '<ul class="pages">';
 				if (!is_null($previous)) {
-					$previous_link = $search_url . $q . "&amp;totalItems=$totalItems&amp;start=$previous";
-					if (!is_null($facet)) {
-						$previous_link .= "&amp;facet=$facet";
-					}
+					$query_args = $_GET;
+					$query_args['totalItems'] = $totalItems;
+					$query_args['start'] = $previous;
+					$parsed_url['query'] = http_build_query($query_args);
+					$previous_link = $this->build_url($parsed_url);
+
 					$content .= "<li><a href='$previous_link'>" . __("Previous", 'ssgs') . "</a></li>";
 				}
 
 				if (!is_null($next)) {
-					$next_link = $search_url . $q . "&amp;totalItems={$totalItems}&amp;start={$next}";
-					if (!is_null($facet)) {
-						$next_link .= "&amp;facet=$facet";
-					}
+					$query_args = $_GET;
+					$query_args['totalItems'] = $totalItems;
+					$query_args['start'] = $next;
+					$parsed_url['query'] = http_build_query($query_args);
+					$next_link = $this->build_url($parsed_url);
+
 					$content .= "<li><a href='$next_link'>" . __("Next", 'ssgs') . "</a></li>";
 				}
 
@@ -215,7 +221,6 @@ class SSGS_Widget extends WP_Widget {
 
 	return $content;
     }
-
 
     function update($new_instance, $old_instance) {
         $instance = array();
@@ -232,6 +237,21 @@ class SSGS_Widget extends WP_Widget {
             'promote' => 0
 	));
     }
+
+	// http://php.net/manual/en/function.parse-url.php
+	function build_url($parsed_url) {
+		$scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
+		$host     = isset($parsed_url['host']) ? $parsed_url['host'] : '';
+		$port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
+		$user     = isset($parsed_url['user']) ? $parsed_url['user'] : '';
+		$pass     = isset($parsed_url['pass']) ? ':' . $parsed_url['pass']  : '';
+		$pass     = ($user || $pass) ? "$pass@" : '';
+		$path     = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+		$query    = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : '';
+		$fragment = isset($parsed_url['fragment']) ? '#' . $parsed_url['fragment'] : '';
+
+		return "$scheme$user$pass$host$port$path$query$fragment";
+	}
 }
 
 function ssgs_widget_init() {
