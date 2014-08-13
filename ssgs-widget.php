@@ -119,15 +119,10 @@ class SSGS_Widget extends WP_Widget {
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
 
-			$query_args = $_GET;
-			$query_args['sort'] = '';
-			$parsed_url['query'] = http_build_query($query_args);
-			$relevance_url = $this->build_url($parsed_url);
-
-			$query_args = $_GET;
-			$query_args['sort'] = 'date';
-			$parsed_url['query'] = http_build_query($query_args);
-			$date_url = $this->build_url($parsed_url);
+			$relevance_url = $this->build_url($parsed_url, array(
+				'sort' => ''));
+			$date_url = $this->build_url($parsed_url, array(
+				'sort' => 'date'));
 
 			$date_classes = array('ssgs_results_sort_date');
 			$relevance_classes = array('ssgs_results_sort_relevance');
@@ -194,21 +189,17 @@ class SSGS_Widget extends WP_Widget {
 			if (!is_null($previous) || !is_null($next)) {
 				$content .= '<ul class="pages">';
 				if (!is_null($previous)) {
-					$query_args = $_GET;
-					$query_args['totalItems'] = $totalItems;
-					$query_args['start'] = $previous;
-					$parsed_url['query'] = http_build_query($query_args);
-					$previous_link = $this->build_url($parsed_url);
+					$previous_link = $this->build_url($parsed_url, array(
+						'totalItems' => $totalItems,
+					    'start' => $previous));
 
 					$content .= "<li><a href='$previous_link'>" . __("Previous", 'ssgs') . "</a></li>";
 				}
 
 				if (!is_null($next)) {
-					$query_args = $_GET;
-					$query_args['totalItems'] = $totalItems;
-					$query_args['start'] = $next;
-					$parsed_url['query'] = http_build_query($query_args);
-					$next_link = $this->build_url($parsed_url);
+					$next_link = $this->build_url($parsed_url, array(
+						'totalItems' => $totalItems,
+						'start' => $next));
 
 					$content .= "<li><a href='$next_link'>" . __("Next", 'ssgs') . "</a></li>";
 				}
@@ -239,7 +230,9 @@ class SSGS_Widget extends WP_Widget {
     }
 
 	// http://php.net/manual/en/function.parse-url.php
-	function build_url($parsed_url) {
+	function build_url($parsed_url, $query_args=array()) {
+		$parsed_url['query'] = http_build_query(array_merge($_GET, $query_args));
+
 		$scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
 		$host     = isset($parsed_url['host']) ? $parsed_url['host'] : '';
 		$port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
