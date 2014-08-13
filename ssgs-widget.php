@@ -119,9 +119,9 @@ class SSGS_Widget extends WP_Widget {
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
 				'<div class="result-facet">';
 
-			$relevance_url = $this->build_url($parsed_url, array(
+			$relevance_url = $this->build_href($parsed_url, array(
 				'sort' => ''));
-			$date_url = $this->build_url($parsed_url, array(
+			$date_url = $this->build_href($parsed_url, array(
 				'sort' => 'date'));
 
 			$date_classes = array('ssgs_results_sort_date');
@@ -189,7 +189,7 @@ class SSGS_Widget extends WP_Widget {
 			if (!is_null($previous) || !is_null($next)) {
 				$content .= '<ul class="pages">';
 				if (!is_null($previous)) {
-					$previous_link = $this->build_url($parsed_url, array(
+					$previous_link = $this->build_href($parsed_url, array(
 						'totalItems' => $totalItems,
 					    'start' => $previous));
 
@@ -197,7 +197,7 @@ class SSGS_Widget extends WP_Widget {
 				}
 
 				if (!is_null($next)) {
-					$next_link = $this->build_url($parsed_url, array(
+					$next_link = $this->build_href($parsed_url, array(
 						'totalItems' => $totalItems,
 						'start' => $next));
 
@@ -228,6 +228,10 @@ class SSGS_Widget extends WP_Widget {
             'promote' => 0
 	));
     }
+
+	function build_href($parsed_url, $query_args=array()) {
+		return htmlentities($this->build_url($parsed_url, $query_args));
+	}
 
 	// http://php.net/manual/en/function.parse-url.php
 	function build_url($parsed_url, $query_args=array()) {
