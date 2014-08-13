@@ -110,7 +110,7 @@ class SSGS_Widget extends WP_Widget {
 		else {
 			// Make sure some results were returned, show results as html with result numbering and pagination
 
-			$parsed_url = parse_url($_SERVER['REQUEST_URI']);
+			$parsed_url = parse_url(home_url(add_query_arg(array(),$wp->request)));
 
 			$results_displayed = count($result['items']);
 
