@@ -171,6 +171,8 @@ class SSGS_Widget extends WP_Widget {
 			          <p class="ssgs-result-description">' .
 			              $item['htmlFormattedUrl'] .
 			              '<br />' .
+			              $item['metatags-modified_date'] .
+			              '<br />' .
 			              $item['htmlSnippet'] .
 			              '<a class="expand" href="' . $link . '">[' . __('more', 'ssgs') . ']</a>
 					  </p>
