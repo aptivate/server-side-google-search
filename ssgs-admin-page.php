@@ -31,6 +31,13 @@ class SSGS_Admin_Page {
 			'ssgs_general_settings' // Page / tab page
 		);
 
+        add_settings_field(
+            'edition', // ID
+            __('Edition', 'ssgs'),
+            array($this, 'posttype_callback'),
+            'ssgs_general_settings', // Page / tab page
+			'ssgs_general_section' // Section
+        );
 
 		add_settings_field(
 			'google_search_api_key', // ID
@@ -62,10 +69,12 @@ class SSGS_Admin_Page {
 
 		$options = get_option( 'ssgs_general_settings' );
 
-		$options = wp_parse_args( $options, array(
-                        'google_search_api_key' => '',
-			'google_search_engine_id' => '',
-		) );
+		$options = wp_parse_args( $options,
+                                  array(
+                                      'google_search_api_key' => '',
+                                      'google_search_engine_id' => '',
+                                      'edition' => 'free',
+                                      ) );
 
 		update_option( 'ssgs_general_settings', $options );
 
@@ -93,6 +102,37 @@ class SSGS_Admin_Page {
 					<h3><?php _e('General Settings','ssgs') ?></h3>
 
 					<table class="form-table">
+						<tr valign="top">
+							<th scope="row"><?php echo __('Edition','ssgs') . ':' ?></th>
+							<td>
+								<?php
+						        echo(
+						            '<select id="edition" name="ssgs_general_settings[edition]">'
+						        );
+
+                                $edition_options = array(
+                                    'free' => __('Free'),
+                                    'paid' => __('Paid'),
+                                );
+
+                                foreach($edition_options as $value => $text) {
+						            if ( esc_attr( $options['edition'] ) == $value) {
+                                        $selected = ' selected';
+                                    }
+                                    else {
+                                        $selected = '';
+                                    }
+
+                                    echo("<option value='$value'$selected>$text</option>");
+                                }
+
+                                echo('</select>');
+
+								echo '<br /><span class="description">' . __('The free edition of Google Search is limited to 100 results per search and 100 searches per day', 'ssgs')
+							    ?>
+							</td>
+						</tr>
+
 
 						<tr valign="top">
 							<th scope="row"><?php echo __('Google Search Engine ID','ssgs') . ':' ?></th>
