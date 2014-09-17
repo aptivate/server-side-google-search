@@ -1,24 +1,12 @@
 /* Results page styles */
 
-.facet {
-    background: none repeat scroll 0 0 #eee;
-    list-style-type: none;
-    margin: 0 0 2em;
-    padding: 1em;
-}
-
-.facet-heading {
-    font-size: 1.4em;
+.ssgs-facet-heading {
     font-weight: bold;
     margin-right: 1em;
 }
 
-.facet-link.facet {
-    background-color: #f2f2f2;
-    border: medium none;
-    font-size: 1.4em;
+.ssgs-facet-link {
     font-weight: bold;
-    margin: 0 0.5em;
     padding: 0.25em 1em;
 }
 
@@ -64,8 +52,7 @@
     padding: 1em;
 }
 
-.facet-filter > li,
-
+.ssgs-facet-filter > li,
 .ssgs-pages > li {
     display:inline;
 }
@@ -75,13 +62,27 @@
     margin-right: 0.5em;
 }
 
-.facet-filter > li > a {
+.ssgs-facet-filter {
+    font-size: 1.3em;
+    list-style-type: none;
+	margin-top: 0.6em;
+	margin-bottom: 0.6em;
+    padding: 0;
+}
+
+.ssgs-facet-filter > li > a {
     background-color: #eee;
     font-weight: bold;
     padding: 0.6em 1em;
 }
 
-.facet-filter > li.selected > a {
+.ssgs-facet-filter > li.selected > a {
     background-color: #555;
     color: #fff;
+}
+
+.ssgs-result-list {
+	border-top: 3px solid #555;
+	float:left;
+	padding-top:2em;
 }

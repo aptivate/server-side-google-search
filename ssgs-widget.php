@@ -122,13 +122,13 @@ class SSGS_Widget extends WP_Widget {
 			$content = '<h2 class="ssgs-result-page-title">' . __('Search for', 'ssgs'). ' <strong>'.
 				stripslashes(urldecode($q)) . "</strong> (" .
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
-				'<div class="result-facet">';
+				'<div class="ssgs-result-facet">';
 
 			$relevance_url = $this->build_href(array('sort' => ''));
 			$date_url = $this->build_href(array('sort' => 'date'));
 
-			$date_classes = array('ssgs_results_sort_date');
-			$relevance_classes = array('ssgs_results_sort_relevance');
+			$date_classes = array('ssgs-results-sort-date');
+			$relevance_classes = array('ssgs-results-sort-relevance');
 
 			if ($sort == 'date') {
 				$date_classes[] = 'selected';
@@ -139,9 +139,10 @@ class SSGS_Widget extends WP_Widget {
 			$date_classes = implode(' ', $date_classes);
 			$relevance_classes = implode(' ', $relevance_classes);
 
-			$content .= '<ul class="facet-filter facet">' .
-				"<li class='$relevance_classes'><span class='facet-heading'>" . __('Sort', 'ssgs') . "</span><a class='facet-link facet' href='$relevance_url'>" . __('Relevance', 'ssgs'). "</a></li>
-                <li class='$date_classes'><a class='facet-link facet' href='$date_url'>" . __('Date', 'ssgs') . "</a></li>
+			$content .= '<ul class="ssgs-facet-filter">' .
+                "<span class='ssgs-facet-heading'>" . __('Sort', 'ssgs') . "</span>
+				<li class='$relevance_classes'><a class='ssgs-facet-link' href='$relevance_url'>" . __('Relevance', 'ssgs'). "</a></li>
+                <li class='$date_classes'><a class='ssgs-facet-link' href='$date_url'>" . __('Date', 'ssgs') . "</a></li>
                 </ul>";
 
 			$content .= '<ul class="ssgs-result-list">';
@@ -174,7 +175,7 @@ class SSGS_Widget extends WP_Widget {
 			              $item['metatags-modified_date'] .
 			              '<br />' .
 			              $item['htmlSnippet'] .
-			              '<a class="expand" href="' . $link . '">[' . __('more', 'ssgs') . ']</a>
+			              '<a class="ssgs-expand" href="' . $link . '">[' . __('more', 'ssgs') . ']</a>
 					  </p>
 		          </div>
 	          </li>';
