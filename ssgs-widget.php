@@ -119,9 +119,11 @@ class SSGS_Widget extends WP_Widget {
 
 			$results_displayed = count($result['items']);
 
-			$content = '<h2 class="ssgs-result-page-title">' . __('Search for', 'ssgs'). ' <strong>'.
-				stripslashes(urldecode($q)) . "</strong> (" .
-                sprintf(__('Displaying %d items from around %d matches', 'ssgs'), $results_displayed, $totalItems) . ") </h2>" .
+			$content = '<h2 class="ssgs-result-page-title">' . __('Search for', 'ssgs').
+				' <strong>' . stripslashes(urldecode($q)) . '</strong></h2>' .
+				'<div class="ssgs-results-info">' .
+                sprintf(__('Displaying %d items from around %d matches', 'ssgs'),
+					$results_displayed, $totalItems) . '</div>' .
 				'<div class="ssgs-result-facet">';
 
 			$relevance_url = $this->build_href(array('sort' => ''));
