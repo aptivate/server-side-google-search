@@ -37,7 +37,7 @@ class SS_Google_Search {
 		$ssgs_admin_page = new SSGS_Admin_Page;
 
 		$deps = array();
-		$css_version = 1;
+		$css_version = 2;
 		wp_enqueue_style( 'ssgs', plugins_url('ssgs.css', __FILE__), $deps, $css_version );
 
 		do_action( 'ssgs_init', $this );
