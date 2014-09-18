@@ -27,62 +27,65 @@
 }
 
 .ssgs-result-title {
-	margin-bottom:0.5em;
+	margin-bottom: 0.5em;
 }
 
 .ssgs-result-title > a {
 	color:#333;
-	font-weight:bold;
+	font-weight: bold;
 }
 
 .ssgs-result-description > b {
 	color:#c7391a;
 }
 
-.ssgs-result-title > a:hover {
+.ssgs-result-title > a: hover {
 	color:#eb661a;
 }
 
 .ssgs-pages {
-    background-color: #eee;
     clear: both;
     display: block;
-    font-size: 1.4em;
+    font-size: 1.3em;
     font-weight: bold;
-    padding: 1em;
 }
 
 .ssgs-numbers {
-	display:inline-block;
-	width:70%;
+	float: left;
+	display: inline-block;
+	width: 90%;
 }
 
 .ssgs-facet-filter > li,
 .ssgs-numbers > li {
-    display:inline-block;
+    display: inline-block;
 }
 
 .ssgs-numbers > li {
-	width:10%;
+	float: left;
+	text-align: center;
+	width: 10%;
 }
 
 .ssgs-prev,
 .ssgs-next {
-	font-size:2em;
+	display: inline-block;
+	font-size: 2em;
+	float: left;
+	width: 5%;
 }
 
 .ssgs-prev {
-	margin-right:0.5em;
+	text-align: left;
 }
 
 .ssgs-next {
-	margin-left:0.5em;
+	text-align: right;
 }
 
-
 .ssgs-page {
-    padding: 0.3em 0.75em;
-    margin-right: 0.5em;
+    padding: 0.3em 20%;
+	margin: auto 0;
 }
 
 .ssgs-facet-filter {
@@ -106,11 +109,11 @@
 
 .ssgs-result-list {
 	border-top: 3px solid #555;
-	float:left;
-	padding-top:2em;
+	float: left;
+	padding-top: 2em;
 }
 
 .ssgs-results-info {
-	font-size:1.3em;
-	margin-bottom:0.5em;
+	font-size: 1.3em;
+	margin-bottom: 0.5em;
 }
