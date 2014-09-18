@@ -13,6 +13,7 @@
 .ssgs-search-result-item {
     display: block;
     float: left;
+	clear: both;
     margin-bottom: 1em;
     padding-left: 80px;
     position: relative;
