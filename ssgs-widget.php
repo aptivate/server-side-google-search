@@ -102,8 +102,8 @@ class SSGS_Widget extends WP_Widget {
 		$result = json_decode($request, true);
 
 		// Get values in json data for number of search results returned
-		$totalItems = isset($_GET['totalItems']) ?  strip_tags((int)$_GET['totalItems']) : $result['queries']['request'][0]['totalResults'];
-		if ($totalItems <= 0) {
+		$total_items = isset($_GET['totalItems']) ?  strip_tags((int)$_GET['totalItems']) : $result['queries']['request'][0]['totalResults'];
+		if ($total_items <= 0) {
 			// Empty results, display message to user
 			$content = '<p><strong>' . __('Sorry, there were no results', 'ssgs') ."</strong></p>\n";
 	    }
@@ -111,8 +111,8 @@ class SSGS_Widget extends WP_Widget {
             $options = get_option('ssgs_general_settings');
 
 			// The free version of Google Custom Search only allows 100 results to be returned
-			if ($options['edition'] == 'free' && $totalItems > 100) {
-				$totalItems = 100;
+			if ($options['edition'] == 'free' && $total_items > 100) {
+				$total_items = 100;
 			}
 
 			// Make sure some results were returned, show results as html with result numbering and pagination
@@ -123,7 +123,7 @@ class SSGS_Widget extends WP_Widget {
 				' <strong>' . stripslashes(urldecode($q)) . '</strong></h2>' .
 				'<div class="ssgs-results-info">' .
                 sprintf(__('Displaying %d items from around %d matches', 'ssgs'),
-					$results_displayed, $totalItems) . '</div>' .
+					$results_displayed, $total_items) . '</div>' .
 				'<div class="ssgs-result-facet">';
 
 			$relevance_url = $this->build_href(array('sort' => ''));
@@ -189,24 +189,24 @@ class SSGS_Widget extends WP_Widget {
 			$previous = (!is_null($previous) && ($previous < 1)) ? 1 : $previous;
 
 			// Calculate new start value for "next" link
-			$next = (($start + $items_per_page) <= $totalItems) ? ($start + $items_per_page) : null;
+			$next = (($start + $items_per_page) <= $total_items) ? ($start + $items_per_page) : null;
 
 			// Display previous and next links if applicable
 			if (!is_null($previous) || !is_null($next)) {
 				$content .= '<ul class="ssgs-pages">';
 				if (!is_null($previous)) {
 					$previous_link = $this->build_href(array(
-						'totalItems' => $totalItems,
+						'totalItems' => $total_items,
 					    'start' => $previous));
 
 					$content .= "<li><a class='ssgs-page' href='$previous_link'>" . __("Previous", 'ssgs') . "</a></li>";
 				}
 
-				$content .= $this->get_pages($start, $totalItems, $items_per_page);
+				$content .= $this->get_pages($start, $total_items, $items_per_page);
 
 				if (!is_null($next)) {
 					$next_link = $this->build_href(array(
-						'totalItems' => $totalItems,
+						'totalItems' => $total_items,
 						'start' => $next));
 
 					$content .= "<li><a class='ssgs-page' href='$next_link'>" . __("Next", 'ssgs') . "</a></li>";
@@ -215,7 +215,7 @@ class SSGS_Widget extends WP_Widget {
 				$content .= "</ul>";
 			}
 
-        } // End else -- $totalItems <= 0
+        } // End else -- $total_items <= 0
 	} // End (!is_null($q))
 
 	return $content;
