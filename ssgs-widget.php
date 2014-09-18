@@ -193,26 +193,28 @@ class SSGS_Widget extends WP_Widget {
 
 			// Display previous and next links if applicable
 			if (!is_null($previous) || !is_null($next)) {
-				$content .= '<ul class="ssgs-pages">';
+				$content .= '<div class="ssgs-pages">';
 				if (!is_null($previous)) {
 					$previous_link = $this->build_href(array(
 						'totalItems' => $total_items,
 					    'start' => $previous));
 
-					$content .= "<li><a class='ssgs-page' href='$previous_link'>" . __("Previous", 'ssgs') . "</a></li>";
+					$content .= "<a class='ssgs-prev' href='$previous_link'>&laquo;</a>";
 				}
 
-				$content .= $this->get_pages($start, $total_items, $items_per_page);
+				$content .= '<ul class="ssgs-numbers">' .
+					$this->get_pages($start, $total_items, $items_per_page) .
+					'</ul>';
 
 				if (!is_null($next)) {
 					$next_link = $this->build_href(array(
 						'totalItems' => $total_items,
 						'start' => $next));
 
-					$content .= "<li><a class='ssgs-page' href='$next_link'>" . __("Next", 'ssgs') . "</a></li>";
+					$content .= "<a class='ssgs-next' href='$next_link'>&raquo;</a>";
 				}
 
-				$content .= "</ul>";
+				$content .= "</div>";
 			}
 
         } // End else -- $total_items <= 0
@@ -224,24 +226,39 @@ class SSGS_Widget extends WP_Widget {
 	function get_pages($current_start, $total_items, $items_per_page) {
 		$pages = '';
 
-		$start = 1;
+		$current_page = (int)($current_start / $items_per_page) + 1;
+		$total_pages = ceil($total_items / $items_per_page);
+		$page_numbers = $this->get_page_numbers($current_page, $total_pages);
 
-		$page_index = 1;
-		while ($start < $total_items) {
-			if ($start == $current_start) {
-				$page_link = "<span class='ssgs-page'>$page_index</span>";
+		foreach($page_numbers as $page_number) {
+			if ($page_number == $current_page) {
+				$page_link = "<span class='ssgs-page'>$page_number</span>";
 			} else {
-				$page_link = $this->get_page_link($page_index, $start, $total_items);
+				$start = ($page_number - 1) * $items_per_page + 1;
+
+				$page_link = $this->get_page_link(
+					$page_number, $start, $total_items);
 			}
 
 			$pages .= "<li>$page_link</li>";
-
-			$start += $items_per_page;
-			$page_index ++;
 		}
 
 		return $pages;
 	}
+
+	function get_page_numbers($current_page, $total_pages) {
+		$first_page = $current_page - 5;
+		if ($first_page < 1) {
+			$first_page = 1;
+        }
+
+        $last_page = $first_page + 9;
+		if ($last_page > $total_pages) {
+			$last_page = $total_pages;
+        }
+
+		return range($first_page, $last_page);
+    }
 
 	function get_page_link($page_index, $start, $total_items) {
 		$href = $this->build_href(array(

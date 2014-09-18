@@ -52,14 +52,33 @@
     padding: 1em;
 }
 
+.ssgs-numbers {
+	display:inline-block;
+	width:70%;
+}
+
 .ssgs-facet-filter > li,
-.ssgs-pages > li {
+.ssgs-numbers > li {
     display:inline-block;
 }
 
-.ssgs-pages > li {
+.ssgs-numbers > li {
 	width:10%;
 }
+
+.ssgs-prev,
+.ssgs-next {
+	font-size:2em;
+}
+
+.ssgs-prev {
+	margin-right:0.5em;
+}
+
+.ssgs-next {
+	margin-left:0.5em;
+}
+
 
 .ssgs-page {
     padding: 0.3em 0.75em;
