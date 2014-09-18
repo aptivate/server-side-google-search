@@ -165,20 +165,24 @@ class SSGS_Widget extends WP_Widget {
 					$thumbnail = $options['default_search_image_url'];
 				}
 
+				if ($item['metatags-modified-date']) {
+					$date = "<span class='ssgs-modified-date'>{$item['metatags-modified-date']}</span> - ";
+                } else {
+					$date = '';
+                }
+
 				$content .= '<li class="ssgs-search-result-item">
 		          <div class="ssgs-result-header">
 			          <a href="' . $link . '"><img class="ssgs-result-thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img></a>
 			          <h3 class="ssgs-result-title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
 		          </div>
 		          <div class="ssgs-result-content">
-			          <p class="ssgs-result-description">' .
-			              $item['htmlFormattedUrl'] .
-			              '<br />' .
-			              $item['metatags-modified_date'] .
-			              '<br />' .
-			              $item['htmlSnippet'] .
+			          <div class="ssgs-result-description">' .
+			              "<p class='ssgs-html-formatted-url'>{$item['htmlFormattedUrl']}</p>" .
+						  "<p class='ssgs-snippet'>$date{$item['htmlSnippet']}" .
 			              '<a class="ssgs-expand" href="' . $link . '">[' . __('more', 'ssgs') . ']</a>
-					  </p>
+						   </p>
+					  </div>
 		          </div>
 	          </li>';
 				}
