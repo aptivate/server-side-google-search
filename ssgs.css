@@ -54,7 +54,11 @@
 
 .ssgs-facet-filter > li,
 .ssgs-pages > li {
-    display:inline;
+    display:inline-block;
+}
+
+.ssgs-pages > li {
+	width:10%;
 }
 
 .ssgs-page {
