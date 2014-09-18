@@ -55,7 +55,7 @@ class SSGS_Widget extends WP_Widget {
         $options = get_option( 'ssgs_general_settings' );
 
 	// Number of records to display per page (1 - 10)
-	$recordsPerPage = 10;
+	$items_per_page = 10;
 
 	// Set default value for query
 	$q = isset($_GET['s']) ? urlencode(strip_tags(trim($_GET['s']))) : null;
@@ -64,7 +64,7 @@ class SSGS_Widget extends WP_Widget {
 	$form = isset($_GET['form']) ? htmlentities(strip_tags($_GET['form'])) : 'json';
 
 	// Set default value for page length (number of entries to display)
-	$limit = isset($_GET['limit']) ? strip_tags((int)$_GET['limit']) : "$recordsPerPage";
+	$limit = isset($_GET['limit']) ? strip_tags((int)$_GET['limit']) : "$items_per_page";
 
 	// Set default value for page start index
 	$start = isset($_GET['start']) ? strip_tags((int)$_GET['start']) : '1';
@@ -185,11 +185,11 @@ class SSGS_Widget extends WP_Widget {
 			$content .= '</ul>';
 
 			// Calculate new start value for "previous" link
-			$previous = ($start > 1) ? ($start - $recordsPerPage) : null;
+			$previous = ($start > 1) ? ($start - $items_per_page) : null;
 			$previous = (!is_null($previous) && ($previous < 1)) ? 1 : $previous;
 
 			// Calculate new start value for "next" link
-			$next = (($start + $recordsPerPage) <= $totalItems) ? ($start + $recordsPerPage) : null;
+			$next = (($start + $items_per_page) <= $totalItems) ? ($start + $items_per_page) : null;
 
 			// Display previous and next links if applicable
 			if (!is_null($previous) || !is_null($next)) {
@@ -202,7 +202,7 @@ class SSGS_Widget extends WP_Widget {
 					$content .= "<li><a class='ssgs-page' href='$previous_link'>" . __("Previous", 'ssgs') . "</a></li>";
 				}
 
-				$content .= $this->get_pages($start, $totalItems, $recordsPerPage);
+				$content .= $this->get_pages($start, $totalItems, $items_per_page);
 
 				if (!is_null($next)) {
 					$next_link = $this->build_href(array(
@@ -221,7 +221,7 @@ class SSGS_Widget extends WP_Widget {
 	return $content;
     }
 
-	function get_pages($current_start, $total_items, $records_per_page) {
+	function get_pages($current_start, $total_items, $items_per_page) {
 		$pages = '';
 
 		$start = 1;
@@ -236,7 +236,7 @@ class SSGS_Widget extends WP_Widget {
 
 			$pages .= "<li>$page_link</li>";
 
-			$start += $records_per_page;
+			$start += $items_per_page;
 			$page_index ++;
 		}
 
