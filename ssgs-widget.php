@@ -91,15 +91,19 @@ class SSGS_Widget extends WP_Widget {
 		$url = "https://www.googleapis.com/customsearch/$v?key=$api_key&cx=$id&alt=$form".(is_null($sort) ? "" : "&sort=$sort")."&num=$limit&start=$start&prettyprint=true&q=$q".(is_null($facet) ? "" : "&hq=$facet");
 
 		// Build request and send to Google Ajax Search API
-		$request = file_get_contents($url);
+        if ($options['results_source'] == 'test') {
+			$response = $this->get_mock_response();
+        } else {
+            $response = file_get_contents($url);
+        }
 
-		if ($request === FALSE) {
+		if ($response === FALSE) {
 			// API call failed, display message to user
 			return '<p><strong>' . __('An error was encountered while performing the requested search', 'ssgs') . '</strong></p>'."\n";
 		}
 
 		// Decode json object(s) out of response from Google Ajax Search API
-		$result = json_decode($request, true);
+		$result = json_decode($response, true);
 
 		// Get values in json data for number of search results returned
 		$total_items = isset($_GET['totalItems']) ?  strip_tags((int)$_GET['totalItems']) : $result['queries']['request'][0]['totalResults'];
@@ -312,6 +316,10 @@ class SSGS_Widget extends WP_Widget {
 
 		return "$scheme$user$pass$host$port$path$query$fragment";
 	}
+
+    function get_mock_response() {
+		return file_get_contents(dirname(__FILE__) . '/mock_results.json');
+    }
 }
 
 function ssgs_widget_init() {
@@ -319,3 +327,9 @@ function ssgs_widget_init() {
 }
 
 add_action( 'widgets_init', 'ssgs_widget_init' );
+
+if (!function_exists('debugger')) {
+	function debugger() {
+		// hook for geben on emacs
+	}
+}

@@ -62,6 +62,13 @@ class SSGS_Admin_Page {
 			'ssgs_general_settings', // Page / tab page
 			'ssgs_general_section' // Section
 		);
+        add_settings_field(
+            'results_source', // ID
+            __('Results source', 'ssgs'),
+            array($this, 'posttype_callback'),
+            'ssgs_general_settings', // Page / tab page
+			'ssgs_general_section' // Section
+        );
 
 	}
 
@@ -74,6 +81,7 @@ class SSGS_Admin_Page {
                                       'google_search_api_key' => '',
                                       'google_search_engine_id' => '',
                                       'edition' => 'free',
+									  'results_source' => 'real',
                                       ) );
 
 		update_option( 'ssgs_general_settings', $options );
@@ -172,8 +180,36 @@ class SSGS_Admin_Page {
 							    ?>
 							</td>
 						</tr>
+						<tr valign="top">
+							<th scope="row"><?php echo __('Results source','ssgs') . ':' ?></th>
+							<td>
+								<?php
+						        echo(
+						            '<select id="results_source" name="ssgs_general_settings[results_source]">'
+						        );
 
+                                $source_options = array(
+                                    'real' => __('Real'),
+                                    'test' => __('Test'),
+                                );
 
+                                foreach($source_options as $value => $text) {
+						            if ( esc_attr( $options['results_source'] ) == $value) {
+                                        $selected = ' selected';
+                                    }
+                                    else {
+                                        $selected = '';
+                                    }
+
+                                    echo("<option value='$value'$selected>$text</option>");
+                                }
+
+                                echo('</select>');
+
+								echo '<br /><span class="description">' . __('Use real results from Google or test data (useful for developers)', 'ssgs')
+							    ?>
+							</td>
+						</tr>
 					</table>
 
 

@@ -1,0 +1,23 @@
+{
+	"queries": {
+		"request": [{
+			"totalResults" : 3
+		}]
+	},
+	"items": [
+	{
+		"link": "http://www.example.com/foo",
+		"title": "Foo",
+		"htmlTitle": "HTML Foo"
+	},
+	{
+		"link": "http://www.example.com/bar",
+		"title": "Bar",
+		"htmlTitle": "HTML Bar"
+	},
+	{
+		"link": "http://www.example.com/baz",
+		"title": "Baz",
+		"htmlTitle": "HTML Baz"
+	}]
+}
