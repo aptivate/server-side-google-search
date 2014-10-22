@@ -1,5 +1,7 @@
 <?php
 
+require_once 'mock-file.php';
+
 require_once 'plugin.php';
 require_once 'widgets.php';
 require_once 'mock-functions.php';
@@ -44,6 +46,23 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertEquals( '<DIV CLASS="SSGS-RESULT-WRAPPER"></DIV>', $output );
 	}
 
+	public function test_no_results() {
+		$_GET['s'] = 'agroforestry Zambia';
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 0,
+					),
+				)  )));
+
+		$output = $this->get_widget_html();
+		$message = $this->get_html_element_from_output( $output, '/p/strong' );
+
+		$this->assertEquals( 'Sorry, there were no results', $message );
+	}
+
 	private function get_widget_html( $args = array() ){
 		$widget = new SSGS_Widget();
 		$defaults = array(
@@ -59,5 +78,11 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertTrue( ob_end_clean() );
 
 		return $output;
+	}
+
+	private function set_search_results( $results ) {
+		global $_SSGS_MOCK_FILE_CONTENTS;
+
+		$_SSGS_MOCK_FILE_CONTENTS = json_encode( $results );
 	}
 }
