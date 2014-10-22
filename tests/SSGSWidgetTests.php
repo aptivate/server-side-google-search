@@ -11,7 +11,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 {
 	public function test_creation(){
 		$output = $this->get_widget_html();
-		$this->assertEquals( $output, '<div class="ssgs-result-wrapper"></div>' );
+		$this->assertEquals( '<div class="ssgs-result-wrapper"></div>', $output );
 	}
 
 	public function test_before_widget_displayed(){
@@ -20,7 +20,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			'after_widget' => '<p>After text</p>',
 		));
 		$heading = $this->get_html_elements_from_output( $output, 'p' );
-		$this->assertEquals( (string)$heading[0], 'Before text' );
+		$this->assertEquals( 'Before text', (string)$heading[0] );
 	}
 
 	public function test_after_widget_displayed(){
@@ -29,7 +29,19 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			'after_widget' => '<p>After text</p>',
 		));
 		$heading = $this->get_html_elements_from_output( $output, 'p' );
-		$this->assertEquals( (string)$heading[1], 'After text' );
+		$this->assertEquals( 'After text', (string)$heading[1] );
+	}
+
+	public function to_upper( $content ) {
+		return strtoupper( $content );
+	}
+
+	public function test_filter_applied(){
+		add_filter( 'ssgs_widget_content', array( $this, 'to_upper' ) );
+
+		$output = $this->get_widget_html();
+
+		$this->assertEquals( '<DIV CLASS="SSGS-RESULT-WRAPPER"></DIV>', $output );
 	}
 
 	private function get_widget_html( $args = array() ){
