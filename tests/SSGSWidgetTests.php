@@ -16,10 +16,20 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	public function test_before_widget_displayed(){
 		$output = $this->get_widget_html(array(
-			'before_widget' => '<h1>Search results</h1>',
+			'before_widget' => '<p>Before text</p>',
+			'after_widget' => '<p>After text</p>',
 		));
-		$heading = $this->get_html_element_from_output( $output, 'h1' );
-		$this->assertEquals( (string)$heading, 'Search results' );
+		$heading = $this->get_html_elements_from_output( $output, 'p' );
+		$this->assertEquals( (string)$heading[0], 'Before text' );
+	}
+
+	public function test_after_widget_displayed(){
+		$output = $this->get_widget_html(array(
+			'before_widget' => '<p>Before text</p>',
+			'after_widget' => '<p>After text</p>',
+		));
+		$heading = $this->get_html_elements_from_output( $output, 'p' );
+		$this->assertEquals( (string)$heading[1], 'After text' );
 	}
 
 	private function get_widget_html( $args = array() ){
