@@ -84,6 +84,8 @@ class SSGS_Widget extends WP_Widget {
 	// Set user ID for Google custom search engine
 	$id = $options['google_search_engine_id'];
 
+	$content = '';
+
 	if (!is_null($q)) {
 		// Process query
 
