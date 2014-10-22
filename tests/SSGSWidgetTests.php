@@ -5,23 +5,31 @@ require_once 'widgets.php';
 require_once 'mock-functions.php';
 require_once 'ssgs-widget.php';
 
-class SSGSWidgetTests extends PHPUnit_Framework_TestCase
+require_once 'SSGSWidgetTestBase.php';
+
+class SSGSWidgetTests extends SSGSWidgetTestBase
 {
 	public function test_creation(){
-		$widget = new SSGS_Widget();
-		$args = array();
-		$instance = null;
-
 		$output = $this->get_widget_html();
 		$this->assertEquals( $output, '<div class="ssgs-result-wrapper"></div>' );
 	}
 
-	private function get_widget_html(){
+	public function test_before_widget_displayed(){
+		$output = $this->get_widget_html(array(
+			'before_widget' => '<h1>Search results</h1>',
+		));
+		$heading = $this->get_html_element_from_output( $output, 'h1' );
+		$this->assertEquals( (string)$heading, 'Search results' );
+	}
+
+	private function get_widget_html( $args = array() ){
 		$widget = new SSGS_Widget();
-		$args = array(
+		$defaults = array(
 			'before_widget' => '',
 			'after_widget' => '',
 		);
+		$args = array_merge( $defaults, $args );
+
 		$instance = null;
 		ob_start();
 		$widget->widget( $args, $instance );
