@@ -1,6 +1,7 @@
 <?php
 $path = array(
 	'..',
+	'../../../../',
 	'../../../../wp-includes/',
 	get_include_path(),
 );

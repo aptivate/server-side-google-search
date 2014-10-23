@@ -2,9 +2,12 @@
 
 require_once 'mock-file.php';
 
+require_once 'wp-config.php';
 require_once 'plugin.php';
 require_once 'widgets.php';
-require_once 'mock-functions.php';
+require_once 'link-template.php';
+require_once 'functions.php';
+
 require_once 'ssgs-widget.php';
 
 require_once 'SSGSWidgetTestBase.php';
@@ -55,12 +58,34 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 					array(
 						'totalResults' => 0,
 					),
-				)  )));
+				) ) ) );
 
 		$output = $this->get_widget_html();
 		$message = $this->get_html_element_from_output( $output, '/p/strong' );
 
 		$this->assertEquals( 'Sorry, there were no results', $message );
+	}
+
+	public function test_search_string_displayed() {
+		$_GET['s'] = 'agroforestry Zambia';
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 3,
+					),
+				)  ),
+			'items' => array() ) );
+
+		$output = $this->get_widget_html();
+		$message = (string)$this->get_html_element_from_output( $output, '/h2' );
+
+		$this->assertEquals( 'Search for ', $message );
+
+		$message = (string)$this->get_html_element_from_output( $output, '/h2/strong' );
+
+		$this->assertEquals( 'agroforestry Zambia', $message );
 	}
 
 	private function get_widget_html( $args = array() ){

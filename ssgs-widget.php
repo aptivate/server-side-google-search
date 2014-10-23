@@ -227,6 +227,8 @@ class SSGS_Widget extends WP_Widget {
 				$content .= "</div>";
 			}
 
+			$content .= '</div>';
+
         } // End else -- $total_items <= 0
 	} // End (!is_null($q))
 
