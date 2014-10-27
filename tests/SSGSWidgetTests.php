@@ -88,6 +88,19 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertEquals( 'agroforestry Zambia', $message );
 	}
 
+	public function test_displays_error_on_api_failure() {
+		$_GET['s'] = '';
+		global $_SSGS_MOCK_FILE_CONTENTS;
+
+		$_SSGS_MOCK_FILE_CONTENTS = false;
+
+		$output = $this->get_widget_html();
+		$message = (string)$this->get_html_element_from_output( $output, '/p/strong' );
+
+		$this->assertEquals( 'An error was encountered while performing the requested search',
+			$message );
+	}
+
 	private function get_widget_html( $args = array() ){
 		$widget = new SSGS_Widget();
 		$defaults = array(
