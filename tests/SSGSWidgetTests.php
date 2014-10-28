@@ -116,6 +116,18 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertEquals( '/customsearch/v2', $path );
 	}
 
+	public function test_api_version_defaults_to_v1() {
+		$_GET['s'] = '';
+
+		$output = $this->get_widget_html();
+
+		global $_SSGS_MOCK_FILE_URL;
+
+		$path = parse_url( $_SSGS_MOCK_FILE_URL, PHP_URL_PATH );
+
+		$this->assertEquals( '/customsearch/v1', $path );
+	}
+
 	private function get_widget_html( $args = array() ){
 		$widget = new SSGS_Widget();
 		$defaults = array(
