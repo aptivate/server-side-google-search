@@ -76,7 +76,7 @@ class SSGS_Widget extends WP_Widget {
 	$sort = isset($_GET['sort']) ? htmlentities(strip_tags($_GET['sort'])) : null;
 
 	// Set API version for Google Custom Search API
-	$v = isset($_GET['v']) ? strip_tags((int)$_GET['v']) : 'v1';
+	$v = isset($_GET['v']) ? strip_tags($_GET['v']) : 'v1';
 
 	// Set user API key for Google Custom Search API
 	$api_key = $options['google_search_api_key'];

@@ -1,18 +1,35 @@
 <?php
-global $_SSGS_MOCK_FILE_CONTENTS;
-global $_SSGS_MOCK_FILE_URL;
+global $_SSGS_MOCK_OPTIONS;
 
-function mock_file_get_contents( $url ) {
-	global $_SSGS_MOCK_FILE_CONTENTS;
-	global $_SSGS_MOCK_FILE_URL;
+$_SSGS_MOCK_OPTIONS = array();
 
-	$_SSGS_MOCK_FILE_URL = $url;
+function mock_get_option( $option, $default = false ) {
+	switch ( $option ) {
+		case 'ssgs_general_settings':
+			$defaults = array(
+				'google_search_api_key' => '',
+				'google_search_engine_id' => '',
+				'results_source' => '',
+				'edition' => '',
+				'default_search_image_url' => '',
+			);
 
-	return $_SSGS_MOCK_FILE_CONTENTS;
+			global $_SSGS_MOCK_OPTIONS;
+
+			$options = array_merge( $defaults, $_SSGS_MOCK_OPTIONS );
+
+			return $options;
+
+		case 'home':
+			return 'http://test.localhost';
+
+		default:
+			throw new Exception( "Unexpected option: '$option'" );
+	}
 }
 
 $mock_function_args = array(
-	'file_get_contents' => '$url',
+	'get_option' => '$option,$default = false',
 );
 
 foreach ( $mock_function_args as $original_name => $args ) {

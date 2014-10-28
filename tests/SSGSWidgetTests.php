@@ -8,6 +8,8 @@ require_once 'widgets.php';
 require_once 'link-template.php';
 require_once 'functions.php';
 
+require_once 'mock-option.php';
+
 require_once 'ssgs-widget.php';
 
 require_once 'SSGSWidgetTestBase.php';
@@ -99,6 +101,19 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$this->assertEquals( 'An error was encountered while performing the requested search',
 			$message );
+	}
+
+	public function test_url_contains_api_version() {
+		$_GET['s'] = '';
+		$_GET['v'] = 'v2';
+
+		$output = $this->get_widget_html();
+
+		global $_SSGS_MOCK_FILE_URL;
+
+		$path = parse_url( $_SSGS_MOCK_FILE_URL, PHP_URL_PATH );
+
+		$this->assertEquals( '/customsearch/v2', $path );
 	}
 
 	private function get_widget_html( $args = array() ){
