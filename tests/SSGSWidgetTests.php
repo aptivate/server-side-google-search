@@ -52,7 +52,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_no_results() {
-		$_GET['s'] = 'agroforestry Zambia';
+		$this->set_search_string( 'agroforestry Zambia' );
 
 		$this->set_search_results( array(
 			'queries' => array(
@@ -69,7 +69,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_search_string_displayed() {
-		$_GET['s'] = 'agroforestry Zambia';
+		$this->set_search_string( 'agroforestry Zambia' );
 
 		$this->set_search_results( array(
 			'queries' => array(
@@ -91,7 +91,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_displays_error_on_api_failure() {
-		$_GET['s'] = '';
+		$this->set_search_string( '' );
 		global $_SSGS_MOCK_FILE_CONTENTS;
 
 		$_SSGS_MOCK_FILE_CONTENTS = false;
@@ -104,7 +104,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_url_contains_api_version() {
-		$_GET['s'] = '';
+		$this->set_search_string( '' );
 		$_GET['v'] = 'v2';
 
 		$output = $this->get_widget_html();
@@ -117,7 +117,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_api_version_defaults_to_v1() {
-		$_GET['s'] = '';
+		$this->set_search_string( '' );
 
 		$output = $this->get_widget_html();
 
@@ -126,6 +126,52 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$path = parse_url( $_SSGS_MOCK_FILE_URL, PHP_URL_PATH );
 
 		$this->assertEquals( '/customsearch/v1', $path );
+	}
+
+	public function test_api_key_passed_to_google_api() {
+		$this->set_search_string( '' );
+		$this->set_option( 'google_search_api_key',
+			'012345678901234567890:0ijk_a1bcd' );
+
+		$output = $this->get_widget_html();
+
+		$key = $this->get_query_param( 'key' );
+		$this->assertEquals( '012345678901234567890:0ijk_a1bcd',
+			$key );
+	}
+
+	private function get_query_param( $name ) {
+		global $_SSGS_MOCK_FILE_URL;
+
+		$params = $this->get_query_params( $_SSGS_MOCK_FILE_URL );
+
+		return $params[ $name ];
+	}
+
+
+	private function get_query_params( $url ) {
+		$query = parse_url( $url, PHP_URL_QUERY );
+
+		$param_pairs = explode( '&', $query );
+
+		$params = array();
+		foreach ( $param_pairs as $param_pair ) {
+			$pieces = explode( '=', $param_pair );
+
+			$params[ $pieces[0] ] = $pieces[1];
+		}
+
+		return $params;
+	}
+
+	private function set_search_string( $search_string ) {
+		$_GET['s'] = $search_string;
+	}
+
+	private function set_option( $name, $value ) {
+		global $_SSGS_MOCK_OPTIONS;
+
+		$_SSGS_MOCK_OPTIONS[ $name ] = $value;
 	}
 
 	private function get_widget_html( $args = array() ){
