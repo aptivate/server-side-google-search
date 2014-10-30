@@ -131,12 +131,24 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	public function test_api_key_passed_to_google_api() {
 		$this->set_search_string( '' );
 		$this->set_option( 'google_search_api_key',
-			'012345678901234567890:0ijk_a1bcd' );
+			'dfkgjOoldsg3kKD6FSfkp7of9sjs8dofsdjosdfjA' );
 
 		$output = $this->get_widget_html();
 
 		$key = $this->get_query_param( 'key' );
-		$this->assertEquals( '012345678901234567890:0ijk_a1bcd',
+		$this->assertEquals( 'dfkgjOoldsg3kKD6FSfkp7of9sjs8dofsdjosdfjA',
+			$key );
+	}
+
+	public function test_engine_id_passed_to_google_api() {
+		$this->set_search_string( '' );
+		$this->set_option( 'google_search_engine_id',
+			'573285494839582010549:3ajfhsoghsak' );
+
+		$output = $this->get_widget_html();
+
+		$key = $this->get_query_param( 'cx' );
+		$this->assertEquals( '573285494839582010549:3ajfhsoghsak',
 			$key );
 	}
 
