@@ -105,7 +105,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	public function test_url_contains_api_version() {
 		$this->set_search_string( '' );
-		$_GET['v'] = 'v2';
+		$this->set_query_parameter(	'v', 'v2' );
 
 		$output = $this->get_widget_html();
 
@@ -152,6 +152,23 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			$key );
 	}
 
+	public function test_format_defaults_to_json() {
+		$this->set_search_string( '' );
+		$output = $this->get_widget_html();
+
+		$format = $this->get_query_param( 'alt' );
+		$this->assertThat( $format, $this->equalTo( 'json' ) );
+	}
+
+	public function test_format_passed_to_google_api() {
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'form', 'xml' );
+		$output = $this->get_widget_html();
+
+		$format = $this->get_query_param( 'alt' );
+		$this->assertThat( $format, $this->equalTo( 'xml' ) );
+	}
+
 	private function get_query_param( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
@@ -177,7 +194,11 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	private function set_search_string( $search_string ) {
-		$_GET['s'] = $search_string;
+		$this->set_query_parameter( 's', $search_string );
+	}
+
+	private function set_query_parameter( $name, $value ) {
+		$_GET[ $name ] = $value;
 	}
 
 	private function set_option( $name, $value ) {
