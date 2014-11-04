@@ -169,6 +169,24 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $format, $this->equalTo( 'xml' ) );
 	}
 
+	public function test_sort_passed_to_google_api() {
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'sort', 'date' );
+		$output = $this->get_widget_html();
+
+		$format = $this->get_query_param( 'sort' );
+		$this->assertThat( $format, $this->equalTo( 'date' ) );
+	}
+
+	public function test_no_sort_parameter_by_default() {
+		$this->set_search_string( '' );
+
+		$output = $this->get_widget_html();
+
+		$format = $this->get_query_param( 'sort' );
+		$this->assertThat( $format, $this->identicalTo( null ) );
+	}
+
 	private function get_query_param( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
