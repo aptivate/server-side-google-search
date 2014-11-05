@@ -133,7 +133,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->set_option( 'google_search_api_key',
 			'dfkgjOoldsg3kKD6FSfkp7of9sjs8dofsdjosdfjA' );
 
-		$output = $this->get_widget_html();
+		$this->get_widget_html();
 
 		$key = $this->get_query_param( 'key' );
 		$this->assertEquals( 'dfkgjOoldsg3kKD6FSfkp7of9sjs8dofsdjosdfjA',
@@ -145,7 +145,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->set_option( 'google_search_engine_id',
 			'573285494839582010549:3ajfhsoghsak' );
 
-		$output = $this->get_widget_html();
+		$this->get_widget_html();
 
 		$key = $this->get_query_param( 'cx' );
 		$this->assertEquals( '573285494839582010549:3ajfhsoghsak',
@@ -154,7 +154,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	public function test_format_defaults_to_json() {
 		$this->set_search_string( '' );
-		$output = $this->get_widget_html();
+		$this->get_widget_html();
 
 		$format = $this->get_query_param( 'alt' );
 		$this->assertThat( $format, $this->equalTo( 'json' ) );
@@ -163,7 +163,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	public function test_format_passed_to_google_api() {
 		$this->set_search_string( '' );
 		$this->set_query_parameter( 'form', 'xml' );
-		$output = $this->get_widget_html();
+		$this->get_widget_html();
 
 		$format = $this->get_query_param( 'alt' );
 		$this->assertThat( $format, $this->equalTo( 'xml' ) );
@@ -172,7 +172,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	public function test_sort_passed_to_google_api() {
 		$this->set_search_string( '' );
 		$this->set_query_parameter( 'sort', 'date' );
-		$output = $this->get_widget_html();
+		$this->get_widget_html();
 
 		$format = $this->get_query_param( 'sort' );
 		$this->assertThat( $format, $this->equalTo( 'date' ) );
@@ -181,10 +181,29 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	public function test_no_sort_parameter_by_default() {
 		$this->set_search_string( '' );
 
-		$output = $this->get_widget_html();
+		$this->get_widget_html();
 
 		$format = $this->get_query_param( 'sort' );
 		$this->assertThat( $format, $this->identicalTo( null ) );
+	}
+
+	public function test_items_per_page_passed_to_google_api() {
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'limit', 5 );
+
+		$output = $this->get_widget_html();
+
+		$format = $this->get_query_param( 'num' );
+		$this->assertThat( $format, $this->equalTo( 5 ) );
+	}
+
+	public function test_items_per_page_default_is_10() {
+		$this->set_search_string( '' );
+
+		$output = $this->get_widget_html();
+
+		$format = $this->get_query_param( 'num' );
+		$this->assertThat( $format, $this->equalTo( 10 ) );
 	}
 
 	private function get_query_param( $name ) {
