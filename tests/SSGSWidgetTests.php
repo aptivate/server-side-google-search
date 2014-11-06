@@ -206,6 +206,27 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $format, $this->equalTo( 10 ) );
 	}
 
+	public function test_start_index_default_is_1() {
+		$this->set_search_string( '' );
+
+		$output = $this->get_widget_html();
+
+		$format = $this->get_query_param( 'start' );
+		$this->assertThat( $format, $this->equalTo( 1 ) );
+
+	}
+
+	public function test_start_index_read_from_query_string() {
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'start', 11 );
+
+		$output = $this->get_widget_html();
+
+		$format = $this->get_query_param( 'start' );
+		$this->assertThat( $format, $this->equalTo( 11 ) );
+
+	}
+
 	private function get_query_param( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
