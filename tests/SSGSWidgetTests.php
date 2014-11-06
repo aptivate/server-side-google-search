@@ -135,7 +135,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$this->get_widget_html();
 
-		$key = $this->get_query_param( 'key' );
+		$key = $this->get_api_query_parameter( 'key' );
 		$this->assertEquals( 'dfkgjOoldsg3kKD6FSfkp7of9sjs8dofsdjosdfjA',
 			$key );
 	}
@@ -147,7 +147,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$this->get_widget_html();
 
-		$key = $this->get_query_param( 'cx' );
+		$key = $this->get_api_query_parameter( 'cx' );
 		$this->assertEquals( '573285494839582010549:3ajfhsoghsak',
 			$key );
 	}
@@ -156,7 +156,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->set_search_string( '' );
 		$this->get_widget_html();
 
-		$format = $this->get_query_param( 'alt' );
+		$format = $this->get_api_query_parameter( 'alt' );
 		$this->assertThat( $format, $this->equalTo( 'json' ) );
 	}
 
@@ -165,7 +165,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->set_query_parameter( 'form', 'xml' );
 		$this->get_widget_html();
 
-		$format = $this->get_query_param( 'alt' );
+		$format = $this->get_api_query_parameter( 'alt' );
 		$this->assertThat( $format, $this->equalTo( 'xml' ) );
 	}
 
@@ -174,7 +174,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->set_query_parameter( 'sort', 'date' );
 		$this->get_widget_html();
 
-		$format = $this->get_query_param( 'sort' );
+		$format = $this->get_api_query_parameter( 'sort' );
 		$this->assertThat( $format, $this->equalTo( 'date' ) );
 	}
 
@@ -183,7 +183,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$this->get_widget_html();
 
-		$format = $this->get_query_param( 'sort' );
+		$format = $this->get_api_query_parameter( 'sort' );
 		$this->assertThat( $format, $this->identicalTo( null ) );
 	}
 
@@ -193,7 +193,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_query_param( 'num' );
+		$format = $this->get_api_query_parameter( 'num' );
 		$this->assertThat( $format, $this->equalTo( 5 ) );
 	}
 
@@ -202,7 +202,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_query_param( 'num' );
+		$format = $this->get_api_query_parameter( 'num' );
 		$this->assertThat( $format, $this->equalTo( 10 ) );
 	}
 
@@ -211,7 +211,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_query_param( 'start' );
+		$format = $this->get_api_query_parameter( 'start' );
 		$this->assertThat( $format, $this->equalTo( 1 ) );
 
 	}
@@ -222,21 +222,21 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_query_param( 'start' );
+		$format = $this->get_api_query_parameter( 'start' );
 		$this->assertThat( $format, $this->equalTo( 11 ) );
 
 	}
 
-	private function get_query_param( $name ) {
+	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
-		$params = $this->get_query_params( $_SSGS_MOCK_FILE_URL );
+		$params = $this->get_api_query_parameters( $_SSGS_MOCK_FILE_URL );
 
 		return $params[ $name ];
 	}
 
 
-	private function get_query_params( $url ) {
+	private function get_api_query_parameters( $url ) {
 		$query = parse_url( $url, PHP_URL_QUERY );
 
 		$param_pairs = explode( '&', $query );
