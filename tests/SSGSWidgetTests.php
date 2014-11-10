@@ -227,6 +227,17 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	}
 
+	// TODO - does this make any difference?
+	public function test_prettyprint_defaults_to_true() {
+		$this->set_search_string( '' );
+
+		$output = $this->get_widget_html();
+
+		$format = $this->get_api_query_parameter( 'prettyprint' );
+		$this->assertThat( $format, $this->equalTo( 'true' ) );
+
+	}
+
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
