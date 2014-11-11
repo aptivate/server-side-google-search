@@ -174,8 +174,8 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->set_query_parameter( 'sort', 'date' );
 		$this->get_widget_html();
 
-		$format = $this->get_api_query_parameter( 'sort' );
-		$this->assertThat( $format, $this->equalTo( 'date' ) );
+		$sort = $this->get_api_query_parameter( 'sort' );
+		$this->assertThat( $sort, $this->equalTo( 'date' ) );
 	}
 
 	public function test_no_sort_parameter_by_default() {
@@ -193,8 +193,8 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_api_query_parameter( 'num' );
-		$this->assertThat( $format, $this->equalTo( 5 ) );
+		$num = $this->get_api_query_parameter( 'num' );
+		$this->assertThat( $num, $this->equalTo( 5 ) );
 	}
 
 	public function test_items_per_page_default_is_10() {
@@ -202,8 +202,8 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_api_query_parameter( 'num' );
-		$this->assertThat( $format, $this->equalTo( 10 ) );
+		$num = $this->get_api_query_parameter( 'num' );
+		$this->assertThat( $num, $this->equalTo( 10 ) );
 	}
 
 	public function test_start_index_default_is_1() {
@@ -211,9 +211,8 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_api_query_parameter( 'start' );
-		$this->assertThat( $format, $this->equalTo( 1 ) );
-
+		$start = $this->get_api_query_parameter( 'start' );
+		$this->assertThat( $start, $this->equalTo( 1 ) );
 	}
 
 	public function test_start_index_read_from_query_string() {
@@ -222,9 +221,8 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_api_query_parameter( 'start' );
-		$this->assertThat( $format, $this->equalTo( 11 ) );
-
+		$start = $this->get_api_query_parameter( 'start' );
+		$this->assertThat( $start, $this->equalTo( 11 ) );
 	}
 
 	// TODO - does this make any difference?
@@ -233,9 +231,8 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_api_query_parameter( 'prettyprint' );
-		$this->assertThat( $format, $this->equalTo( 'true' ) );
-
+		$prettyprint = $this->get_api_query_parameter( 'prettyprint' );
+		$this->assertThat( $prettyprint, $this->equalTo( 'true' ) );
 	}
 
 	public function test_search_string_passed_to_google_api() {
@@ -243,8 +240,17 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$format = $this->get_api_query_parameter( 'q' );
-		$this->assertThat( $format, $this->equalTo( 'agroforestry+zambia' ) );
+		$q = $this->get_api_query_parameter( 'q' );
+		$this->assertThat( $q, $this->equalTo( 'agroforestry+zambia' ) );
+	}
+
+	public function test_facet_passed_to_google_api() {
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'facet', 'adaptation' );
+		$this->get_widget_html();
+
+		$hq = $this->get_api_query_parameter( 'hq' );
+		$this->assertThat( $hq, $this->equalTo( 'adaptation' ) );
 	}
 
 	private function get_api_query_parameter( $name ) {
