@@ -238,6 +238,15 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	}
 
+	public function test_search_string_passed_to_google_api() {
+		$this->set_search_string( 'agroforestry zambia' );
+
+		$output = $this->get_widget_html();
+
+		$format = $this->get_api_query_parameter( 'q' );
+		$this->assertThat( $format, $this->equalTo( 'agroforestry+zambia' ) );
+	}
+
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
