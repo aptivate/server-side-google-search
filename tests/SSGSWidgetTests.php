@@ -253,6 +253,17 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $hq, $this->equalTo( 'adaptation' ) );
 	}
 
+	public function test_mock_response_returned_in_test_mode() {
+		$this->set_search_string( '' );
+		$this->set_option( 'results_source', 'test' );
+		$this->get_widget_html();
+		
+		global $_SSGS_MOCK_FILE_URL;
+
+		$this->assertThat( basename( $_SSGS_MOCK_FILE_URL ),
+						   $this->equalTo( 'mock_results.json' ) );
+	}
+
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
