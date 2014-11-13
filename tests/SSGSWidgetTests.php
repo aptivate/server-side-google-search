@@ -257,11 +257,55 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->set_search_string( '' );
 		$this->set_option( 'results_source', 'test' );
 		$this->get_widget_html();
-		
+
 		global $_SSGS_MOCK_FILE_URL;
 
 		$this->assertThat( basename( $_SSGS_MOCK_FILE_URL ),
 						   $this->equalTo( 'mock_results.json' ) );
+	}
+
+	public function test_total_items_restricted_to_100_for_free_edition() {
+		$this->set_search_string( '' );
+		$this->set_option( 'edition', 'free' );
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1234,
+					),
+				)  ),
+			'items' => array() ) );
+
+
+		$output = $this->get_widget_html();
+
+		$div = $this->get_html_element_from_output( $output, "/div[@class='ssgs-results-info']" );
+		$this->assertEquals(
+			'Displaying 0 items from around 100 matches',
+			(string)$div );
+	}
+
+	public function test_total_items_unrestricted_for_paid_edition() {
+		$this->set_search_string( '' );
+		$this->set_option( 'edition', 'paid' );
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1234,
+					),
+				)  ),
+			'items' => array() ) );
+
+		$output = $this->get_widget_html();
+
+		$div = $this->get_html_element_from_output( $output, "/div[@class='ssgs-results-info']" );
+		$this->assertEquals(
+			'Displaying 0 items from around 1234 matches',
+			(string)$div );
+
 	}
 
 	private function get_api_query_parameter( $name ) {

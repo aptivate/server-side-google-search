@@ -19,6 +19,7 @@ class SSGSWidgetTestBase extends PHPUnit_Framework_TestCase
 			'agrave',
 			'copy',
 			'eacute',
+			'raquo',
 		);
 
 		foreach ( $entities as $entity ) {
