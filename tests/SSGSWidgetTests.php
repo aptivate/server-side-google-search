@@ -308,6 +308,45 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	}
 
+	public function test_sort_by_date_highlighted() {
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'sort', 'date' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				)  ),
+			'items' => array() ) );
+
+		$output = $this->get_widget_html();
+		$link = $this->get_html_element_from_output( $output,
+													 "/li[@class='ssgs-results-sort-date selected']/a" );
+		$this->assertEquals(
+			'Date',
+			(string)$link );
+	}
+
+	public function test_sort_by_relevance_highlighted() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				)  ),
+			'items' => array() ) );
+
+		$output = $this->get_widget_html();
+		$link = $this->get_html_element_from_output( $output,
+													 "/li[@class='ssgs-results-sort-relevance selected']/a" );
+		$this->assertEquals(
+			'Relevance',
+			(string)$link );
+	}
+
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
