@@ -347,16 +347,61 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			(string)$link );
 	}
 
+	public function test_relevance_link_has_empty_sort_parameter() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				)  ),
+			'items' => array() ) );
+
+		$output = $this->get_widget_html();
+		$link = $this->get_html_element_from_output( $output,
+													 "/li[@class='ssgs-results-sort-relevance selected']/a" );
+		$attributes = $link->attributes();
+		$href = (string)$attributes['href'];
+
+		$sort = $this->get_url_query_parameter( $href, 'sort' );
+		$this->assertThat( $sort, $this->equalTo( '' ) );
+	}
+
+	public function test_date_link_has_sort_parameter() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				)  ),
+			'items' => array() ) );
+
+		$output = $this->get_widget_html();
+		$link = $this->get_html_element_from_output( $output,
+													 "/li[@class='ssgs-results-sort-date']/a" );
+		$attributes = $link->attributes();
+		$href = (string)$attributes['href'];
+
+		$sort = $this->get_url_query_parameter( $href, 'sort' );
+		$this->assertThat( $sort, $this->equalTo( 'date' ) );
+	}
+
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
-		$params = $this->get_api_query_parameters( $_SSGS_MOCK_FILE_URL );
+		return $this->get_url_query_parameter( $_SSGS_MOCK_FILE_URL, $name );
+	}
+
+	private function get_url_query_parameter( $url, $name ) {
+		$params = $this->get_url_query_parameters( $url );
 
 		return $params[ $name ];
 	}
 
-
-	private function get_api_query_parameters( $url ) {
+	private function get_url_query_parameters( $url ) {
 		$query = parse_url( $url, PHP_URL_QUERY );
 
 		$param_pairs = explode( '&', $query );
