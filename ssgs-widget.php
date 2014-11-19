@@ -179,7 +179,7 @@ class SSGS_Widget extends WP_Widget {
 
 				$content .= '<li class="ssgs-search-result-item">
 		          <div class="ssgs-result-header">
-			          <a href="' . $link . '"><img class="ssgs-result-thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></img></a>
+			          <a href="' . $link . '"><img class="ssgs-result-thumbnail" alt="' . htmlentities($item['title']) .'" src="' . rawurldecode($thumbnail) . '" /></a>
 			          <h3 class="ssgs-result-title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
 		          </div>
 		          <div class="ssgs-result-content">
