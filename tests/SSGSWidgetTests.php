@@ -420,6 +420,37 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $href, $this->equalTo( 'thumbnailurl.img' ) );
 	}
 
+	public function test_thumbnail_read_from_cse_thumbnail() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				)  ),
+			'items' => array(
+				array(
+					'pagemap' => array(
+						'cse_thumbnail' => array(
+							array(
+								'src' => 'cse_thumbnail.img',
+							),
+						),
+					),
+				),
+			),
+		));
+
+		$output = $this->get_widget_html();
+		$link = $this->get_html_element_from_output( $output,
+													 "/img[@class='ssgs-result-thumbnail']" );
+		$attributes = $link->attributes();
+		$href = (string)$attributes['src'];
+
+		$this->assertThat( $href, $this->equalTo( 'cse_thumbnail.img' ) );
+	}
+
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
