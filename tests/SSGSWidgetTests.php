@@ -403,7 +403,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 					'pagemap' => array(
 						'metatags' => array(
 							array(
-								'thumbnailurl' => 'thumbnailurl.img',
+								'thumbnailurl' => 'thumbnailurl.png',
 							),
 						),
 					),
@@ -417,7 +417,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$attributes = $link->attributes();
 		$href = (string)$attributes['src'];
 
-		$this->assertThat( $href, $this->equalTo( 'thumbnailurl.img' ) );
+		$this->assertThat( $href, $this->equalTo( 'thumbnailurl.png' ) );
 	}
 
 	public function test_thumbnail_read_from_cse_thumbnail() {
@@ -434,7 +434,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 					'pagemap' => array(
 						'cse_thumbnail' => array(
 							array(
-								'src' => 'cse_thumbnail.img',
+								'src' => 'cse_thumbnail.png',
 							),
 						),
 					),
@@ -448,7 +448,38 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$attributes = $link->attributes();
 		$href = (string)$attributes['src'];
 
-		$this->assertThat( $href, $this->equalTo( 'cse_thumbnail.img' ) );
+		$this->assertThat( $href, $this->equalTo( 'cse_thumbnail.png' ) );
+	}
+
+	public function test_thumbnail_read_from_cse_image() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				)  ),
+			'items' => array(
+				array(
+					'pagemap' => array(
+						'cse_image' => array(
+							array(
+								'src' => 'cse_image.png',
+							),
+						),
+					),
+				),
+			),
+		));
+
+		$output = $this->get_widget_html();
+		$link = $this->get_html_element_from_output( $output,
+													 "/img[@class='ssgs-result-thumbnail']" );
+		$attributes = $link->attributes();
+		$href = (string)$attributes['src'];
+
+		$this->assertThat( $href, $this->equalTo( 'cse_image.png' ) );
 	}
 
 	private function get_api_query_parameter( $name ) {
