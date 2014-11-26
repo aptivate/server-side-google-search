@@ -512,6 +512,29 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $href, $this->equalTo( 'default_image.png' ) );
 	}
 
+	public function test_modified_date_displayed() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				) ),
+			'items' => array(
+				array(
+					'metatags-modified-date' => '26th November 2014',
+				),
+			),
+		));
+
+		$output = $this->get_widget_html();
+
+		$link = $this->get_html_element_from_output( $output,
+													 "/span[@class='ssgs-modified-date']" );
+		$this->assertThat( (string)$link, $this->equalTo( '26th November 2014' ) );
+	}
+
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
