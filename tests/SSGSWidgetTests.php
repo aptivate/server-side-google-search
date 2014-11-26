@@ -644,6 +644,56 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( (string)$p, $this->equalTo('http://www.example.com/' ));
 	}
 
+	public function test_snippet_in_result_description() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				) ),
+			'items' => array(
+				array(
+					'htmlSnippet' => 'Information about agroforestry',
+				),
+			),
+		));
+
+		$output = $this->get_widget_html();
+
+		$p = $this->get_html_element_from_output( $output,
+												  "/span[@class='ssgs-html-snippet']" );
+
+		$this->assertThat( (string)$p,
+						   $this->equalTo('Information about agroforestry' ) );
+	}
+
+	public function test_date_snippet_in_result_description() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				) ),
+			'items' => array(
+				array(
+					'metatags-modified-date' => '26th November 2014',
+				),
+			),
+		));
+
+		$output = $this->get_widget_html();
+
+		$p = $this->get_html_element_from_output( $output,
+												  "/span[@class='ssgs-modified-date']" );
+
+		$this->assertThat( (string)$p,
+						   $this->equalTo('26th November 2014' ) );
+	}
+
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
