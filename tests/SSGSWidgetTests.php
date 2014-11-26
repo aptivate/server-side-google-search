@@ -694,6 +694,36 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 						   $this->equalTo('26th November 2014' ) );
 	}
 
+	public function test_more_link_in_result_description() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				) ),
+			'items' => array(
+				array(
+					'link' => 'http://www.example.com/',
+				),
+			),
+		));
+
+		$output = $this->get_widget_html();
+
+		$link = $this->get_html_element_from_output( $output,
+												  "/a[@class='ssgs-expand']" );
+
+		$this->assertThat( (string)$link,
+						   $this->equalTo('[more]' ) );
+		$attributes = $link->attributes();
+		$href = (string)$attributes['href'];
+
+		$this->assertThat( $href, $this->equalTo( 'http://www.example.com/' ) );
+
+	}
+
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
 
