@@ -620,6 +620,29 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $href, $this->equalTo( 'http://www.example.com/' ) );
 	}
 
+	public function test_formatted_url_in_result_description() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				) ),
+			'items' => array(
+				array(
+					'htmlFormattedUrl' => 'http://www.example.com/',
+				),
+			),
+		));
+
+		$output = $this->get_widget_html();
+
+		$p = $this->get_html_element_from_output( $output,
+													 "/p[@class='ssgs-html-formatted-url']" );
+
+		$this->assertThat( (string)$p, $this->equalTo('http://www.example.com/' ));
+	}
 
 	private function get_api_query_parameter( $name ) {
 		global $_SSGS_MOCK_FILE_URL;
