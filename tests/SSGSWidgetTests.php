@@ -512,6 +512,34 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $href, $this->equalTo( 'default_image.png' ) );
 	}
 
+	public function test_thumbnail_has_alt_text() {
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				)  ),
+			'items' => array(
+				array(
+					'pagemap' => array(
+					),
+					'title' => 'Example title',
+				),
+			),
+		));
+
+		$output = $this->get_widget_html();
+
+		$link = $this->get_html_element_from_output( $output,
+													 "/img[@class='ssgs-result-thumbnail']" );
+		$attributes = $link->attributes();
+		$alt = (string)$attributes['alt'];
+
+		$this->assertThat( $alt, $this->equalTo( 'Example title' ) );
+	}
+
 	public function test_modified_date_displayed() {
 		$this->set_search_string( '' );
 		$this->set_search_results( array(
