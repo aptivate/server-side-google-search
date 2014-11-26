@@ -662,10 +662,10 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$p = $this->get_html_element_from_output( $output,
+		$span = $this->get_html_element_from_output( $output,
 												  "/span[@class='ssgs-html-snippet']" );
 
-		$this->assertThat( (string)$p,
+		$this->assertThat( (string)$span,
 						   $this->equalTo('Information about agroforestry' ) );
 	}
 
@@ -687,10 +687,10 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$output = $this->get_widget_html();
 
-		$p = $this->get_html_element_from_output( $output,
+		$span = $this->get_html_element_from_output( $output,
 												  "/span[@class='ssgs-modified-date']" );
 
-		$this->assertThat( (string)$p,
+		$this->assertThat( (string)$span,
 						   $this->equalTo('26th November 2014' ) );
 	}
 
