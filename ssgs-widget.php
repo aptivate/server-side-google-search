@@ -185,7 +185,7 @@ class SSGS_Widget extends WP_Widget {
 		          <div class="ssgs-result-content">
 			          <div class="ssgs-result-description">' .
 			              "<p class='ssgs-html-formatted-url'>{$item['htmlFormattedUrl']}</p>" .
-						  "<p class='ssgs-snippet'>$date{$item['htmlSnippet']}" .
+						  "<p class='ssgs-snippet'>$date<span class='ssgs-html-snippet'>{$item['htmlSnippet']}</span>" .
 			              '<a class="ssgs-expand" href="' . $link . '">[' . __('more', 'ssgs') . ']</a>
 						   </p>
 					  </div>
