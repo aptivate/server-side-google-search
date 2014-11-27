@@ -721,7 +721,102 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$href = (string)$attributes['href'];
 
 		$this->assertThat( $href, $this->equalTo( 'http://www.example.com/' ) );
+	}
 
+	public function test_next_link_only_displayed_on_first_page() {
+		$this->check_next_previous_links(array(
+			'start' => 1,
+			'total_results' => 1234,
+			'expected_total' => 1234,
+			'expected_next_start' => 11,
+		));
+	}
+
+	public function test_next_previous_links_displayed_on_second_page() {
+		$this->check_next_previous_links(array(
+			'start' => 11,
+			'total_results' => 1234,
+			'expected_total' => 1234,
+			'expected_prev_start' => 1,
+			'expected_next_start' => 21,
+		));
+	}
+
+	public function test_next_previous_links_displayed_on_third_page() {
+		$this->check_next_previous_links(array(
+			'start' => 21,
+			'total_results' => 1234,
+			'expected_total' => 1234,
+			'expected_prev_start' => 11,
+			'expected_next_start' => 31,
+		));
+	}
+
+	public function test_previous_link_only_displayed_on_last_page() {
+		$this->check_next_previous_links(array(
+			'start' => 31,
+			'total_results' => 40,
+			'expected_total' => 40,
+			'expected_prev_start' => 21,
+		));
+	}
+
+	private function check_next_previous_links( $args ) {
+		$defaults = array(
+			'total_results' => null,
+			'start' => null,
+			'expected_total' => null,
+			'expected_prev_start' => false,
+			'expected_next_start' => false,
+		);
+
+		array_merge( $defaults, $args );
+
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'start', $args['start'] );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => $args['total_results'],
+					),
+				) ),
+			'items' => array(),
+		));
+
+		$output = $this->get_widget_html();
+
+		$links = $this->get_html_elements_from_output( $output,
+													 "/a[@class='ssgs-prev']" );
+
+		if ( $args['expected_prev_start'] ) {
+			$attributes = $links[0]->attributes();
+			$href = (string)$attributes['href'];
+
+			$this->assertThat( $this->get_url_query_parameter( $href, 'totalItems' ),
+							   $this->equalTo( $args['expected_total'] ) );
+
+			$this->assertThat( $this->get_url_query_parameter( $href, 'start' ),
+							   $this->equalTo( $args['expected_prev_start'] ) );
+		} else {
+			$this->assertThat( count( $links ), $this->equalTo( 0 ) );
+		}
+
+		$links = $this->get_html_elements_from_output( $output,
+													   "/a[@class='ssgs-next']" );
+
+		if ( $args['expected_next_start'] ) {
+			$attributes = $links[0]->attributes();
+			$href = (string)$attributes['href'];
+
+			$this->assertThat( $this->get_url_query_parameter( $href, 'totalItems' ),
+							   $this->equalTo( $args['expected_total'] ) );
+
+			$this->assertThat( $this->get_url_query_parameter( $href, 'start' ),
+							   $this->equalTo( $args['expected_next_start'] ) );
+		} else {
+			$this->assertThat( count( $links ), $this->equalTo( 0 ) );
+		}
 	}
 
 	private function get_api_query_parameter( $name ) {
