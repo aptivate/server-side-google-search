@@ -761,6 +761,26 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		));
 	}
 
+	public function test_current_page_not_a_link() {
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'start', 11 );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 123,
+					),
+				) ),
+			'items' => array(),
+		));
+
+		$output = $this->get_widget_html();
+
+		$span = $this->get_html_element_from_output( $output,
+													 "/span[@class='ssgs-page']" );
+		$this->assertThat( (string)$span, $this->equalTo( 2 ) );
+	}
+
 	private function check_next_previous_links( $args ) {
 		$defaults = array(
 			'total_results' => null,
