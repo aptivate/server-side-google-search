@@ -781,6 +781,34 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( (string)$span, $this->equalTo( 2 ) );
 	}
 
+	public function test_there_is_a_link_to_next_page() {
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'start', 1 );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 123,
+					),
+				) ),
+			'items' => array(),
+		));
+
+		$output = $this->get_widget_html();
+
+		$pages = $this->get_html_elements_from_output( $output,
+													   "/*[@class='ssgs-page']" );
+		$this->assertThat( (string)$pages[1], $this->equalTo( 2 ) );
+		$attributes = $pages[1]->attributes();
+		$href = (string)$attributes['href'];
+
+		$this->assertThat( $this->get_url_query_parameter( $href, 'totalItems' ),
+						   $this->equalTo( 123 ) );
+
+		$this->assertThat( $this->get_url_query_parameter( $href, 'start' ),
+						   $this->equalTo( 11 ) );
+	}
+
 	private function check_next_previous_links( $args ) {
 		$defaults = array(
 			'total_results' => null,
