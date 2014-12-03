@@ -809,6 +809,27 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 						   $this->equalTo( 11 ) );
 	}
 
+	public function test_maximum_of_ten_pages_displayed() {
+		$this->set_search_string( '' );
+		$this->set_option( 'edition', 'paid' );
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 123,
+					),
+				) ),
+			'items' => array(),
+		));
+
+		$output = $this->get_widget_html();
+
+		$pages = $this->get_html_elements_from_output( $output,
+													   "/*[@class='ssgs-page']" );
+		$this->assertThat( count( $pages ), $this->equalTo( 10 ) );
+	}
+
 	private function check_next_previous_links( $args ) {
 		$defaults = array(
 			'total_results' => null,
