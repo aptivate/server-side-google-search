@@ -830,6 +830,32 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( count( $pages ), $this->equalTo( 10 ) );
 	}
 
+	public function test_current_page_in_middle_of_pages() {
+		$this->set_search_string( '' );
+		$this->set_option( 'edition', 'paid' );
+		$this->set_query_parameter( 'start', 101 ); // Page 11
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 200,
+					),
+				) ),
+			'items' => array(),
+		));
+
+		$output = $this->get_widget_html();
+
+		// expect pages to be 6 7 8 9 10 11 12 13 14 15
+
+		$pages = $this->get_html_elements_from_output( $output,
+													   "/*[@class='ssgs-page']" );
+		$this->assertThat( (string)$pages[0], $this->equalTo( 6 ) );
+		$this->assertThat( (string)$pages[9], $this->equalTo( 15 ) );
+
+	}
+
 	private function check_next_previous_links( $args ) {
 		$defaults = array(
 			'total_results' => null,
