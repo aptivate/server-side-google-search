@@ -280,22 +280,6 @@ class SSGS_Widget extends WP_Widget {
 		return "<a class='ssgs-page' href='$href'>$page_index</a>";
 	}
 
-    function update($new_instance, $old_instance) {
-        $instance = array();
-
-        $instance['promote'] = ( ! empty( $new_instance['promote'] ) ) ? strip_tags( $new_instance['promote'] ) : 0;
-
-        return $instance;
-
-    }
-
-
-    function form($instance) {
-        $instance = wp_parse_args( $instance, array(
-            'promote' => 0
-	));
-    }
-
 	function build_href($query_args=array()) {
 		global $wp;
 
