@@ -193,11 +193,11 @@ class SSGS_Widget extends WP_Widget {
 				$content .= '</ul>';
 
 				// Calculate new start value for "previous" link
-				$previous = ($start > 1) ? ($start - $items_per_page) : null;
+				$previous = ($start > 1) ? ($start - $limit) : null;
 				$previous = ( ! is_null( $previous ) && ($previous < 1)) ? 1 : $previous;
 
 				// Calculate new start value for "next" link
-				$next = (($start + $items_per_page) <= $total_items) ? ($start + $items_per_page) : null;
+				$next = (($start + $limit) <= $total_items) ? ($start + $limit) : null;
 
 				// Display previous and next links if applicable
 				if ( ! is_null( $previous ) || ! is_null( $next ) ) {
@@ -212,7 +212,7 @@ class SSGS_Widget extends WP_Widget {
 					}
 
 					$content .= '<ul class="ssgs-numbers">' .
-						$this->get_pages( $start, $total_items, $items_per_page ) .
+						$this->get_pages( $start, $total_items, $limit ) .
 						'</ul>';
 
 					if ( ! is_null( $next ) ) {

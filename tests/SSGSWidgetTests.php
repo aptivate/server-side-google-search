@@ -732,6 +732,29 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		));
 	}
 
+	public function test_next_link_uses_defined_limit() {
+		$this->set_query_parameter( 'limit', 5 );
+
+		$this->check_next_previous_links(array(
+			'start' => 1,
+			'total_results' => 1234,
+			'expected_total' => 1234,
+			'expected_next_start' => 6,
+		));
+	}
+
+	public function test_previous_link_uses_defined_limit() {
+		$this->set_query_parameter( 'limit', 5 );
+
+		$this->check_next_previous_links(array(
+			'start' => 11,
+			'total_results' => 1234,
+			'expected_total' => 1234,
+			'expected_prev_start' => 6,
+			'expected_next_start' => 16,
+		));
+	}
+
 	public function test_next_previous_links_displayed_on_second_page() {
 		$this->check_next_previous_links(array(
 			'start' => 11,
@@ -818,6 +841,28 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 				'request' => array(
 					array(
 						'totalResults' => 123,
+					),
+				) ),
+			'items' => array(),
+		));
+
+		$output = $this->get_widget_html();
+
+		$pages = $this->get_html_elements_from_output( $output,
+													   "/*[@class='ssgs-page']" );
+		$this->assertThat( count( $pages ), $this->equalTo( 10 ) );
+	}
+
+	public function test_correct_pages_shown_for_limit() {
+		$this->set_search_string( '' );
+		$this->set_option( 'edition', 'paid' );
+		$this->set_query_parameter( 'limit', 5 );
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 50,
 					),
 				) ),
 			'items' => array(),
