@@ -160,15 +160,6 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $format, $this->equalTo( 'json' ) );
 	}
 
-	public function test_format_passed_to_google_api() {
-		$this->set_search_string( '' );
-		$this->set_query_parameter( 'form', 'xml' );
-		$this->get_widget_html();
-
-		$format = $this->get_api_query_parameter( 'alt' );
-		$this->assertThat( $format, $this->equalTo( 'xml' ) );
-	}
-
 	public function test_sort_passed_to_google_api() {
 		$this->set_search_string( '' );
 		$this->set_query_parameter( 'sort', 'date' );

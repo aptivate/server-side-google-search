@@ -58,8 +58,7 @@ class SSGS_Widget extends WP_Widget {
 		// Set default value for query
 		$q = isset( $_GET['s'] ) ? urlencode( strip_tags( trim( $_GET['s'] ) ) ) : null;
 
-		// Set default value for API format
-		$form = isset( $_GET['form'] ) ? htmlentities( strip_tags( $_GET['form'] ) ) : 'json';
+		$form = 'json';
 
 		// Set default value for page length (number of entries to display)
 		$limit = isset( $_GET['limit'] ) ? strip_tags( (int)$_GET['limit'] ) : $items_per_page;
