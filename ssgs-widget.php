@@ -284,13 +284,14 @@ class SSGS_Widget extends WP_Widget {
 		global $wp;
 
 		$parsed_url = parse_url( home_url( add_query_arg( array(), $wp->request ) ) );
+		$query_args = array_merge( $_GET, $query_args );
 
 		return htmlentities( $this->build_url( $parsed_url, $query_args ) );
 	}
 
 	// http://php.net/manual/en/function.parse-url.php
 	function build_url( $parsed_url, $query_args = array() ) {
-		$parsed_url['query'] = http_build_query( array_merge( $_GET, $query_args ) );
+		$parsed_url['query'] = http_build_query( $query_args );
 
 		$scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
 		$host	 = isset($parsed_url['host']) ? $parsed_url['host'] : '';
