@@ -86,14 +86,36 @@ class SSGS_Widget extends WP_Widget {
 		if ( ! is_null( $q ) ) {
 			// Process query
 
-			// Set URL for the Google Custom Search API call
-			$url = "https://www.googleapis.com/customsearch/$v?key=$api_key&cx=$id&alt=$form" . ( is_null( $sort ) ? '' : "&sort=$sort")."&num=$limit&start=$start&prettyprint=true&q=$q".( is_null( $facet ) ? '' : "&hq=$facet" );
-
 			// Build request and send to Google Ajax Search API
 			if ( $options['results_source'] == 'test' ) {
 				$response = $this->get_mock_response();
 			} else {
-				$response = file_get_contents( $url );
+				// Set URL for the Google Custom Search API call
+				$url = array(
+					'scheme' => 'https',
+					'host' => 'www.googleapis.com',
+					'path' => "/customsearch/$v",
+				);
+
+				$query_args = array(
+					'key' => $api_key,
+					'cx' => $id,
+					'alt' => $form,
+					'num' => $limit,
+					'start' => $start,
+					'prettyprint' => 'true',
+					'q' => $q,
+				);
+
+				if ( ! is_null( $sort ) ) {
+					$query_args['sort'] = $sort;
+				}
+
+				if ( ! is_null( $facet ) ) {
+					$query_args['hq'] = $facet;
+				}
+
+				$response = file_get_contents( $this->build_url( $url, $query_args ) );
 			}
 
 			if ( $response === false ) {

@@ -172,7 +172,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->get_widget_html();
 
 		$key = $this->get_api_query_parameter( 'cx' );
-		$this->assertEquals( '573285494839582010549:3ajfhsoghsak',
+		$this->assertEquals( '573285494839582010549%3A3ajfhsoghsak',
 			$key );
 	}
 
@@ -256,7 +256,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$output = $this->get_widget_html();
 
 		$q = $this->get_api_query_parameter( 'q' );
-		$this->assertThat( $q, $this->equalTo( 'agroforestry+zambia' ) );
+		$this->assertThat( $q, $this->equalTo( 'agroforestry%2Bzambia' ) );
 	}
 
 	public function test_facet_passed_to_google_api() {
