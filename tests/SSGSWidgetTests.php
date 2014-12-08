@@ -103,6 +103,18 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			$message );
 	}
 
+	public function test_url_has_https_scheme() {
+		$this->set_search_string( '' );
+
+		$output = $this->get_widget_html();
+
+		global $_SSGS_MOCK_FILE_URL;
+
+		$scheme = parse_url( $_SSGS_MOCK_FILE_URL, PHP_URL_SCHEME );
+
+		$this->assertEquals( 'https', $scheme );
+	}
+
 	public function test_url_contains_api_version() {
 		$this->set_search_string( '' );
 		$this->set_query_parameter(	'v', 'v2' );
