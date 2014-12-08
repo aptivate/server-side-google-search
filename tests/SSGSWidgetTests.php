@@ -115,6 +115,18 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertEquals( 'https', $scheme );
 	}
 
+	public function test_url_has_host() {
+		$this->set_search_string( '' );
+
+		$output = $this->get_widget_html();
+
+		global $_SSGS_MOCK_FILE_URL;
+
+		$host = parse_url( $_SSGS_MOCK_FILE_URL, PHP_URL_HOST );
+
+		$this->assertEquals( 'www.googleapis.com', $host );
+	}
+
 	public function test_url_contains_api_version() {
 		$this->set_search_string( '' );
 		$this->set_query_parameter(	'v', 'v2' );
