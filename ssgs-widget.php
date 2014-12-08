@@ -133,8 +133,6 @@ class SSGS_Widget extends WP_Widget {
 				$content = '<p><strong>' . __( 'Sorry, there were no results', 'ssgs' ) ."</strong></p>\n";
 			}
 			else {
-				$options = get_option( 'ssgs_general_settings' );
-
 				// The free version of Google Custom Search only allows 100 results to be returned
 				if ( $options['edition'] == 'free' && $total_items > 100 ) {
 					$total_items = 100;
