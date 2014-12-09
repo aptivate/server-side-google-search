@@ -1,10 +1,10 @@
 <?php
 class SSGS_Widget extends WP_Widget {
-	function __construct() {
+	public function __construct() {
 		parent::WP_Widget( false, $name = __( 'Server-Side Google Search (SSGS)','ssgs' ) );
 	}
 
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		global $ssgs;
 
 		echo $args['before_widget'];
@@ -254,7 +254,7 @@ class SSGS_Widget extends WP_Widget {
 		return $content;
 	}
 
-	function get_pages( $current_start, $total_items, $items_per_page ) {
+	private function get_pages( $current_start, $total_items, $items_per_page ) {
 		$pages = '';
 
 		$current_page = (int)($current_start / $items_per_page) + 1;
@@ -277,7 +277,7 @@ class SSGS_Widget extends WP_Widget {
 		return $pages;
 	}
 
-	function get_page_numbers( $current_page, $total_pages ) {
+	private function get_page_numbers( $current_page, $total_pages ) {
 		$first_page = $current_page - 5;
 		if ( $first_page < 1 ) {
 			$first_page = 1;
@@ -291,7 +291,7 @@ class SSGS_Widget extends WP_Widget {
 		return range( $first_page, $last_page );
 	}
 
-	function get_page_link( $page_index, $start, $total_items ) {
+	private function get_page_link( $page_index, $start, $total_items ) {
 		$href = $this->build_href(array(
 			'totalItems' => $total_items,
 			'start' => $start,
@@ -300,7 +300,7 @@ class SSGS_Widget extends WP_Widget {
 		return "<a class='ssgs-page' href='$href'>$page_index</a>";
 	}
 
-	function build_href( $query_args = array() ) {
+	private function build_href( $query_args = array() ) {
 		global $wp;
 
 		$parsed_url = parse_url( home_url( add_query_arg( array(), $wp->request ) ) );
@@ -310,7 +310,7 @@ class SSGS_Widget extends WP_Widget {
 	}
 
 	// http://php.net/manual/en/function.parse-url.php
-	function build_url( $parsed_url, $query_args = array() ) {
+	private function build_url( $parsed_url, $query_args = array() ) {
 		$parsed_url['query'] = http_build_query( $query_args );
 
 		$scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '';
@@ -326,7 +326,7 @@ class SSGS_Widget extends WP_Widget {
 		return "$scheme$user$pass$host$port$path$query$fragment";
 	}
 
-	function get_mock_response() {
+	private function get_mock_response() {
 		return file_get_contents( dirname( __FILE__ ) . '/mock_results.json' );
 	}
 }
