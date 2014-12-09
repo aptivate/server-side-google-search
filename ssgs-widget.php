@@ -1,10 +1,14 @@
 <?php
 class SSGS_Widget extends WP_Widget {
+	private $options;
+
 	public function __construct() {
 		parent::WP_Widget( false, $name = __( 'Server-Side Google Search (SSGS)','ssgs' ) );
 	}
 
 	public function widget( $args, $instance ) {
+		$this->options = get_option( 'ssgs_general_settings' );
+
 		global $ssgs;
 
 		echo $args['before_widget'];
@@ -50,36 +54,10 @@ class SSGS_Widget extends WP_Widget {
 	 */
 
 	private function get_search_results() {
-		$options = get_option( 'ssgs_general_settings' );
-
-		// Number of records to display per page (1 - 10)
-		$items_per_page = 10;
-
-		// Set default value for query
-		$q = isset( $_GET['s'] ) ? urlencode( strip_tags( trim( $_GET['s'] ) ) ) : null;
-
-		$form = 'json';
-
-		// Set default value for page length (number of entries to display)
-		$limit = isset( $_GET['limit'] ) ? strip_tags( (int)$_GET['limit'] ) : $items_per_page;
-
-		// Set default value for page start index
-		$start = isset( $_GET['start'] ) ? strip_tags( (int)$_GET['start'] ) : '1';
-
-		// Set default value for facet browse
-		$facet = isset( $_GET['facet'] ) ? htmlentities( strip_tags( $_GET['facet'] ) ) : null;
-
-		// Set default value for results sorting
-		$sort = isset( $_GET['sort'] ) ? htmlentities( strip_tags( $_GET['sort'] ) ) : null;
-
-		// Set API version for Google Custom Search API
-		$v = isset( $_GET['v'] ) ? strip_tags( $_GET['v'] ) : 'v1';
-
-		// Set user API key for Google Custom Search API
-		$api_key = $options['google_search_api_key'];
-
-		// Set user ID for Google custom search engine
-		$id = $options['google_search_engine_id'];
+		$q = $this->get_search_string();
+		$limit = $this->get_page_length();
+		$start = $this->get_page_start();
+		$sort = $this->get_sort();
 
 		$content = '';
 
@@ -87,35 +65,10 @@ class SSGS_Widget extends WP_Widget {
 			// Process query
 
 			// Build request and send to Google Ajax Search API
-			if ( $options['results_source'] == 'test' ) {
+			if ( $this->options['results_source'] == 'test' ) {
 				$response = $this->get_mock_response();
 			} else {
-				// Set URL for the Google Custom Search API call
-				$url = array(
-					'scheme' => 'https',
-					'host' => 'www.googleapis.com',
-					'path' => "/customsearch/$v",
-				);
-
-				$query_args = array(
-					'key' => $api_key,
-					'cx' => $id,
-					'alt' => $form,
-					'num' => $limit,
-					'start' => $start,
-					'prettyprint' => 'true',
-					'q' => $q,
-				);
-
-				if ( ! is_null( $sort ) ) {
-					$query_args['sort'] = $sort;
-				}
-
-				if ( ! is_null( $facet ) ) {
-					$query_args['hq'] = $facet;
-				}
-
-				$response = file_get_contents( $this->build_url( $url, $query_args ) );
+				$response = $this->get_google_response();
 			}
 
 			if ( $response === false ) {
@@ -134,7 +87,7 @@ class SSGS_Widget extends WP_Widget {
 			}
 			else {
 				// The free version of Google Custom Search only allows 100 results to be returned
-				if ( $options['edition'] == 'free' && $total_items > 100 ) {
+				if ( $this->options['edition'] == 'free' && $total_items > 100 ) {
 					$total_items = 100;
 				}
 
@@ -185,7 +138,7 @@ class SSGS_Widget extends WP_Widget {
 						$thumbnail = $item['pagemap']['cse_image'][0]['src'];
 					}
 					else {
-						$thumbnail = $options['default_search_image_url'];
+						$thumbnail = $this->options['default_search_image_url'];
 					}
 
 					if ( $item['metatags-modified-date'] ) {
@@ -252,6 +205,74 @@ class SSGS_Widget extends WP_Widget {
 		} // End (!is_null($q))
 
 		return $content;
+	}
+
+	private function get_google_response() {
+		$api_key = $this->options['google_search_api_key'];
+		$id = $this->options['google_search_engine_id'];
+		$limit = $this->get_page_length();
+		$q = $this->get_search_string();
+		$facet = isset( $_GET['facet'] ) ? htmlentities( strip_tags( $_GET['facet'] ) ) : null;
+		$sort = $this->get_sort();
+		$api_version = isset( $_GET['v'] ) ? strip_tags( $_GET['v'] ) : 'v1';
+		$start = $this->get_page_start();
+
+		// Set URL for the Google Custom Search API call
+		$url = array(
+			'scheme' => 'https',
+			'host' => 'www.googleapis.com',
+			'path' => "/customsearch/$api_version",
+		);
+
+		$query_args = array(
+			'key' => $api_key,
+			'cx' => $id,
+			'alt' => 'json',
+			'num' => $limit,
+			'start' => $start,
+			'prettyprint' => 'true',
+			'q' => $q,
+		);
+
+		if ( ! is_null( $sort ) ) {
+			$query_args['sort'] = $sort;
+		}
+
+		if ( ! is_null( $facet ) ) {
+			$query_args['hq'] = $facet;
+		}
+
+		return file_get_contents( $this->build_url( $url, $query_args ) );
+	}
+
+	private function get_page_length() {
+		// Number of records to display per page (1 - 10)
+		$items_per_page = 10;
+
+		// Set default value for page length (number of entries to display)
+		$limit = isset( $_GET['limit'] ) ? strip_tags( (int)$_GET['limit'] ) : $items_per_page;
+
+		return $limit;
+	}
+
+	private function get_page_start() {
+		// Set default value for page start index
+		$start = isset( $_GET['start'] ) ? strip_tags( (int)$_GET['start'] ) : '1';
+
+		return $start;
+	}
+
+	private function get_search_string() {
+		$q = isset( $_GET['s'] ) ? urlencode( strip_tags( trim( $_GET['s'] ) ) ) : null;
+
+		return $q;
+	}
+
+	private function get_sort() {
+		// Set default value for results sorting
+		$sort = isset( $_GET['sort'] ) ? htmlentities( strip_tags( $_GET['sort'] ) ) : null;
+
+		return $sort;
 	}
 
 	private function get_pages( $current_start, $total_items, $items_per_page ) {
