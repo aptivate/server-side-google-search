@@ -95,26 +95,7 @@ class SSGS_Widget extends WP_Widget {
 							$results_displayed, $total_items) . '</div>' .
 					'<div class="ssgs-result-facet">';
 
-				$relevance_url = $this->build_href( array( 'sort' => '' ) );
-				$date_url = $this->build_href( array( 'sort' => 'date' ) );
-
-				$date_classes = array( 'ssgs-results-sort-date' );
-				$relevance_classes = array( 'ssgs-results-sort-relevance' );
-
-				if ( $sort == 'date' ) {
-					$date_classes[] = 'selected';
-				} else {
-					$relevance_classes[] = 'selected';
-				}
-
-				$date_classes = implode( ' ', $date_classes );
-				$relevance_classes = implode( ' ', $relevance_classes );
-
-				$content .= '<ul class="ssgs-facet-filter">' .
-					"<span class='ssgs-facet-heading'>" . __( 'Sort', 'ssgs' ) . "</span>
-				<li class='$relevance_classes'><a class='ssgs-facet-link' href='$relevance_url'>" . __( 'Relevance', 'ssgs' ). "</a></li>
-				<li class='$date_classes'><a class='ssgs-facet-link' href='$date_url'>" . __( 'Date', 'ssgs' ) . "</a></li>
-				</ul>";
+				$content .= $this->get_facet_filter( $sort );
 
 				$content .= '<ul class="ssgs-result-list">';
 
@@ -196,6 +177,31 @@ class SSGS_Widget extends WP_Widget {
 
 			} // End else -- $total_items <= 0
 		} // End (!is_null($q))
+
+		return $content;
+	}
+
+	private function get_facet_filter( $sort ) {
+		$relevance_url = $this->build_href( array( 'sort' => '' ) );
+		$date_url = $this->build_href( array( 'sort' => 'date' ) );
+
+		$date_classes = array( 'ssgs-results-sort-date' );
+		$relevance_classes = array( 'ssgs-results-sort-relevance' );
+
+		if ( $sort == 'date' ) {
+			$date_classes[] = 'selected';
+		} else {
+			$relevance_classes[] = 'selected';
+		}
+
+		$date_classes = implode( ' ', $date_classes );
+		$relevance_classes = implode( ' ', $relevance_classes );
+
+		$content = '<ul class="ssgs-facet-filter">' .
+			"<span class='ssgs-facet-heading'>" . __( 'Sort', 'ssgs' ) . "</span>
+				<li class='$relevance_classes'><a class='ssgs-facet-link' href='$relevance_url'>" . __( 'Relevance', 'ssgs' ). "</a></li>
+				<li class='$date_classes'><a class='ssgs-facet-link' href='$date_url'>" . __( 'Date', 'ssgs' ) . "</a></li>
+				</ul>";
 
 		return $content;
 	}
