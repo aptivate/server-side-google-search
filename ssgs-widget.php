@@ -95,27 +95,13 @@ class SSGS_Widget extends WP_Widget {
 				// Display previous and next links if applicable
 				if ( ! is_null( $previous ) || ! is_null( $next ) ) {
 					$content .= '<div class="ssgs-pages">';
-					if ( ! is_null( $previous ) ) {
-						$previous_link = $this->build_href( array(
-							'totalItems' => $total_items,
-							'start' => $previous,
-						) );
-
-						$content .= "<a class='ssgs-prev' href='$previous_link'>&laquo;</a>";
-					}
+					$content .= $this->get_previous_link( $previous, $total_items );
 
 					$content .= '<ul class="ssgs-numbers">' .
 						$this->get_pages( $start, $total_items, $limit ) .
 						'</ul>';
 
-					if ( ! is_null( $next ) ) {
-						$next_link = $this->build_href(array(
-							'totalItems' => $total_items,
-							'start' => $next,
-						) );
-
-						$content .= "<a class='ssgs-next' href='$next_link'>&raquo;</a>";
-					}
+					$content .= $this->get_next_link( $next, $total_items );
 
 					$content .= '</div>';
 				}
@@ -124,6 +110,36 @@ class SSGS_Widget extends WP_Widget {
 
 			} // End else -- $total_items <= 0
 		} // End (!is_null($q))
+
+		return $content;
+	}
+
+	private function get_previous_link( $previous, $total_items ) {
+		$content = '';
+
+		if ( ! is_null( $previous ) ) {
+			$previous_link = $this->build_href( array(
+				'totalItems' => $total_items,
+				'start' => $previous,
+			) );
+
+			$content .= "<a class='ssgs-prev' href='$previous_link'>&laquo;</a>";
+		}
+
+		return $content;
+	}
+
+	private function get_next_link( $next, $total_items ) {
+		$content = '';
+
+		if ( ! is_null( $next ) ) {
+			$next_link = $this->build_href(array(
+				'totalItems' => $total_items,
+				'start' => $next,
+			) );
+
+			$content .= "<a class='ssgs-next' href='$next_link'>&raquo;</a>";
+		}
 
 		return $content;
 	}
