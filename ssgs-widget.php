@@ -64,13 +64,7 @@ class SSGS_Widget extends WP_Widget {
 		if ( ! is_null( $q ) ) {
 			// Process query
 
-			// Build request and send to Google Ajax Search API
-			if ( $this->options['results_source'] == 'test' ) {
-				$response = $this->get_mock_response();
-			} else {
-				$response = $this->get_google_response();
-			}
-
+			$response = $this->get_api_response();
 			if ( $response === false ) {
 				// API call failed, display message to user
 				return '<p><strong>' . __( 'An error was encountered while performing the requested search', 'ssgs' ) . '</strong></p>'."\n";
@@ -132,6 +126,15 @@ class SSGS_Widget extends WP_Widget {
 		} // End (!is_null($q))
 
 		return $content;
+	}
+
+	private function get_api_response() {
+		// Build request and send to Google Ajax Search API
+		if ( $this->options['results_source'] == 'test' ) {
+			return $this->get_mock_response();
+		}
+
+		return $this->get_google_response();
 	}
 
 	private function get_results_header( $q, $items, $total_items ) {
