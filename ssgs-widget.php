@@ -78,17 +78,25 @@ class SSGS_Widget extends WP_Widget {
 	}
 
 	private function get_results_content( $result ) {
-		$limit = $this->get_page_length();
-		$start = $this->get_page_start();
-		$sort = $this->get_sort();
-		$total_items = $this->get_total_items( $result );
-
 		// Make sure some results were returned, show results as html with result numbering and pagination
-		$content = $this->get_results_header( $result['items'], $total_items );
+		$content = $this->get_results_header( $result );
 		$content .=	'<div class="ssgs-result-facet">';
 
+		$sort = $this->get_sort();
 		$content .= $this->get_facet_filter( $sort );
 		$content .= $this->get_result_list( $result['items'] );
+		$content .= $this->get_other_pages_content( $result );
+
+		$content .= '</div>';
+
+		return $content;
+	}
+
+	private function get_other_pages_content( $result ) {
+		$limit = $this->get_page_length();
+		$start = $this->get_page_start();
+
+		$total_items = $this->get_total_items( $result );
 
 		// Calculate new start value for "previous" link
 		$previous = $start - $limit;
@@ -104,7 +112,7 @@ class SSGS_Widget extends WP_Widget {
 
 		// Display previous and next links if applicable
 		if ( $previous || $next ) {
-			$content .= '<div class="ssgs-pages">';
+			$content = '<div class="ssgs-pages">';
 			$content .= $this->get_previous_link( $previous, $total_items );
 
 			$content .= '<ul class="ssgs-numbers">' .
@@ -115,8 +123,6 @@ class SSGS_Widget extends WP_Widget {
 
 			$content .= '</div>';
 		}
-
-		$content .= '</div>';
 
 		return $content;
 	}
@@ -160,9 +166,10 @@ class SSGS_Widget extends WP_Widget {
 		return $this->get_google_response();
 	}
 
-	private function get_results_header( $items, $total_items ) {
+	private function get_results_header( $result ) {
+		$total_items = $this->get_total_items( $result );
 		$q = $this->get_search_string();
-		$results_displayed = count( $items );
+		$results_displayed = count( $result['items'] );
 
 		$content = '<h2 class="ssgs-result-page-title">' . __( 'Search for', 'ssgs' ).
 			' <strong>' . stripslashes( urldecode( $q ) ) . '</strong></h2>' .
