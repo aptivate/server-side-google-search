@@ -85,11 +85,16 @@ class SSGS_Widget extends WP_Widget {
 			$content .= $this->get_result_list( $result['items'] );
 
 			// Calculate new start value for "previous" link
-			$previous = ($start > 1) ? ($start - $limit) : null;
-			$previous = ( ! is_null( $previous ) && ($previous < 1)) ? 1 : $previous;
+			$previous = $start - $limit;
+			if ( $previous < 1 ) {
+				$previous = null;
+			}
 
 			// Calculate new start value for "next" link
-			$next = (($start + $limit) <= $total_items) ? ($start + $limit) : null;
+			$next = $start + $limit;
+			if ( $next > $total_items ) {
+				$next = null;
+			}
 
 			// Display previous and next links if applicable
 			if ( ! is_null( $previous ) || ! is_null( $next ) ) {
