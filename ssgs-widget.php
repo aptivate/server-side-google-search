@@ -79,18 +79,11 @@ class SSGS_Widget extends WP_Widget {
 			// Decode json object(s) out of response from Google Ajax Search API
 			$result = json_decode( $response, true );
 
-			// Get values in json data for number of search results returned
-			$total_items = isset( $_GET['totalItems'] ) ?  strip_tags( (int)$_GET['totalItems'] ) : $result['queries']['request'][0]['totalResults'];
+			$total_items = $this->get_total_items( $result );
 			if ( $total_items <= 0 ) {
-				// Empty results, display message to user
 				$content = '<p><strong>' . __( 'Sorry, there were no results', 'ssgs' ) ."</strong></p>\n";
 			}
 			else {
-				// The free version of Google Custom Search only allows 100 results to be returned
-				if ( $this->options['edition'] == 'free' && $total_items > 100 ) {
-					$total_items = 100;
-				}
-
 				// Make sure some results were returned, show results as html with result numbering and pagination
 
 				$results_displayed = count( $result['items'] );
@@ -205,6 +198,17 @@ class SSGS_Widget extends WP_Widget {
 		} // End (!is_null($q))
 
 		return $content;
+	}
+
+	private function get_total_items( $result ) {
+		$total_items = isset( $_GET['totalItems'] ) ?  strip_tags( (int)$_GET['totalItems'] ) : $result['queries']['request'][0]['totalResults'];
+
+		// The free version of Google Custom Search only allows 100 results to be returned
+		if ( $this->options['edition'] == 'free' && $total_items > 100 ) {
+			$total_items = 100;
+		}
+
+		return $total_items;
 	}
 
 	private function get_google_response() {
