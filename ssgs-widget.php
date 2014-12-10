@@ -85,18 +85,10 @@ class SSGS_Widget extends WP_Widget {
 			}
 			else {
 				// Make sure some results were returned, show results as html with result numbering and pagination
-
-				$results_displayed = count( $result['items'] );
-
-				$content = '<h2 class="ssgs-result-page-title">' . __( 'Search for', 'ssgs' ).
-					' <strong>' . stripslashes( urldecode( $q ) ) . '</strong></h2>' .
-					'<div class="ssgs-results-info">' .
-					sprintf( __( 'Displaying %d items from around %d matches', 'ssgs' ),
-							$results_displayed, $total_items) . '</div>' .
-					'<div class="ssgs-result-facet">';
+				$content = $this->get_results_header( $q, $result['items'], $total_items );
+				$content .=	'<div class="ssgs-result-facet">';
 
 				$content .= $this->get_facet_filter( $sort );
-
 				$content .= $this->get_result_list( $result['items'] );
 
 				// Calculate new start value for "previous" link
@@ -138,6 +130,18 @@ class SSGS_Widget extends WP_Widget {
 
 			} // End else -- $total_items <= 0
 		} // End (!is_null($q))
+
+		return $content;
+	}
+
+	private function get_results_header( $q, $items, $total_items ) {
+		$results_displayed = count( $items );
+
+		$content = '<h2 class="ssgs-result-page-title">' . __( 'Search for', 'ssgs' ).
+			' <strong>' . stripslashes( urldecode( $q ) ) . '</strong></h2>' .
+			'<div class="ssgs-results-info">' .
+			sprintf( __( 'Displaying %d items from around %d matches', 'ssgs' ),
+					 $results_displayed, $total_items) . '</div>';
 
 		return $content;
 	}
