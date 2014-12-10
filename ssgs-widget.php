@@ -93,19 +93,19 @@ class SSGS_Widget extends WP_Widget {
 	}
 
 	private function get_other_pages_content( $result ) {
-		$limit = $this->get_page_length();
+		$page_length = $this->get_page_length();
 		$start = $this->get_page_start();
 
 		$total_items = $this->get_total_items( $result );
 
 		// Calculate new start value for "previous" link
-		$previous = $start - $limit;
+		$previous = $start - $page_length;
 		if ( $previous < 1 ) {
 			$previous = false;
 		}
 
 		// Calculate new start value for "next" link
-		$next = $start + $limit;
+		$next = $start + $page_length;
 		if ( $next > $total_items ) {
 			$next = false;
 		}
@@ -116,7 +116,7 @@ class SSGS_Widget extends WP_Widget {
 			$content .= $this->get_previous_link( $previous, $total_items );
 
 			$content .= '<ul class="ssgs-numbers">' .
-				$this->get_pages( $start, $total_items, $limit ) .
+				$this->get_pages( $start, $total_items, $page_length ) .
 				'</ul>';
 
 			$content .= $this->get_next_link( $next, $total_items );
@@ -269,7 +269,7 @@ class SSGS_Widget extends WP_Widget {
 	private function get_google_response() {
 		$api_key = $this->options['google_search_api_key'];
 		$id = $this->options['google_search_engine_id'];
-		$limit = $this->get_page_length();
+		$page_length = $this->get_page_length();
 		$q = $this->get_search_string();
 		$facet = isset( $_GET['facet'] ) ? htmlentities( strip_tags( $_GET['facet'] ) ) : false;
 		$sort = $this->get_sort();
@@ -287,7 +287,7 @@ class SSGS_Widget extends WP_Widget {
 			'key' => $api_key,
 			'cx' => $id,
 			'alt' => 'json',
-			'num' => $limit,
+			'num' => $page_length,
 			'start' => $start,
 			'prettyprint' => 'true',
 			'q' => $q,
@@ -309,9 +309,9 @@ class SSGS_Widget extends WP_Widget {
 		$items_per_page = 10;
 
 		// Set default value for page length (number of entries to display)
-		$limit = isset( $_GET['limit'] ) ? strip_tags( (int)$_GET['limit'] ) : $items_per_page;
+		$page_length = isset( $_GET['limit'] ) ? strip_tags( (int)$_GET['limit'] ) : $items_per_page;
 
-		return $limit;
+		return $page_length;
 	}
 
 	private function get_page_start() {
