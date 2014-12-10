@@ -97,46 +97,7 @@ class SSGS_Widget extends WP_Widget {
 
 				$content .= $this->get_facet_filter( $sort );
 
-				$content .= '<ul class="ssgs-result-list">';
-
-				foreach ( $result['items'] as $item ) {
-					$link = rawurldecode( $item['link'] );
-
-					if ( isset( $item['pagemap']['metatags'][0]['thumbnailurl'] ) ) {
-						$thumbnail = $item['pagemap']['metatags'][0]['thumbnailurl'];
-					}
-					elseif ( isset( $item['pagemap']['cse_thumbnail'][0]['src'] ) ) {
-						$thumbnail = $item['pagemap']['cse_thumbnail'][0]['src'];
-					}
-					elseif ( isset( $item['pagemap']['cse_image'][0]['src'] ) ) {
-						$thumbnail = $item['pagemap']['cse_image'][0]['src'];
-					}
-					else {
-						$thumbnail = $this->options['default_search_image_url'];
-					}
-
-					if ( $item['metatags-modified-date'] ) {
-						$date = "<span class='ssgs-modified-date'>{$item['metatags-modified-date']}</span> - ";
-					} else {
-						$date = '';
-					}
-
-					$content .= '<li class="ssgs-search-result-item">
-				  <div class="ssgs-result-header">
-					  <a href="' . $link . '"><img class="ssgs-result-thumbnail" alt="' . htmlentities( $item['title'] ) .'" src="' . rawurldecode( $thumbnail ) . '" /></a>
-					  <h3 class="ssgs-result-title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
-				  </div>
-				  <div class="ssgs-result-content">
-					  <div class="ssgs-result-description">' .
-					"<p class='ssgs-html-formatted-url'>{$item['htmlFormattedUrl']}</p>" .
-						"<p class='ssgs-snippet'>$date<span class='ssgs-html-snippet'>{$item['htmlSnippet']}</span>" .
-						'<a class="ssgs-expand" href="' . $link . '">[' . __( 'more', 'ssgs' ) . ']</a>
-						   </p>
-					  </div>
-				  </div>
-			  </li>';
-				}
-				$content .= '</ul>';
+				$content .= $this->get_result_list( $result['items'] );
 
 				// Calculate new start value for "previous" link
 				$previous = ($start > 1) ? ($start - $limit) : null;
@@ -202,6 +163,51 @@ class SSGS_Widget extends WP_Widget {
 				<li class='$relevance_classes'><a class='ssgs-facet-link' href='$relevance_url'>" . __( 'Relevance', 'ssgs' ). "</a></li>
 				<li class='$date_classes'><a class='ssgs-facet-link' href='$date_url'>" . __( 'Date', 'ssgs' ) . "</a></li>
 				</ul>";
+
+		return $content;
+	}
+
+	private function get_result_list( $items ) {
+		$content .= '<ul class="ssgs-result-list">';
+
+		foreach ( $items as $item ) {
+			$link = rawurldecode( $item['link'] );
+
+			if ( isset( $item['pagemap']['metatags'][0]['thumbnailurl'] ) ) {
+				$thumbnail = $item['pagemap']['metatags'][0]['thumbnailurl'];
+			}
+			elseif ( isset( $item['pagemap']['cse_thumbnail'][0]['src'] ) ) {
+				$thumbnail = $item['pagemap']['cse_thumbnail'][0]['src'];
+			}
+			elseif ( isset( $item['pagemap']['cse_image'][0]['src'] ) ) {
+				$thumbnail = $item['pagemap']['cse_image'][0]['src'];
+			}
+			else {
+				$thumbnail = $this->options['default_search_image_url'];
+			}
+
+			if ( $item['metatags-modified-date'] ) {
+				$date = "<span class='ssgs-modified-date'>{$item['metatags-modified-date']}</span> - ";
+			} else {
+				$date = '';
+			}
+
+			$content .= '<li class="ssgs-search-result-item">
+				  <div class="ssgs-result-header">
+					  <a href="' . $link . '"><img class="ssgs-result-thumbnail" alt="' . htmlentities( $item['title'] ) .'" src="' . rawurldecode( $thumbnail ) . '" /></a>
+					  <h3 class="ssgs-result-title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
+				  </div>
+				  <div class="ssgs-result-content">
+					  <div class="ssgs-result-description">' .
+			"<p class='ssgs-html-formatted-url'>{$item['htmlFormattedUrl']}</p>" .
+				"<p class='ssgs-snippet'>$date<span class='ssgs-html-snippet'>{$item['htmlSnippet']}</span>" .
+				'<a class="ssgs-expand" href="' . $link . '">[' . __( 'more', 'ssgs' ) . ']</a>
+						   </p>
+					  </div>
+				  </div>
+			  </li>';
+		}
+		$content .= '</ul>';
 
 		return $content;
 	}
