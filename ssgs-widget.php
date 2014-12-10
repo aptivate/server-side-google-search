@@ -57,12 +57,6 @@ class SSGS_Widget extends WP_Widget {
 	 */
 
 	private function get_search_results( $q ) {
-		$limit = $this->get_page_length();
-		$start = $this->get_page_start();
-		$sort = $this->get_sort();
-
-		$content = '';
-
 		$response = $this->get_api_response();
 		if ( $response === false ) {
 			// API call failed, display message to user
@@ -71,6 +65,12 @@ class SSGS_Widget extends WP_Widget {
 
 		// Decode json object(s) out of response from Google Ajax Search API
 		$result = json_decode( $response, true );
+
+		$limit = $this->get_page_length();
+		$start = $this->get_page_start();
+		$sort = $this->get_sort();
+
+		$content = '';
 
 		$total_items = $this->get_total_items( $result );
 		if ( $total_items <= 0 ) {
