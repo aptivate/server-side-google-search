@@ -87,17 +87,17 @@ class SSGS_Widget extends WP_Widget {
 			// Calculate new start value for "previous" link
 			$previous = $start - $limit;
 			if ( $previous < 1 ) {
-				$previous = null;
+				$previous = false;
 			}
 
 			// Calculate new start value for "next" link
 			$next = $start + $limit;
 			if ( $next > $total_items ) {
-				$next = null;
+				$next = false;
 			}
 
 			// Display previous and next links if applicable
-			if ( ! is_null( $previous ) || ! is_null( $next ) ) {
+			if ( $previous || $next ) {
 				$content .= '<div class="ssgs-pages">';
 				$content .= $this->get_previous_link( $previous, $total_items );
 
@@ -120,7 +120,7 @@ class SSGS_Widget extends WP_Widget {
 	private function get_previous_link( $previous, $total_items ) {
 		$content = '';
 
-		if ( ! is_null( $previous ) ) {
+		if ( $previous ) {
 			$previous_link = $this->build_href( array(
 				'totalItems' => $total_items,
 				'start' => $previous,
@@ -135,7 +135,7 @@ class SSGS_Widget extends WP_Widget {
 	private function get_next_link( $next, $total_items ) {
 		$content = '';
 
-		if ( ! is_null( $next ) ) {
+		if ( $next ) {
 			$next_link = $this->build_href(array(
 				'totalItems' => $total_items,
 				'start' => $next,
