@@ -16,7 +16,7 @@ class SSGS_Widget extends WP_Widget {
 		$content  = '<div class="ssgs-result-wrapper">';
 		$q = $this->get_search_string();
 		if ( ! is_null( $q ) ) {
-			$content .= $this->get_search_results( $q );
+			$content .= $this->get_search_results();
 		}
 		$content .= '</div>';
 
@@ -56,7 +56,7 @@ class SSGS_Widget extends WP_Widget {
 	 *
 	 */
 
-	private function get_search_results( $q ) {
+	private function get_search_results() {
 		$response = $this->get_api_response();
 		if ( $response === false ) {
 			// API call failed, display message to user
@@ -66,53 +66,57 @@ class SSGS_Widget extends WP_Widget {
 		// Decode json object(s) out of response from Google Ajax Search API
 		$result = json_decode( $response, true );
 
-		$limit = $this->get_page_length();
-		$start = $this->get_page_start();
-		$sort = $this->get_sort();
-
-		$content = '';
-
 		$total_items = $this->get_total_items( $result );
 		if ( $total_items <= 0 ) {
 			$content = '<p><strong>' . __( 'Sorry, there were no results', 'ssgs' ) ."</strong></p>\n";
-		}
-		else {
-			// Make sure some results were returned, show results as html with result numbering and pagination
-			$content = $this->get_results_header( $q, $result['items'], $total_items );
-			$content .=	'<div class="ssgs-result-facet">';
-
-			$content .= $this->get_facet_filter( $sort );
-			$content .= $this->get_result_list( $result['items'] );
-
-			// Calculate new start value for "previous" link
-			$previous = $start - $limit;
-			if ( $previous < 1 ) {
-				$previous = false;
-			}
-
-			// Calculate new start value for "next" link
-			$next = $start + $limit;
-			if ( $next > $total_items ) {
-				$next = false;
-			}
-
-			// Display previous and next links if applicable
-			if ( $previous || $next ) {
-				$content .= '<div class="ssgs-pages">';
-				$content .= $this->get_previous_link( $previous, $total_items );
-
-				$content .= '<ul class="ssgs-numbers">' .
-					$this->get_pages( $start, $total_items, $limit ) .
-					'</ul>';
-
-				$content .= $this->get_next_link( $next, $total_items );
-
-				$content .= '</div>';
-			}
-
-			$content .= '</div>';
+		}else {
+			$content = $this->get_results_content( $result );
 
 		} // End else -- $total_items <= 0
+
+		return $content;
+	}
+
+	private function get_results_content( $result ) {
+		$limit = $this->get_page_length();
+		$start = $this->get_page_start();
+		$sort = $this->get_sort();
+		$total_items = $this->get_total_items( $result );
+
+		// Make sure some results were returned, show results as html with result numbering and pagination
+		$content = $this->get_results_header( $result['items'], $total_items );
+		$content .=	'<div class="ssgs-result-facet">';
+
+		$content .= $this->get_facet_filter( $sort );
+		$content .= $this->get_result_list( $result['items'] );
+
+		// Calculate new start value for "previous" link
+		$previous = $start - $limit;
+		if ( $previous < 1 ) {
+			$previous = false;
+		}
+
+		// Calculate new start value for "next" link
+		$next = $start + $limit;
+		if ( $next > $total_items ) {
+			$next = false;
+		}
+
+		// Display previous and next links if applicable
+		if ( $previous || $next ) {
+			$content .= '<div class="ssgs-pages">';
+			$content .= $this->get_previous_link( $previous, $total_items );
+
+			$content .= '<ul class="ssgs-numbers">' .
+				$this->get_pages( $start, $total_items, $limit ) .
+				'</ul>';
+
+			$content .= $this->get_next_link( $next, $total_items );
+
+			$content .= '</div>';
+		}
+
+		$content .= '</div>';
 
 		return $content;
 	}
@@ -156,7 +160,8 @@ class SSGS_Widget extends WP_Widget {
 		return $this->get_google_response();
 	}
 
-	private function get_results_header( $q, $items, $total_items ) {
+	private function get_results_header( $items, $total_items ) {
+		$q = $this->get_search_string();
 		$results_displayed = count( $items );
 
 		$content = '<h2 class="ssgs-result-page-title">' . __( 'Search for', 'ssgs' ).
