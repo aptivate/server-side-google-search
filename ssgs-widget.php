@@ -14,7 +14,10 @@ class SSGS_Widget extends WP_Widget {
 		echo $args['before_widget'];
 
 		$content  = '<div class="ssgs-result-wrapper">';
-		$content .= $this->get_search_results();
+		$q = $this->get_search_string();
+		if ( ! is_null( $q ) ) {
+			$content .= $this->get_search_results( $q );
+		}
 		$content .= '</div>';
 
 		echo apply_filters( 'ssgs_widget_content', $content );
@@ -53,63 +56,58 @@ class SSGS_Widget extends WP_Widget {
 	 *
 	 */
 
-	private function get_search_results() {
-		$q = $this->get_search_string();
+	private function get_search_results( $q ) {
 		$limit = $this->get_page_length();
 		$start = $this->get_page_start();
 		$sort = $this->get_sort();
 
 		$content = '';
 
-		if ( ! is_null( $q ) ) {
-			// Process query
+		$response = $this->get_api_response();
+		if ( $response === false ) {
+			// API call failed, display message to user
+			return '<p><strong>' . __( 'An error was encountered while performing the requested search', 'ssgs' ) . '</strong></p>'."\n";
+		}
 
-			$response = $this->get_api_response();
-			if ( $response === false ) {
-				// API call failed, display message to user
-				return '<p><strong>' . __( 'An error was encountered while performing the requested search', 'ssgs' ) . '</strong></p>'."\n";
-			}
+		// Decode json object(s) out of response from Google Ajax Search API
+		$result = json_decode( $response, true );
 
-			// Decode json object(s) out of response from Google Ajax Search API
-			$result = json_decode( $response, true );
+		$total_items = $this->get_total_items( $result );
+		if ( $total_items <= 0 ) {
+			$content = '<p><strong>' . __( 'Sorry, there were no results', 'ssgs' ) ."</strong></p>\n";
+		}
+		else {
+			// Make sure some results were returned, show results as html with result numbering and pagination
+			$content = $this->get_results_header( $q, $result['items'], $total_items );
+			$content .=	'<div class="ssgs-result-facet">';
 
-			$total_items = $this->get_total_items( $result );
-			if ( $total_items <= 0 ) {
-				$content = '<p><strong>' . __( 'Sorry, there were no results', 'ssgs' ) ."</strong></p>\n";
-			}
-			else {
-				// Make sure some results were returned, show results as html with result numbering and pagination
-				$content = $this->get_results_header( $q, $result['items'], $total_items );
-				$content .=	'<div class="ssgs-result-facet">';
+			$content .= $this->get_facet_filter( $sort );
+			$content .= $this->get_result_list( $result['items'] );
 
-				$content .= $this->get_facet_filter( $sort );
-				$content .= $this->get_result_list( $result['items'] );
+			// Calculate new start value for "previous" link
+			$previous = ($start > 1) ? ($start - $limit) : null;
+			$previous = ( ! is_null( $previous ) && ($previous < 1)) ? 1 : $previous;
 
-				// Calculate new start value for "previous" link
-				$previous = ($start > 1) ? ($start - $limit) : null;
-				$previous = ( ! is_null( $previous ) && ($previous < 1)) ? 1 : $previous;
+			// Calculate new start value for "next" link
+			$next = (($start + $limit) <= $total_items) ? ($start + $limit) : null;
 
-				// Calculate new start value for "next" link
-				$next = (($start + $limit) <= $total_items) ? ($start + $limit) : null;
+			// Display previous and next links if applicable
+			if ( ! is_null( $previous ) || ! is_null( $next ) ) {
+				$content .= '<div class="ssgs-pages">';
+				$content .= $this->get_previous_link( $previous, $total_items );
 
-				// Display previous and next links if applicable
-				if ( ! is_null( $previous ) || ! is_null( $next ) ) {
-					$content .= '<div class="ssgs-pages">';
-					$content .= $this->get_previous_link( $previous, $total_items );
+				$content .= '<ul class="ssgs-numbers">' .
+					$this->get_pages( $start, $total_items, $limit ) .
+					'</ul>';
 
-					$content .= '<ul class="ssgs-numbers">' .
-						$this->get_pages( $start, $total_items, $limit ) .
-						'</ul>';
-
-					$content .= $this->get_next_link( $next, $total_items );
-
-					$content .= '</div>';
-				}
+				$content .= $this->get_next_link( $next, $total_items );
 
 				$content .= '</div>';
+			}
 
-			} // End else -- $total_items <= 0
-		} // End (!is_null($q))
+			$content .= '</div>';
+
+		} // End else -- $total_items <= 0
 
 		return $content;
 	}
@@ -196,18 +194,7 @@ class SSGS_Widget extends WP_Widget {
 		foreach ( $items as $item ) {
 			$link = rawurldecode( $item['link'] );
 
-			if ( isset( $item['pagemap']['metatags'][0]['thumbnailurl'] ) ) {
-				$thumbnail = $item['pagemap']['metatags'][0]['thumbnailurl'];
-			}
-			elseif ( isset( $item['pagemap']['cse_thumbnail'][0]['src'] ) ) {
-				$thumbnail = $item['pagemap']['cse_thumbnail'][0]['src'];
-			}
-			elseif ( isset( $item['pagemap']['cse_image'][0]['src'] ) ) {
-				$thumbnail = $item['pagemap']['cse_image'][0]['src'];
-			}
-			else {
-				$thumbnail = $this->options['default_search_image_url'];
-			}
+			$thumbnail = $this->get_thumbnail( $item['pagemap'] );
 
 			if ( $item['metatags-modified-date'] ) {
 				$date = "<span class='ssgs-modified-date'>{$item['metatags-modified-date']}</span> - ";
@@ -233,6 +220,22 @@ class SSGS_Widget extends WP_Widget {
 		$content .= '</ul>';
 
 		return $content;
+	}
+
+	private function get_thumbnail( $pagemap ) {
+		if ( isset( $pagemap['metatags'][0]['thumbnailurl'] ) ) {
+			return $pagemap['metatags'][0]['thumbnailurl'];
+		}
+
+		if ( isset( $pagemap['cse_thumbnail'][0]['src'] ) ) {
+			return $pagemap['cse_thumbnail'][0]['src'];
+		}
+
+		if ( isset( $pagemap['cse_image'][0]['src'] ) ) {
+			return $pagemap['cse_image'][0]['src'];
+		}
+
+		return $this->options['default_search_image_url'];
 	}
 
 	private function get_total_items( $result ) {
