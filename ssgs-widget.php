@@ -1,6 +1,7 @@
 <?php
 class SSGS_Widget extends WP_Widget {
 	private $options;
+	private $parameters;
 
 	public function __construct() {
 		parent::WP_Widget( false, $name = __( 'Server-Side Google Search (SSGS)','ssgs' ) );
@@ -8,6 +9,7 @@ class SSGS_Widget extends WP_Widget {
 
 	public function widget( $args, $instance ) {
 		$this->options = get_option( 'ssgs_general_settings' );
+		$this->sanitize_parameters();
 
 		global $ssgs;
 
@@ -55,6 +57,54 @@ class SSGS_Widget extends WP_Widget {
 	 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	 *
 	 */
+
+	private function sanitize_parameters() {
+		$defaults = array(
+			'totalItems' => false,
+			'limit' => 10,
+			'start' => 1,
+			's' => null,
+			'sort' => false,
+		);
+
+		$this->parameters = array_merge( $defaults, $_GET );
+
+		$this->sanitize_int_parameter( 'totalItems' );
+		$this->sanitize_int_parameter( 'limit' );
+		$this->sanitize_int_parameter( 'start' );
+		$this->sanitize_string_parameter( 'sort' );
+
+		$this->search_string_display = stripslashes( $this->parameters['s'] );
+		// TODO trim?
+		if ( ! is_null( $this->parameters['s'] ) ) {
+			$this->parameters['s'] = urlencode( $this->parameters['s'] );
+		}
+	}
+
+	private function sanitize_int_parameter( $name ) {
+		if ( ! isset( $this->parameters[ $name ]) ) {
+			return;
+		}
+
+		if ( ! ctype_digit( (string) $this->parameters[ $name ] ) ) {
+			return;
+		}
+
+		settype( $this->parameters[ $name ], 'integer' );
+
+		return;
+	}
+
+	private function sanitize_string_parameter( $name ) {
+		if ( isset( $this->parameters[ $name ] ) ) {
+			if ( ! preg_match( '/^[a-z_]+$/',
+							   $this->parameters[ $name ] ) ) {
+				$this->parameters[ $name ] = false;
+			}
+		}
+
+		return;
+	}
 
 	private function get_search_results() {
 		$response = $this->get_api_response();
@@ -256,9 +306,12 @@ class SSGS_Widget extends WP_Widget {
 	}
 
 	private function get_total_items( $result ) {
-		$total_items = isset( $_GET['totalItems'] ) ?  strip_tags( (int)$_GET['totalItems'] ) : $result['queries']['request'][0]['totalResults'];
+		$total_items = $this->parameters['totalItems'];
 
-		// The free version of Google Custom Search only allows 100 results to be returned
+		if ( ! $total_items ) {
+			$total_items = $result['queries']['request'][0]['totalResults'];
+		}
+
 		if ( $this->options['edition'] == 'free' && $total_items > 100 ) {
 			$total_items = 100;
 		}
@@ -300,33 +353,19 @@ class SSGS_Widget extends WP_Widget {
 	}
 
 	private function get_page_length() {
-		// Number of records to display per page (1 - 10)
-		$items_per_page = 10;
-
-		// Set default value for page length (number of entries to display)
-		$page_length = isset( $_GET['limit'] ) ? strip_tags( (int)$_GET['limit'] ) : $items_per_page;
-
-		return $page_length;
+		return $this->parameters['limit'];
 	}
 
 	private function get_page_start() {
-		// Set default value for page start index
-		$start = isset( $_GET['start'] ) ? strip_tags( (int)$_GET['start'] ) : '1';
-
-		return $start;
+		return $this->parameters['start'];
 	}
 
 	private function get_search_string() {
-		$q = isset( $_GET['s'] ) ? urlencode( strip_tags( trim( $_GET['s'] ) ) ) : null;
-
-		return $q;
+		return $this->parameters['s'];
 	}
 
 	private function get_sort() {
-		// Set default value for results sorting
-		$sort = isset( $_GET['sort'] ) ? htmlentities( strip_tags( $_GET['sort'] ) ) : false;
-
-		return $sort;
+		return $this->parameters['sort'];
 	}
 
 	private function get_pages( $current_start, $total_items, $items_per_page ) {
