@@ -69,7 +69,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_search_string_displayed() {
-		$this->set_search_string( 'agroforestry Zambia' );
+		$this->set_search_string( "agroforestry' Zambia" );
 
 		$this->set_search_results( array(
 			'queries' => array(
@@ -87,7 +87,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$message = (string)$this->get_html_element_from_output( $output, '/h2/strong' );
 
-		$this->assertEquals( 'agroforestry Zambia', $message );
+		$this->assertEquals( "agroforestry' Zambia", $message );
 	}
 
 	public function test_displays_error_on_api_failure() {

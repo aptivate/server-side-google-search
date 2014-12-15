@@ -218,11 +218,10 @@ class SSGS_Widget extends WP_Widget {
 
 	private function get_results_header( $result ) {
 		$total_items = $this->get_total_items( $result );
-		$q = $this->get_search_string();
 		$results_displayed = count( $result['items'] );
 
 		$content = '<h2 class="ssgs-result-page-title">' . __( 'Search for', 'ssgs' ).
-			' <strong>' . stripslashes( urldecode( $q ) ) . '</strong></h2>' .
+			' <strong>' . $this->search_string_display . '</strong></h2>' .
 			'<div class="ssgs-results-info">' .
 			sprintf( __( 'Displaying %d items from around %d matches', 'ssgs' ),
 					 $results_displayed, $total_items) . '</div>';
