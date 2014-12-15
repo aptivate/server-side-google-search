@@ -272,7 +272,7 @@ class SSGS_Widget extends WP_Widget {
 		$page_length = $this->get_page_length();
 		$q = $this->get_search_string();
 		$sort = $this->get_sort();
-		$api_version = isset( $_GET['v'] ) ? strip_tags( $_GET['v'] ) : 'v1';
+		$api_version = 'v1';
 		$start = $this->get_page_start();
 
 		// Set URL for the Google Custom Search API call
