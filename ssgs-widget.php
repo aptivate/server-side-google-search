@@ -75,9 +75,9 @@ class SSGS_Widget extends WP_Widget {
 		$this->sanitize_string_parameter( 'sort' );
 
 		$this->search_string_display = stripslashes( $this->parameters['s'] );
-		// TODO trim?
+
 		if ( ! is_null( $this->parameters['s'] ) ) {
-			$this->parameters['s'] = urlencode( $this->parameters['s'] );
+			$this->parameters['s'] = urlencode( trim( $this->parameters['s'] ) );
 		}
 	}
 

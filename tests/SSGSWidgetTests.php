@@ -920,6 +920,23 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	}
 
+	public function test_search_string_is_trimmed() {
+		$this->set_search_string( '   agroforestry Zambia  ' );
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 0,
+					),
+				) ) ) );
+		$this->get_widget_html();
+
+		$this->assertThat(
+			$this->get_api_query_parameter( 'q' ),
+			$this->equalTo( 'agroforestry%2BZambia' ));
+	}
+
 	private function check_next_previous_links( $args ) {
 		$defaults = array(
 			'total_results' => null,
