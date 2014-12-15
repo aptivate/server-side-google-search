@@ -259,15 +259,6 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $q, $this->equalTo( 'agroforestry%2Bzambia' ) );
 	}
 
-	public function test_facet_passed_to_google_api() {
-		$this->set_search_string( '' );
-		$this->set_query_parameter( 'facet', 'adaptation' );
-		$this->get_widget_html();
-
-		$hq = $this->get_api_query_parameter( 'hq' );
-		$this->assertThat( $hq, $this->equalTo( 'adaptation' ) );
-	}
-
 	public function test_mock_response_returned_in_test_mode() {
 		$this->set_search_string( '' );
 		$this->set_option( 'results_source', 'test' );

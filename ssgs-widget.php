@@ -271,7 +271,6 @@ class SSGS_Widget extends WP_Widget {
 		$id = $this->options['google_search_engine_id'];
 		$page_length = $this->get_page_length();
 		$q = $this->get_search_string();
-		$facet = isset( $_GET['facet'] ) ? htmlentities( strip_tags( $_GET['facet'] ) ) : false;
 		$sort = $this->get_sort();
 		$api_version = isset( $_GET['v'] ) ? strip_tags( $_GET['v'] ) : 'v1';
 		$start = $this->get_page_start();
@@ -295,10 +294,6 @@ class SSGS_Widget extends WP_Widget {
 
 		if ( $sort ) {
 			$query_args['sort'] = $sort;
-		}
-
-		if ( $facet ) {
-			$query_args['hq'] = $facet;
 		}
 
 		return file_get_contents( $this->build_url( $url, $query_args ) );
