@@ -762,6 +762,32 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	}
 
+	public function test_link_parameter_sanitized() {
+		$this->set_search_string( '' );
+		$this->set_query_parameter( 'sort', '<script>alert("hello")</script>' );
+		$this->set_query_parameter( 'start', 11 );
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1234,
+					),
+				) ),
+			'items' => array(),
+		));
+
+		$output = $this->get_widget_html();
+
+		$link = $this->get_html_element_from_output( $output,
+													  "/a[@class='ssgs-prev']" );
+		$attributes = $link->attributes();
+		$href = (string)$attributes['href'];
+		$this->assertThat( $this->get_url_query_parameter( $href, 'sort' ),
+						   $this->equalTo( '' ) );
+
+	}
+
 	public function test_previous_link_uses_defined_limit() {
 		$this->set_query_parameter( 'limit', 5 );
 
