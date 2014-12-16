@@ -67,7 +67,7 @@ class SSGS_Widget extends WP_Widget {
 			'sort' => false,
 		);
 
-		$this->parameters = array_merge( $defaults, $_GET );
+		$this->parameters = array_merge( $defaults, $_GET ); // input var okay
 
 		$this->sanitize_int_parameter( 'totalItems' );
 		$this->sanitize_int_parameter( 'limit' );
@@ -100,7 +100,7 @@ class SSGS_Widget extends WP_Widget {
 	private function sanitize_string_parameter( $name ) {
 		if ( isset( $this->parameters[ $name ] ) ) {
 			if ( ! preg_match( '/^[a-z_]+$/',
-							   $this->parameters[ $name ] ) ) {
+					$this->parameters[ $name ] ) ) {
 				$this->parameters[ $name ] = false;
 			}
 		}
@@ -226,7 +226,7 @@ class SSGS_Widget extends WP_Widget {
 			' <strong>' . $this->search_string_display . '</strong></h2>' .
 			'<div class="ssgs-results-info">' .
 			sprintf( __( 'Displaying %d items from around %d matches', 'ssgs' ),
-					 $results_displayed, $total_items) . '</div>';
+					$results_displayed, $total_items) . '</div>';
 
 		return $content;
 	}
@@ -248,10 +248,11 @@ class SSGS_Widget extends WP_Widget {
 		$relevance_classes = implode( ' ', $relevance_classes );
 
 		$content = '<ul class="ssgs-facet-filter">' .
-			"<span class='ssgs-facet-heading'>" . __( 'Sort', 'ssgs' ) . "</span>
-				<li class='$relevance_classes'><a class='ssgs-facet-link' href='$relevance_url'>" . __( 'Relevance', 'ssgs' ). "</a></li>
-				<li class='$date_classes'><a class='ssgs-facet-link' href='$date_url'>" . __( 'Date', 'ssgs' ) . "</a></li>
-				</ul>";
+			"<span class='ssgs-facet-heading'>" . __( 'Sort', 'ssgs' ) . '</span>' .
+				"<li class='$relevance_classes'>" .
+					"<a class='ssgs-facet-link' href='$relevance_url'>" . __( 'Relevance', 'ssgs' ). '</a></li>' .
+				"<li class='$date_classes'><a class='ssgs-facet-link' href='$date_url'>" . __( 'Date', 'ssgs' ) . '</a></li>' .
+			'</ul>';
 
 		return $content;
 	}
