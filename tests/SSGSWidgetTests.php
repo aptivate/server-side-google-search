@@ -382,6 +382,27 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $sort, $this->equalTo( 'date' ) );
 	}
 
+	public function test_date_link_not_url_encoded() {
+		$this->set_search_string( 'agroforestry Zambia' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				)  ),
+			'items' => array() ) );
+
+		$output = $this->get_widget_html();
+		$link = $this->get_html_element_from_output( $output,
+													 "/li[@class='ssgs-results-sort-date']/a" );
+		$attributes = $link->attributes();
+		$href = (string)$attributes['href'];
+
+		$sort = $this->get_url_query_parameter( $href, 's' );
+		$this->assertThat( $sort, $this->equalTo( 'agroforestry+Zambia' ) );
+	}
+
 	public function test_thumbnail_read_from_metatags() {
 		$this->set_search_string( '' );
 		$this->set_search_results( array(

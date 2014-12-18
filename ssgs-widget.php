@@ -77,7 +77,7 @@ class SSGS_Widget extends WP_Widget {
 		$this->search_string_display = stripslashes( $this->parameters['s'] );
 
 		if ( ! is_null( $this->parameters['s'] ) ) {
-			$this->parameters['s'] = urlencode( trim( $this->parameters['s'] ) );
+			$this->parameters['s'] = trim( $this->parameters['s'] );
 		}
 
 		$this->extra_parameters = array_diff_assoc( $this->parameters, $defaults );
@@ -325,7 +325,7 @@ class SSGS_Widget extends WP_Widget {
 		$api_key = $this->options['google_search_api_key'];
 		$id = $this->options['google_search_engine_id'];
 		$page_length = $this->get_page_length();
-		$q = $this->get_search_string();
+		$q = urlencode( $this->get_search_string() );
 		$sort = $this->get_sort();
 		$api_version = 'v1';
 		$start = $this->get_page_start();
