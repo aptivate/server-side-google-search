@@ -17,66 +17,16 @@ class SSGS_Admin_Page {
 	}
 
 
-	function ssgs_admin_init()
-	{
-
+	function ssgs_admin_init() {
 		$this->ssgs_set_defaults();
 
 		register_setting(
 			'ssgs_general_settings',
 			'ssgs_general_settings'
 		);
-
-		add_settings_section(
-			'ssgs_general_section',
-			__( 'General Settings', 'ssgs' ),
-			array( $this, 'print_section_info' ),
-			'ssgs_general_settings'
-		);
-
-		add_settings_field(
-			'edition',
-			__( 'Edition', 'ssgs' ),
-			array( $this, 'posttype_callback' ),
-			'ssgs_general_settings',
-			'ssgs_general_section'
-		);
-
-		add_settings_field(
-			'google_search_api_key',
-			__( 'Google Search API Key', 'ssgs' ),
-			array( $this, 'posttype_callback' ),
-			'ssgs_general_settings',
-			'ssgs_general_section'
-		);
-
-		add_settings_field(
-			'google_search_engine_id',
-			__( 'Google Search Engine ID', 'ssgs' ),
-			array( $this, 'posttype_callback' ),
-			'ssgs_general_settings',
-			'ssgs_general_section'
-		);
-
-		add_settings_field(
-			'default_search_image_url',
-			__( 'Default Search Image URL', 'ssgs' ),
-			array( $this, 'posttype_callback' ),
-			'ssgs_general_settings',
-			'ssgs_general_section'
-		);
-		add_settings_field(
-			'results_source',
-			__( 'Results source', 'ssgs' ),
-			array( $this, 'posttype_callback' ),
-			'ssgs_general_settings',
-			'ssgs_general_section'
-		);
-
 	}
 
 	function ssgs_set_defaults() {
-
 		$options = get_option( 'ssgs_general_settings' );
 
 		$options = wp_parse_args( $options,
@@ -88,11 +38,9 @@ class SSGS_Admin_Page {
 										) );
 
 		update_option( 'ssgs_general_settings', $options );
-
 	}
 
 	function add_options_page_callback() {
-
 		wp_enqueue_style( 'ssgs-admin', plugins_url( 'ssgs-admin.css', __FILE__ ) );
 
 		?>
