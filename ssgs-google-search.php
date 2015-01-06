@@ -1,11 +1,14 @@
 <?php
 /*
   Plugin Name: Server-Side Google Search
+  Plugin URI: https://github.com/aptivate/server-side-google-search
   Description: Google Custom Search for your site, without JavaScript
   Version: 1.0.0
   Author: Aptivate
+  Author URI: http://www.aptivate.org/
   License: GPLv2 or later
   Text Domain: ssgs
+  Domain Path: /languages/
   Requires at least: 3.7
   Tested up to: 4.0
 */
