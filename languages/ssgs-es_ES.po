@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ssgs\n"
-"POT-Creation-Date: 2014-12-23 10:16+0100\n"
-"PO-Revision-Date: 2014-12-23 10:16+0100\n"
+"POT-Creation-Date: 2015-01-06 11:33+0100\n"
+"PO-Revision-Date: 2015-01-06 11:34+0100\n"
 "Last-Translator: Martin Burchell <martinb@aptivate.org>\n"
 "Language-Team: Aptivate\n"
 "Language: EN\n"
@@ -59,57 +59,45 @@ msgstr "más"
 msgid "Server-Side Google Search"
 msgstr "Server-Side Google Search"
 
-#: ../ssgs-admin-page.php:32 ../ssgs-admin-page.php:111
-msgid "General Settings"
-msgstr "Ajustes Generales"
-
-#: ../ssgs-admin-page.php:39 ../ssgs-admin-page.php:115
-msgid "Edition"
-msgstr ""
-
-#: ../ssgs-admin-page.php:47 ../ssgs-admin-page.php:163
-msgid "Google Search API Key"
-msgstr "Google Search API Key"
-
-#: ../ssgs-admin-page.php:55 ../ssgs-admin-page.php:147
-msgid "Google Search Engine ID"
-msgstr "ID de Google Search Engine "
-
-#: ../ssgs-admin-page.php:63 ../ssgs-admin-page.php:174
-msgid "Default Search Image URL"
-msgstr "Búsqueda predeterminada URL de la imagen"
-
-#: ../ssgs-admin-page.php:70 ../ssgs-admin-page.php:185
-msgid "Results source"
-msgstr ""
-
-#: ../ssgs-admin-page.php:100
+#: ../ssgs-admin-page.php:46
 msgid "Server-Side Google Search by Aptivate"
 msgstr "Server-Side Google Search por Aptivate"
 
-#: ../ssgs-admin-page.php:123
+#: ../ssgs-admin-page.php:57
+msgid "General Settings"
+msgstr "Ajustes Generales"
+
+#: ../ssgs-admin-page.php:61
+msgid "Edition"
+msgstr ""
+
+#: ../ssgs-admin-page.php:69
 msgid "Free"
 msgstr ""
 
-#: ../ssgs-admin-page.php:124
+#: ../ssgs-admin-page.php:70
 msgid "Paid"
 msgstr ""
 
-#: ../ssgs-admin-page.php:140
+#: ../ssgs-admin-page.php:86
 msgid ""
 "The free edition of Google Search is limited to 100 results per search and "
 "100 searches per day"
 msgstr ""
 
-#: ../ssgs-admin-page.php:154
+#: ../ssgs-admin-page.php:93
+msgid "Google Search Engine ID"
+msgstr "ID de Google Search Engine "
+
+#: ../ssgs-admin-page.php:100
 msgid ""
-"Register to Google Custom Search Engine and get your Google Search Engine ID "
-"here: "
+"Register with Google Custom Search Engine and get your Google Search Engine "
+"ID here: "
 msgstr ""
 "Registrarse para Google Custom Search Engine y obtener su ID de Google "
 "Search Engine aquí:"
 
-#: ../ssgs-admin-page.php:155
+#: ../ssgs-admin-page.php:101
 msgid ""
 "You will get a Google Search Engine ID like this: "
 "012345678901234567890:0ijk_a1bcde"
@@ -117,18 +105,30 @@ msgstr ""
 "Usted recibirá un ID de Google Search Engine así: "
 "012345678901234567890:0ijk_a1bcde"
 
-#: ../ssgs-admin-page.php:156
+#: ../ssgs-admin-page.php:102
 msgid "Enter this Google Search Engine ID here."
 msgstr "Introduzca este ID de Google Search Engine aquí."
 
-#: ../ssgs-admin-page.php:193
+#: ../ssgs-admin-page.php:109
+msgid "Google Search API Key"
+msgstr "Google Search API Key"
+
+#: ../ssgs-admin-page.php:120
+msgid "Default Search Image URL"
+msgstr "Búsqueda predeterminada URL de la imagen"
+
+#: ../ssgs-admin-page.php:131
+msgid "Results source"
+msgstr ""
+
+#: ../ssgs-admin-page.php:139
 msgid "Real"
 msgstr ""
 
-#: ../ssgs-admin-page.php:194
+#: ../ssgs-admin-page.php:140
 msgid "Test"
 msgstr ""
 
-#: ../ssgs-admin-page.php:210
+#: ../ssgs-admin-page.php:156
 msgid "Use real results from Google or test data (useful for developers)"
 msgstr ""

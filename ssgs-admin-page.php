@@ -97,7 +97,7 @@ class SSGS_Admin_Page {
 			'<input type="text" id="google_search_engine_id" name="ssgs_general_settings[google_search_engine_id]" value="%s" size="50" />',
 			esc_attr( $options['google_search_engine_id'] )
 		);
-		echo '<br /><span class="description">' . __( 'Register to Google Custom Search Engine and get your Google Search Engine ID here: ', 'ssgs' ) . '<a href="https://www.google.com/cse/" target="_blank">https://www.google.com/cse/</a>' . '</span>';
+		echo '<br /><span class="description">' . __( 'Register with Google Custom Search Engine and get your Google Search Engine ID here: ', 'ssgs' ) . '<a href="https://www.google.com/cse/" target="_blank">https://www.google.com/cse/</a>' . '</span>';
 		echo '<br /><span class="description">' . __( 'You will get a Google Search Engine ID like this: 012345678901234567890:0ijk_a1bcde','ssgs' ) . '</span>';
 		echo '<br /><span class="description">' . __( 'Enter this Google Search Engine ID here.', 'ssgs' ) . '</span>';
 
