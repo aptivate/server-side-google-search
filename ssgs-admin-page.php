@@ -41,19 +41,17 @@ class SSGS_Admin_Page {
 	}
 
 	function add_options_page_callback() {
-		wp_enqueue_style( 'ssgs-admin', plugins_url( 'ssgs-admin.css', __FILE__ ) );
-
 		?>
 		<div class="wrap">
 		<h2><?php _e( 'Server-Side Google Search by Aptivate', 'ssgs' ) ?></h2>
 
-		<div style="float:left; width: 70%">
+		<div>
 
-		<form method="post" action="options.php"><!--form-->
+		<form method="post" action="options.php">
 
 <?php
 		settings_fields( 'ssgs_general_settings' );
-		$options = get_option( 'ssgs_general_settings' ); //option_name
+		$options = get_option( 'ssgs_general_settings' );
 
 		?>
 		<h3><?php _e( 'General Settings', 'ssgs' ) ?></h3>
