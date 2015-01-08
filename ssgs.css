@@ -86,6 +86,7 @@
 }
 
 .ssgs-facet-filter {
+    float:right;
     list-style-type: none;
 	margin-top: 0.6em;
 	margin-bottom: 0.6em;
