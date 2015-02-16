@@ -62,27 +62,10 @@ class SSGS_Admin_Page {
 		<th scope="row"><?php echo __( 'Edition', 'ssgs' ) . ':' ?></th>
 		<td>
 <?php
-		echo(
-			'<select id="edition" name="ssgs_general_settings[edition]">'
-		);
-
-		$edition_options = array(
+		$this->display_select_widget( 'edition', array(
 			'free' => __( 'Free' ),
 			'paid' => __( 'Paid' ),
-		);
-
-		foreach ( $edition_options as $value => $text ) {
-			if ( esc_attr( $options['edition'] ) == $value ) {
-				$selected = ' selected';
-			}
-			else {
-				$selected = '';
-			}
-
-			echo("<option value='$value'$selected>$text</option>");
-		}
-
-		echo('</select>');
+		) );
 
 		echo '<br /><span class="description">' . __( 'The free edition of Google Search is limited to 100 results per search and 100 searches per day', 'ssgs' )
 			?>
@@ -133,28 +116,12 @@ class SSGS_Admin_Page {
 		<th scope="row"><?php echo __( 'Display URLs in search results', 'ssgs' ) . ':' ?></th>
 		<td>
 <?php
-		echo(
-			'<select id="show_urls" name="ssgs_general_settings[show_urls]">'
-		);
-
-		$url_options = array(
+		$this->display_select_widget( 'show_urls', array(
 			'yes' => __( 'Yes' ),
 			'no' => __( 'No' ),
-		);
+		) );
 
-		foreach ( $url_options as $value => $text ) {
-			if ( esc_attr( $options['show_urls'] ) == $value ) {
-				$selected = ' selected';
-			}
-			else {
-				$selected = '';
-			}
-
-			echo("<option value='$value'$selected>$text</option>");
-		}
-
-		echo('</select>');
-			?>
+		?>
 		</td>
 		</tr>
 
@@ -162,34 +129,16 @@ class SSGS_Admin_Page {
 		<th scope="row"><?php echo __( 'Results source', 'ssgs' ) . ':' ?></th>
 		<td>
 <?php
-		echo(
-			'<select id="results_source" name="ssgs_general_settings[results_source]">'
-		);
-
-		$source_options = array(
+		$this->display_select_widget( 'results_source', array(
 			'real' => __( 'Real' ),
 			'test' => __( 'Test' ),
-		);
-
-		foreach ( $source_options as $value => $text ) {
-			if ( esc_attr( $options['results_source'] ) == $value ) {
-				$selected = ' selected';
-			}
-			else {
-				$selected = '';
-			}
-
-			echo("<option value='$value'$selected>$text</option>");
-		}
-
-		echo('</select>');
+		) );
 
 		echo '<br /><span class="description">' . __( 'Use real results from Google or test data (useful for developers)', 'ssgs' )
 			?>
 		</td>
 		</tr>
 		</table>
-
 
 <?php
 		submit_button();
@@ -202,5 +151,26 @@ class SSGS_Admin_Page {
 											</div>
 <?php
 
+	}
+
+	function display_select_widget( $name, $widget_options ) {
+		$plugin_options = get_option( 'ssgs_general_settings' );
+
+		echo(
+			"<select id='$name' name='ssgs_general_settings[$name]'>"
+		);
+
+		foreach ( $widget_options as $value => $text ) {
+			if ( esc_attr( $plugin_options[ $name ] ) == $value ) {
+				$selected = ' selected';
+			}
+			else {
+				$selected = '';
+			}
+
+			echo("<option value='$value'$selected>$text</option>");
+		}
+
+		echo('</select>');
 	}
 }
