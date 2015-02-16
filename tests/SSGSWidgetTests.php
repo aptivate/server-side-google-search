@@ -635,7 +635,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_formatted_url_in_result_description() {
-		$this->set_option( 'show_urls', true );
+		$this->set_option( 'show_urls', 'yes' );
 		$this->set_search_string( '' );
 		$this->set_search_results( array(
 			'queries' => array(
@@ -660,7 +660,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_no_formatted_url_if_disabled() {
-		$this->set_option( 'show_urls', false );
+		$this->set_option( 'show_urls', 'no' );
 
 		$this->set_search_string( '' );
 		$this->set_search_results( array(
