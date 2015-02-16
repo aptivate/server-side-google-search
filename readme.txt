@@ -3,7 +3,7 @@ Contributors: Aptivate
 Tags: Server-Side Google Search, Google Search, Google Custom Search, Google, SCE, GCSE, Wordpress Google Search
 Requires at least: 3.7
 Tested up to: 4.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,9 @@ https://github.com/jasonclark/digital-collections-custom-search-api
 * English
 * Spanish (incomplete)
 
+* [Follow this project on Github](https://github.com/aptivate/server-side-google-search)
+
+
 == Installation ==
 
 1. Upload the plugin to the '/wp-content/plugins/' directory.
@@ -40,9 +43,12 @@ message when the search results are displayed.
 
 == Changelog ==
 
+= 1.0.1 =
+* Made display of URLs in search results optional (displayed by default)
+* Right aligned sort options in search results
+
 = 1.0.0 =
 * First version
-
 
 == Upgrade Notice ==
 
