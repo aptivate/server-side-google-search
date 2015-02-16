@@ -277,8 +277,13 @@ class SSGS_Widget extends WP_Widget {
 					  <h3 class="ssgs-result-title"><a href="' . $link . '">' . $item['htmlTitle'] . '</a></h3>
 				  </div>
 				  <div class="ssgs-result-content">
-					  <div class="ssgs-result-description">' .
-			"<p class='ssgs-html-formatted-url'>{$item['htmlFormattedUrl']}</p>" .
+					  <div class="ssgs-result-description">';
+
+			if ( $this->options['show_urls'] ) {
+				$content .= "<p class='ssgs-html-formatted-url'>{$item['htmlFormattedUrl']}</p>";
+			}
+
+			$content .=
 				"<p class='ssgs-snippet'>$date<span class='ssgs-html-snippet'>{$item['htmlSnippet']}</span>" .
 				'<a class="ssgs-expand" href="' . $link . '">[' . __( 'more', 'ssgs' ) . ']</a>
 						   </p>

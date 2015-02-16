@@ -635,6 +635,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_formatted_url_in_result_description() {
+		$this->set_option( 'show_urls', true );
 		$this->set_search_string( '' );
 		$this->set_search_results( array(
 			'queries' => array(
@@ -658,6 +659,33 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( (string)$p, $this->equalTo('http://www.example.com/' ));
 	}
 
+	public function test_no_formatted_url_if_disabled() {
+		$this->set_option( 'show_urls', false );
+
+		$this->set_search_string( '' );
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				) ),
+			'items' => array(
+				array(
+					'htmlFormattedUrl' => 'http://www.example.com/',
+				),
+			),
+		));
+
+		$output = $this->get_widget_html();
+
+		$ps = $this->get_html_elements_from_output(
+			$output,
+			"/p[@class='ssgs-html-formatted-url']" );
+
+		$this->assertThat( count( $ps ), $this->equalTo( 0 ) );
+	}
+
 	public function test_snippet_in_result_description() {
 		$this->set_search_string( '' );
 		$this->set_search_results( array(
@@ -677,10 +705,11 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$output = $this->get_widget_html();
 
 		$span = $this->get_html_element_from_output( $output,
-												  "/span[@class='ssgs-html-snippet']" );
+												"/span[@class='ssgs-html-snippet']" );
 
-		$this->assertThat( (string)$span,
-						   $this->equalTo('Information about agroforestry' ) );
+		$this->assertThat(
+			(string)$span,
+			$this->equalTo( 'Information about agroforestry' ) );
 	}
 
 	public function test_date_snippet_in_result_description() {
