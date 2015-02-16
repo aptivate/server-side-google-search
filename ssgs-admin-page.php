@@ -31,10 +31,11 @@ class SSGS_Admin_Page {
 
 		$options = wp_parse_args( $options,
 									array(
+										'edition' => 'free',
 										'google_search_api_key' => '',
 										'google_search_engine_id' => '',
-										'edition' => 'free',
 										'results_source' => 'real',
+										'show_urls' => 'yes',
 										) );
 
 		update_option( 'ssgs_general_settings', $options );
@@ -127,6 +128,36 @@ class SSGS_Admin_Page {
 		?>
 		</td>
 		</tr>
+
+		<tr valign="top">
+		<th scope="row"><?php echo __( 'Display URLs in search results', 'ssgs' ) . ':' ?></th>
+		<td>
+<?php
+		echo(
+			'<select id="show_urls" name="ssgs_general_settings[show_urls]">'
+		);
+
+		$url_options = array(
+			'yes' => __( 'Yes' ),
+			'no' => __( 'No' ),
+		);
+
+		foreach ( $url_options as $value => $text ) {
+			if ( esc_attr( $options['show_urls'] ) == $value ) {
+				$selected = ' selected';
+			}
+			else {
+				$selected = '';
+			}
+
+			echo("<option value='$value'$selected>$text</option>");
+		}
+
+		echo('</select>');
+			?>
+		</td>
+		</tr>
+
 		<tr valign="top">
 		<th scope="row"><?php echo __( 'Results source', 'ssgs' ) . ':' ?></th>
 		<td>

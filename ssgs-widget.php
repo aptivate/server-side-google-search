@@ -279,7 +279,7 @@ class SSGS_Widget extends WP_Widget {
 				  <div class="ssgs-result-content">
 					  <div class="ssgs-result-description">';
 
-			if ( $this->options['show_urls'] == 'yes' ) {
+			if ( $this->options['show_urls'] != 'no' ) {
 				$content .= "<p class='ssgs-html-formatted-url'>{$item['htmlFormattedUrl']}</p>";
 			}
 
