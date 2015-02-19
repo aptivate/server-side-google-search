@@ -554,29 +554,6 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat( $alt, $this->equalTo( 'Example title' ) );
 	}
 
-	public function test_modified_date_displayed() {
-		$this->set_search_string( '' );
-		$this->set_search_results( array(
-			'queries' => array(
-				'request' => array(
-					array(
-						'totalResults' => 1,
-					),
-				) ),
-			'items' => array(
-				array(
-					'metatags-modified-date' => '26th November 2014',
-				),
-			),
-		));
-
-		$output = $this->get_widget_html();
-
-		$link = $this->get_html_element_from_output( $output,
-													 "/span[@class='ssgs-modified-date']" );
-		$this->assertThat( (string)$link, $this->equalTo( '26th November 2014' ) );
-	}
-
 	public function test_link_displayed() {
 		$this->set_search_string( '' );
 		$this->set_search_results( array(
@@ -710,31 +687,6 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat(
 			(string)$span,
 			$this->equalTo( 'Information about agroforestry' ) );
-	}
-
-	public function test_date_snippet_in_result_description() {
-		$this->set_search_string( '' );
-		$this->set_search_results( array(
-			'queries' => array(
-				'request' => array(
-					array(
-						'totalResults' => 1,
-					),
-				) ),
-			'items' => array(
-				array(
-					'metatags-modified-date' => '26th November 2014',
-				),
-			),
-		));
-
-		$output = $this->get_widget_html();
-
-		$span = $this->get_html_element_from_output( $output,
-												  "/span[@class='ssgs-modified-date']" );
-
-		$this->assertThat( (string)$span,
-						   $this->equalTo('26th November 2014' ) );
 	}
 
 	public function test_more_link_in_result_description() {
@@ -1011,6 +963,22 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$this->assertThat(
 			$this->get_api_query_parameter( 'q' ),
 			$this->equalTo( 'agroforestry%2BZambia' ));
+	}
+	
+	public function test_filter_adds_content() {
+		$item = array(
+			'pagemap' => 'test_filter_adds_content',
+			'last_modified' =>  date( 'd m Y' )
+		);
+		
+		$content = '%s was run on %s';
+		add_filter('sgss-add-post-search-metadata', array($this, 'mock_filtering_content'), 10, 2);
+		$output = $this->get_widget_html();
+		$this->assertSame(false, strpos($output, sprintf($content, $item['pagemap'], $item['last_modified'])));
+	}
+	
+	private function mock_filtering_content($content, $item_data) {
+		return sprintf($content, $item_data['pagemap'], $item_data['last_modified']);
 	}
 
 	private function check_next_previous_links( $args ) {
