@@ -971,13 +971,29 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			'last_modified' =>  date( 'd m Y' )
 		);
 		
-		$content = '%s was run on %s';
-		add_filter('sgss-add-post-search-metadata', array($this, 'mock_filtering_content'), 10, 2);
+		$this->set_search_string( '' );
+
+		$this->set_search_results( array(
+			'queries' => array(
+				'request' => array(
+					array(
+						'totalResults' => 1,
+					),
+				) ),
+			'items' => array($item),
+		));
+		
+		
+		add_filter('ssgs-add-post-search-metadata', array($this, 'mock_filtering_content'), 10, 2);
 		$output = $this->get_widget_html();
-		$this->assertSame(false, strpos($output, sprintf($content, $item['pagemap'], $item['last_modified'])));
+
+		$content .= '%s was run on %s';
+
+		$this->assertNotSame(false, strpos($output, sprintf($content, $item['pagemap'], $item['last_modified'])));
 	}
 	
-	private function mock_filtering_content($content, $item_data) {
+	public function mock_filtering_content($content, $item_data) {
+		$content .= '%s was run on %s';
 		return sprintf($content, $item_data['pagemap'], $item_data['last_modified']);
 	}
 

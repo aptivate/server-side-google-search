@@ -281,7 +281,7 @@ class SSGS_Widget extends WP_Widget {
 				"<p class='ssgs-snippet'><span class='ssgs-html-snippet'>{$item['htmlSnippet']}</span>" .
 				'<a class="ssgs-expand" href="' . $link . '">[' . __( 'more', 'ssgs' ) . ']</a>';
 			$content .= '		   </p>';
-			$content = apply_filters('sgss-add-post-search-metadata', $content, $item);
+			$content = apply_filters('ssgs-add-post-search-metadata', $content, $item);
 			$content .= '		  </div>
 				  </div>
 			  </li>';
