@@ -3,7 +3,7 @@ Contributors: Aptivate
 Tags: Server-Side Google Search, Google Search, Google Custom Search, Google, SCE, GCSE, Wordpress Google Search
 Requires at least: 3.7
 Tested up to: 4.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,7 +27,7 @@ https://github.com/jasonclark/digital-collections-custom-search-api
 * English
 * Spanish (incomplete)
 
-* [Follow this project on Github](https://github.com/aptivate/server-side-google-search)
+[Follow this project on Github](https://github.com/aptivate/server-side-google-search)
 
 
 == Installation ==
@@ -40,8 +40,35 @@ https://github.com/jasonclark/digital-collections-custom-search-api
 6. Your theme will need to override the page that displays the "Nothing Found"
 message when the search results are displayed.
 
+Example of how to add custom metadata to search results
+
+In your header.php:
+
+<!--
+<PageMap>
+    <DataObject type="post_metadata">
+        <Attribute name="modified_date" value="<?php the_modified_date( "M d, Y", '', '', true ); ?>" />
+    </DataObject>
+</PageMap>
+-->
+
+In your functions.php:
+
+function add_modified_date( $metadata, $item_data ) {
+	return $metadata . sprintf(
+		'Last modified on: %s',
+		$item_data['pagemap']['post_metadata'][0]['modified_date']
+	);
+}
+
+add_filter( 'ssgs-add-post-search-metadata',
+			'add_modified_date', 10, 2 );
+
 
 == Changelog ==
+
+= 1.0.2 =
+* Added filter to allow custom metadata in search results
 
 = 1.0.1 =
 * Made display of URLs in search results optional (displayed by default)
