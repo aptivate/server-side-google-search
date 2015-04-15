@@ -270,7 +270,6 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 				)  ),
 			'items' => array() ) );
 
-
 		$output = $this->get_widget_html();
 
 		$div = $this->get_html_element_from_output( $output, "/div[@class='ssgs-results-info']" );
@@ -631,9 +630,9 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$output = $this->get_widget_html();
 
 		$p = $this->get_html_element_from_output( $output,
-													 "/p[@class='ssgs-html-formatted-url']" );
+												  "/p[@class='ssgs-html-formatted-url']" );
 
-		$this->assertThat( (string)$p, $this->equalTo('http://www.example.com/' ));
+		$this->assertThat( (string)$p, $this->equalTo( 'http://www.example.com/' ) );
 	}
 
 	public function test_no_formatted_url_if_disabled() {
@@ -708,10 +707,10 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$output = $this->get_widget_html();
 
 		$link = $this->get_html_element_from_output( $output,
-												  "/a[@class='ssgs-expand']" );
+													 "/a[@class='ssgs-expand']" );
 
 		$this->assertThat( (string)$link,
-						   $this->equalTo('[more]' ) );
+						   $this->equalTo( '[more]' ) );
 		$attributes = $link->attributes();
 		$href = (string)$attributes['href'];
 
@@ -756,7 +755,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$output = $this->get_widget_html();
 
 		$link = $this->get_html_element_from_output( $output,
-													  "/a[@class='ssgs-prev']" );
+													 "/a[@class='ssgs-prev']" );
 		$attributes = $link->attributes();
 		$href = (string)$attributes['href'];
 		$this->assertThat( $this->get_url_query_parameter( $href, 'language' ),
@@ -782,7 +781,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$output = $this->get_widget_html();
 
 		$link = $this->get_html_element_from_output( $output,
-													  "/a[@class='ssgs-prev']" );
+													 "/a[@class='ssgs-prev']" );
 		$attributes = $link->attributes();
 		$href = (string)$attributes['href'];
 		$this->assertThat( $this->get_url_query_parameter( $href, 'sort' ),
@@ -964,13 +963,13 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			$this->get_api_query_parameter( 'q' ),
 			$this->equalTo( 'agroforestry%2BZambia' ));
 	}
-	
+
 	public function test_filter_adds_content() {
 		$item = array(
 			'pagemap' => 'test_filter_adds_content',
-			'last_modified' =>  date( 'd m Y' )
+			'last_modified' => date( 'd m Y' )
 		);
-		
+
 		$this->set_search_string( '' );
 
 		$this->set_search_results( array(
@@ -980,21 +979,21 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 						'totalResults' => 1,
 					),
 				) ),
-			'items' => array($item),
+			'items' => array( $item ),
 		));
-		
-		
-		add_filter('ssgs-add-post-search-metadata', array($this, 'mock_filtering_content'), 10, 2);
+
+		add_filter( 'ssgs-add-post-search-metadata',
+					array( $this, 'mock_filtering_content' ), 10, 2 );
 		$output = $this->get_widget_html();
 
 		$content .= '%s was run on %s';
 
-		$this->assertNotSame(false, strpos($output, sprintf($content, $item['pagemap'], $item['last_modified'])));
+		$this->assertNotSame( false, strpos( $output, sprintf( $content, $item['pagemap'], $item['last_modified'] ) ) );
 	}
-	
-	public function mock_filtering_content($content, $item_data) {
+
+	public function mock_filtering_content( $content, $item_data ) {
 		$content .= '%s was run on %s';
-		return sprintf($content, $item_data['pagemap'], $item_data['last_modified']);
+		return sprintf( $content, $item_data['pagemap'], $item_data['last_modified'] );
 	}
 
 	private function check_next_previous_links( $args ) {
@@ -1023,7 +1022,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		$output = $this->get_widget_html();
 
 		$links = $this->get_html_elements_from_output( $output,
-													 "/a[@class='ssgs-prev']" );
+													   "/a[@class='ssgs-prev']" );
 
 		if ( $args['expected_prev_start'] ) {
 			$attributes = $links[0]->attributes();

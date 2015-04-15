@@ -261,7 +261,7 @@ class SSGS_Widget extends WP_Widget {
 		$content .= '<ul class="ssgs-result-list">';
 
 		foreach ( $items as $item ) {
-			$link = rawurldecode( $item['link'] );		
+			$link = rawurldecode( $item['link'] );
 
 			$thumbnail = $this->get_thumbnail( $item['pagemap'] );
 
@@ -281,7 +281,10 @@ class SSGS_Widget extends WP_Widget {
 				"<p class='ssgs-snippet'><span class='ssgs-html-snippet'>{$item['htmlSnippet']}</span>" .
 				'<a class="ssgs-expand" href="' . $link . '">[' . __( 'more', 'ssgs' ) . ']</a>';
 			$content .= '		   </p>';
-			$content = apply_filters('ssgs-add-post-search-metadata', $content, $item);
+			$content = apply_filters(
+				'ssgs-add-post-search-metadata',
+				$content,
+				$item );
 			$content .= '		  </div>
 				  </div>
 			  </li>';
