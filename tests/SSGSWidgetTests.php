@@ -964,10 +964,16 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			$this->equalTo( 'agroforestry%2BZambia' ));
 	}
 
-	public function test_filter_adds_content() {
+	public function test_post_search_filter_adds_content() {
 		$item = array(
-			'pagemap' => 'test_filter_adds_content',
-			'last_modified' => date( 'd m Y' )
+			'pagemap' => array(
+				'post_metadata' => array(
+					array(
+						'authors' => 'Lambert Klerk, Teresia Testa',
+						'modified_date' => '15th April 2015',
+					),
+				)
+			)
 		);
 
 		$this->set_search_string( '' );
@@ -983,17 +989,32 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		));
 
 		add_filter( 'ssgs-add-post-search-metadata',
-					array( $this, 'mock_filtering_content' ), 10, 2 );
+					array( $this, 'add_authors' ), 1, 2 );
+		add_filter( 'ssgs-add-post-search-metadata',
+					array( $this, 'add_modified_date' ), 2, 2 );
 		$output = $this->get_widget_html();
 
-		$content .= '%s was run on %s';
+		$metadata = $this->get_html_element_from_output(
+			$output,
+			"/div[@class='ssgs-metadata']" );
 
-		$this->assertNotSame( false, strpos( $output, sprintf( $content, $item['pagemap'], $item['last_modified'] ) ) );
+		$expected_metadata = 'by: Lambert Klerk, Teresia Testa | on: 15th April 2015';
+		$this->assertThat( (string)$metadata, $this->equalTo(
+			$expected_metadata));
 	}
 
-	public function mock_filtering_content( $content, $item_data ) {
-		$content .= '%s was run on %s';
-		return sprintf( $content, $item_data['pagemap'], $item_data['last_modified'] );
+	public function add_authors( $metadata, $item_data ) {
+		return $metadata . sprintf(
+			'by: %s ',
+			$item_data['pagemap']['post_metadata'][0]['authors']
+		);
+	}
+
+	public function add_modified_date( $metadata, $item_data ) {
+		return $metadata . sprintf(
+			'| on: %s',
+			$item_data['pagemap']['post_metadata'][0]['modified_date']
+		);
 	}
 
 	private function check_next_previous_links( $args ) {
