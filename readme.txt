@@ -16,12 +16,11 @@ This plugin adds Google Custom Search to your website, but unlike other plugins
 operates on the server side, thus eliminating the need for JavaScript and
 keeping the page size small.
 
-The admin interface is based on that used by the WP Google Search plugin
-https://wordpress.org/plugins/wp-google-search/
+The admin interface is based on that used by the [WP Google Search plugin]
+(https://wordpress.org/plugins/wp-google-search/)
 
-The interface with the Google API is based on code by Jason Clark for Montana
-State University - Digital Collection Search
-https://github.com/jasonclark/digital-collections-custom-search-api
+The interface with the Google API is based on [Digital Collection Search](https://github.com/jasonclark/digital-collections-custom-search-api) by Jason Clark for Montana
+State University.
 
 = Available languages =
 * English
@@ -32,18 +31,20 @@ https://github.com/jasonclark/digital-collections-custom-search-api
 
 == Installation ==
 
-1. Upload the plugin to the '/wp-content/plugins/' directory.
-2. Activate it through the 'Plugins' menu in WordPress.
+1. Upload the plugin to the `/wp-content/plugins/` directory.
+2. Activate it through the **Plugins** menu in WordPress.
 3. Register your Google Custom Search Engine and get your Google Search Engine ID and API key here: https://www.google.com/cse/
-4. Enable the plugin and enter the Google Search Engine ID and API key (Settings -> Server-Side Google Search)
-5. Put the Server-Side Google Search widget on the sidebar
-6. Your theme will need to override the page that displays the "Nothing Found"
+4. Enable the plugin and enter the Google Search Engine ID and API key (**Settings** -> **Server-Side Google Search**)
+5. If necessary, add the default search widget to the sidebar where you want to see it
+6. Put the Server-Side Google Search widget on the sidebar where you want to see the results
+7. Your theme will need to override the page that displays the "Nothing Found"
 message when the search results are displayed.
 
-Example of how to add custom metadata to search results
+= Example of how to add custom metadata to search results =
 
 In your header.php:
 
+`
 <!--
 <PageMap>
     <DataObject type="post_metadata">
@@ -51,9 +52,12 @@ In your header.php:
     </DataObject>
 </PageMap>
 -->
+`
 
 In your functions.php:
 
+
+`
 function add_modified_date( $metadata, $item_data ) {
 	return $metadata . sprintf(
 		'Last modified on: %s',
@@ -63,7 +67,7 @@ function add_modified_date( $metadata, $item_data ) {
 
 add_filter( 'ssgs-add-post-search-metadata',
 			'add_modified_date', 10, 2 );
-
+`
 
 == Changelog ==
 
