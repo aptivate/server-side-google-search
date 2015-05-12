@@ -258,7 +258,7 @@ class SSGS_Widget extends WP_Widget {
 	}
 
 	private function get_result_list( $items ) {
-		$content .= '<ul class="ssgs-result-list">';
+		$content = '<ul class="ssgs-result-list">';
 
 		foreach ( $items as $item ) {
 			$link = rawurldecode( $item['link'] );
