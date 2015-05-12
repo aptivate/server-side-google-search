@@ -1,5 +1,5 @@
 <?php
-class SSGSWidgetTestBase extends PHPUnit_Framework_TestCase
+abstract class SSGSWidgetTestBase extends WP_UnitTestCase
 {
 	protected function get_html_element_from_output( $output, $path )
 	{
