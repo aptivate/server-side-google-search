@@ -24,7 +24,7 @@ function mock_get_option( $option, $default = false ) {
 			return 'http://test.localhost';
 
 		default:
-			throw new Exception( "Unexpected option: '$option'" );
+			return "Mock option: $option";
 	}
 }
 
