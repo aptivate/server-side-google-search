@@ -1017,7 +1017,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			'expected_next_start' => false,
 		);
 
-		array_merge( $defaults, $args );
+		$args = array_merge( $defaults, $args );
 
 		$this->set_search_string( '' );
 		$this->set_query_parameter( 'start', $args['start'] );
