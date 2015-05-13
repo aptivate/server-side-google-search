@@ -488,6 +488,12 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	public function test_default_thumbnail_used_if_none_other() {
 		$this->set_search_string( '' );
+
+		$item = $this->get_search_result_item( array(
+			'pagemap' => array(
+			),
+		));
+
 		$this->set_search_results( array(
 			'queries' => array(
 				'request' => array(
@@ -495,12 +501,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 						'totalResults' => 1,
 					),
 				)  ),
-			'items' => array(
-				array(
-					'pagemap' => array(
-					),
-				),
-			),
+			'items' => array( $item ),
 		));
 
 		$this->set_option( 'default_search_image_url',
