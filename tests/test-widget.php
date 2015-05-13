@@ -956,7 +956,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_post_search_filter_adds_content() {
-		$item = array(
+		$item = $this->get_search_result_item( array(
 			'pagemap' => array(
 				'post_metadata' => array(
 					array(
@@ -965,7 +965,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 					),
 				)
 			)
-		);
+		));
 
 		$this->set_search_string( '' );
 
@@ -1128,5 +1128,16 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		global $_SSGS_MOCK_FILE_CONTENTS;
 
 		$_SSGS_MOCK_FILE_CONTENTS = json_encode( $results );
+	}
+
+	private function get_search_result_item( $values ) {
+		$defaults = array(
+			'link' => false,
+			'title' => false,
+			'htmlTitle' => false,
+			'htmlSnippet' => false,
+		);
+
+		return array_merge( $defaults, $values );
 	}
 }

@@ -145,6 +145,8 @@ class SSGS_Widget extends WP_Widget {
 	}
 
 	private function get_other_pages_content( $result ) {
+		$content = '';
+
 		$page_length = $this->get_page_length();
 		$start = $this->get_page_start();
 
