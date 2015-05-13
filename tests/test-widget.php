@@ -176,8 +176,13 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 		$this->get_widget_html();
 
-		$format = $this->get_api_query_parameter( 'sort' );
-		$this->assertThat( $format, $this->identicalTo( null ) );
+		global $_SSGS_MOCK_FILE_URL;
+
+		$params = $this->get_url_query_parameters(
+			$_SSGS_MOCK_FILE_URL );
+
+		$this->assertThat(
+			isset($params['sort']), $this->identicalTo( false ) );
 	}
 
 	public function test_items_per_page_passed_to_google_api() {
