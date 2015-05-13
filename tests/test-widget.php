@@ -775,6 +775,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 													 "/a[@class='ssgs-prev']" );
 		$attributes = $link->attributes();
 		$href = (string)$attributes['href'];
+
 		$this->assertThat( $this->get_url_query_parameter( $href, 'sort' ),
 						   $this->equalTo( '' ) );
 

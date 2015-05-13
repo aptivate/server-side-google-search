@@ -79,8 +79,6 @@ class SSGS_Widget extends WP_Widget {
 		if ( ! is_null( $this->parameters['s'] ) ) {
 			$this->parameters['s'] = trim( $this->parameters['s'] );
 		}
-
-		$this->extra_parameters = array_diff_assoc( $this->parameters, $defaults );
 	}
 
 	private function sanitize_int_parameter( $name ) {
@@ -101,7 +99,7 @@ class SSGS_Widget extends WP_Widget {
 		if ( isset( $this->parameters[ $name ] ) ) {
 			if ( ! preg_match( '/^[a-z_]+$/',
 					$this->parameters[ $name ] ) ) {
-				$this->parameters[ $name ] = false;
+				$this->parameters[ $name ] = '';
 			}
 		}
 
@@ -430,7 +428,8 @@ class SSGS_Widget extends WP_Widget {
 		global $wp;
 
 		$parsed_url = parse_url( home_url( add_query_arg( array(), $wp->request ) ) );
-		$query_args = array_merge( $this->extra_parameters, $query_args );
+
+		$query_args = array_merge( $this->parameters, $query_args );
 
 		return htmlentities( $this->build_url( $parsed_url, $query_args ) );
 	}
