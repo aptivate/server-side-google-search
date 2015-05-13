@@ -654,6 +654,10 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_snippet_in_result_description() {
+		$item =	 $this->get_search_result_item( array(
+			'htmlSnippet' => 'Information about agroforestry',
+		) );
+
 		$this->set_search_string( '' );
 		$this->set_search_results( array(
 			'queries' => array(
@@ -662,11 +666,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 						'totalResults' => 1,
 					),
 				) ),
-			'items' => array(
-				array(
-					'htmlSnippet' => 'Information about agroforestry',
-				),
-			),
+			'items' => array( $item ),
 		));
 
 		$output = $this->get_widget_html();
