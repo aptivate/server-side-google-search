@@ -1,16 +1,7 @@
 <?php
 
 require_once 'mock-file.php';
-
-require_once 'wp-config.php';
-require_once 'plugin.php';
-require_once 'widgets.php';
-require_once 'link-template.php';
-require_once 'functions.php';
-
 require_once 'mock-option.php';
-
-require_once 'ssgs-widget.php';
 
 require_once 'SSGSWidgetTestBase.php';
 
