@@ -85,3 +85,51 @@ add_filter( 'ssgs-add-post-search-metadata',
 
 = 1.0.0 =
 * First version
+
+
+== Development ==
+
+This plugin uses [wp-cli](http://wp-cli.org/) and [PHPUnit](https://phpunit.de/) for testing.
+The tests require [runkit](https://github.com/zenovich/runkit) for mocking functions.
+
+* Grab the latest source from github:
+
+`
+$ git clone git@github.com:aptivate/server-side-google-search.git
+`
+
+* Install [wp-cli](http://wp-cli.org/#install)
+* Install [PHPUnit](https://phpunit.de/)
+* Set up runkit:
+
+`
+$ git clone https://github.com/zenovich/runkit.git
+$ cd runkit
+$ phpize
+$ ./configure
+$ sudo make install
+`
+
+Add the following lines to `/etc/php5/cli/php.ini`:
+
+`
+extension=runkit.so
+runkit.internal_override=1
+`
+
+* Install the test WordPress environment:
+
+`
+cd server-side-google-search
+bash bin/install-wp-tests.sh test_db_name db_user 'db_password' db_host version
+`
+
+where:
+** `test_db_name` is the name for your **temporary** test WordPress database
+** `db_user` is the database user name
+** `db_password` is the password
+** `db_host` is the database host (eg `localhost`)
+** `version` is the version of WordPress (eg `4.2.2` or `latest`)
+
+* Run the tests
+`phpunit`
