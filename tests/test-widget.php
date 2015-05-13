@@ -1087,7 +1087,13 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 		foreach ( $param_pairs as $param_pair ) {
 			$pieces = explode( '=', $param_pair );
 
-			$params[ $pieces[0] ] = $pieces[1];
+			if ( count( $pieces ) == 2 ) {
+				$value = $pieces[1];
+			} else {
+				$value = '';
+			}
+
+			$params[ $pieces[0] ] = $value;
 		}
 
 		return $params;
@@ -1132,10 +1138,11 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	private function get_search_result_item( $values ) {
 		$defaults = array(
-			'link' => false,
-			'title' => false,
-			'htmlTitle' => false,
-			'htmlSnippet' => false,
+			'link' => '',
+			'title' => '',
+			'htmlTitle' => '',
+			'htmlSnippet' => '',
+			'htmlFormattedUrl' => '',
 		);
 
 		return array_merge( $defaults, $values );

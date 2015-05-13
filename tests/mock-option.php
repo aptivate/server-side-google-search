@@ -12,6 +12,7 @@ function mock_get_option( $option, $default = false ) {
 				'results_source' => '',
 				'edition' => '',
 				'default_search_image_url' => '',
+				'show_urls' => 'yes',
 			);
 
 			global $_SSGS_MOCK_OPTIONS;
