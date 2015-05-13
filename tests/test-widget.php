@@ -604,6 +604,11 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	public function test_formatted_url_in_result_description() {
 		$this->set_option( 'show_urls', 'yes' );
 		$this->set_search_string( '' );
+
+		$item = $this->get_search_result_item( array(
+			'htmlFormattedUrl' => 'http://www.example.com/',
+		));
+
 		$this->set_search_results( array(
 			'queries' => array(
 				'request' => array(
@@ -611,11 +616,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 						'totalResults' => 1,
 					),
 				) ),
-			'items' => array(
-				array(
-					'htmlFormattedUrl' => 'http://www.example.com/',
-				),
-			),
+			'items' => array( $item ),
 		));
 
 		$output = $this->get_widget_html();
