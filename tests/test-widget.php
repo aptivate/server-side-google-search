@@ -680,6 +680,10 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 	}
 
 	public function test_more_link_in_result_description() {
+		$item = $this->get_search_result_item( array(
+			'link' => 'http://www.example.com/',
+		));
+
 		$this->set_search_string( '' );
 		$this->set_search_results( array(
 			'queries' => array(
@@ -688,12 +692,9 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 						'totalResults' => 1,
 					),
 				) ),
-			'items' => array(
-				array(
-					'link' => 'http://www.example.com/',
-				),
-			),
-		));
+			'items' => array( $item	),
+			)
+		);
 
 		$output = $this->get_widget_html();
 
@@ -1144,6 +1145,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 			'htmlTitle' => '',
 			'htmlSnippet' => '',
 			'htmlFormattedUrl' => '',
+			'pagemap' => '',
 		);
 
 		return array_merge( $defaults, $values );
