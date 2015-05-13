@@ -518,6 +518,12 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	public function test_thumbnail_has_alt_text() {
 		$this->set_search_string( '' );
+
+		$item = $this->get_search_result_item( array(
+			'pagemap' => array(),
+			'title' => 'Example title',
+		));
+
 		$this->set_search_results( array(
 			'queries' => array(
 				'request' => array(
@@ -525,13 +531,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 						'totalResults' => 1,
 					),
 				)  ),
-			'items' => array(
-				array(
-					'pagemap' => array(
-					),
-					'title' => 'Example title',
-				),
-			),
+			'items' => array( $item ),
 		));
 
 		$output = $this->get_widget_html();
