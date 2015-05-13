@@ -457,6 +457,17 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 
 	public function test_thumbnail_read_from_cse_image() {
 		$this->set_search_string( '' );
+
+		$item = $this->get_search_result_item( array(
+			'pagemap' => array(
+				'cse_image' => array(
+					array(
+						'src' => 'cse_image.png',
+					),
+				),
+			),
+		));
+
 		$this->set_search_results( array(
 			'queries' => array(
 				'request' => array(
@@ -464,17 +475,7 @@ class SSGSWidgetTests extends SSGSWidgetTestBase
 						'totalResults' => 1,
 					),
 				)  ),
-			'items' => array(
-				array(
-					'pagemap' => array(
-						'cse_image' => array(
-							array(
-								'src' => 'cse_image.png',
-							),
-						),
-					),
-				),
-			),
+			'items' => array( $item ),
 		));
 
 		$output = $this->get_widget_html();
