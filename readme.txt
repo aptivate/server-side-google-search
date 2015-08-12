@@ -2,8 +2,8 @@
 Contributors: Aptivate
 Tags: Server-Side Google Search, Google Search, Google Custom Search, Google, SCE, GCSE, Wordpress Google Search
 Requires at least: 3.7
-Tested up to: 4.2.2
-Stable tag: 1.0.2
+Tested up to: 4.3
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,9 @@ add_filter( 'ssgs-add-post-search-metadata',
 `
 
 == Changelog ==
+
+= 1.0.3 =
+* Removed deprecation warnings for WordPress 4.3
 
 = 1.0.2 =
 * Added filter to allow custom metadata in search results
