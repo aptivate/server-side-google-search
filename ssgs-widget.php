@@ -4,14 +4,12 @@ class SSGS_Widget extends WP_Widget {
 	private $parameters;
 
 	public function __construct() {
-		parent::__construct( false, $name = __( 'Server-Side Google Search (SSGS)','ssgs' ) );
+		parent::__construct( false, __( 'Server-Side Google Search (SSGS)','ssgs' ) );
 	}
 
 	public function widget( $args, $instance ) {
 		$this->options = get_option( 'ssgs_general_settings' );
 		$this->sanitize_parameters();
-
-		global $ssgs;
 
 		echo $args['before_widget'];
 
@@ -118,13 +116,10 @@ class SSGS_Widget extends WP_Widget {
 
 		$total_items = $this->get_total_items( $result );
 		if ( $total_items <= 0 ) {
-			$content = '<p><strong>' . __( 'Sorry, there were no results', 'ssgs' ) ."</strong></p>\n";
-		}else {
-			$content = $this->get_results_content( $result );
+			return '<p><strong>' . __( 'Sorry, there were no results', 'ssgs' ) ."</strong></p>\n";
+		}
 
-		} // End else -- $total_items <= 0
-
-		return $content;
+		return $this->get_results_content( $result );
 	}
 
 	private function get_results_content( $result ) {
