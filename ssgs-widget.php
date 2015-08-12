@@ -4,7 +4,7 @@ class SSGS_Widget extends WP_Widget {
 	private $parameters;
 
 	public function __construct() {
-		parent::WP_Widget( false, $name = __( 'Server-Side Google Search (SSGS)','ssgs' ) );
+		parent::__construct( false, $name = __( 'Server-Side Google Search (SSGS)','ssgs' ) );
 	}
 
 	public function widget( $args, $instance ) {
