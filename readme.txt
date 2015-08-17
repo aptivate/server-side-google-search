@@ -73,6 +73,9 @@ add_filter( 'ssgs-add-post-search-metadata',
 
 = 1.0.3 =
 * Removed deprecation warnings for WordPress 4.3
+* Fixed potential bug where sort argument wasn't being preserved in links
+* Updated test infrastructure to use wp-cli
+* Documentation updates
 
 = 1.0.2 =
 * Added filter to allow custom metadata in search results
